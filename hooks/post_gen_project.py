@@ -3,33 +3,27 @@
 import logging
 import os
 import shutil
+import glob
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("post_gen_project")
 
-DOCS_SOURCES = "docs_sources"
-ALL_TEMP_FOLDERS = [DOCS_SOURCES, "licenses", "macros"]
-DOCS_FILES_BY_TOOL = {
-    "mkdocs": ["index.md", "/mkdocs.yml"],
-    "sphinx": ["conf.py", "index.rst", "make.bat", "Makefile"],
-}
+ALL_TEMP_FOLDERS = ["licenses", "macros", "py_sources"]
+
+PY_SOURCES = "py_sources"
 
 
-def move_docs_files(docs_tool, docs_files, docs_sources):
-    if docs_tool == "none":
+def move_py_files(variant, save_path, save_type):
+    if variant == "none" or save_path == "none":
         return
 
-    root = os.getcwd()
-    docs = "docs"
+    logger.info("Initializing python for %s - %s", variant, save_type)
 
-    logger.info("Initializing docs for %s", docs_tool)
-    if not os.path.exists(docs):
-        os.mkdir(docs)
+    py_files = glob.glob(f"{PY_SOURCES}/{save_type}/{variant}/*")
 
-    for item in docs_files[docs_tool]:
-        dst, name = (root, item[1:]) if item.startswith("/") else (docs, item)
-        src_path = os.path.join(docs_sources, docs_tool, name)
-        dst_path = os.path.join(dst, name)
+    for src_path in py_files:
+        filename = os.path.basename(src_path)
+        dst_path = os.path.join(save_path, filename)
 
         logger.info("Moving %s to %s.", src_path, dst_path)
         if os.path.exists(dst_path):
@@ -45,5 +39,13 @@ def remove_temp_folders(temp_folders):
 
 
 if __name__ == "__main__":
-    move_docs_files("{{cookiecutter.docs_tool}}", DOCS_FILES_BY_TOOL, DOCS_SOURCES)
+    root = os.getcwd()
+    variant = "{{cookiecutter.variant}}"
+    module_name = "nomad_{{cookiecutter.module_name}}"
+    src_path = os.path.join(root, "src", module_name)
+    assert os.path.isdir(src_path), f"{src_path=} doesn't exist"
+    test_path = os.path.join(root, "tests")
+    assert os.path.isdir(test_path), f"{test_path=} doesn't exist"
+    move_py_files(variant=variant, save_path=src_path, save_type="src")
+    move_py_files(variant=variant, save_path=test_path, save_type="tests")
     remove_temp_folders(ALL_TEMP_FOLDERS)
