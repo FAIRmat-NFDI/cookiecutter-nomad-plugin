@@ -117,4 +117,4 @@ line-ending = "auto"
 where = ["src/"]
 
 [tool.setuptools.package-data]
-nomad-{{cookiecutter.module_name}} = ['*/nomad_plugin.yaml']
+nomad_{{cookiecutter.module_name}} = ['*/nomad_plugin.yaml']
