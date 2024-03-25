@@ -42,7 +42,7 @@ dependencies = ["nomad-lab>=1.2.0"]
 Repository = "https://github.com/{{cookiecutter.github_username}}/nomad-{{cookiecutter.plugin_name}}"
 
 [project.optional-dependencies]
-dev = ['ruff>=0.3.0', 'pytest']
+dev = ['ruff>=0.3.2', 'pytest']
 
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
