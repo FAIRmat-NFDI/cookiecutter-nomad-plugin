@@ -8,6 +8,7 @@
 
 This `nomad`_ plugin was generated with `Cookiecutter`_ along with `@nomad`_'s `cookiecutter-nomad-plugin`_ template.
 
+Test update
 
 Features
 --------
