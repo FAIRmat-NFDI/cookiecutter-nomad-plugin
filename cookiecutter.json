@@ -15,5 +15,8 @@
     "variant": [
         "schema",
         "normalizer"
+    ],
+    "_copy_without_render": [
+        "*.github/*"
     ]
 }
