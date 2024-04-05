@@ -14,7 +14,8 @@
     ],
     "variant": [
         "schema",
-        "normalizer"
+        "normalizer",
+        "parser"
     ],
     "_copy_without_render": [
         "*.html"
