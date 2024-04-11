@@ -8,7 +8,7 @@ import glob
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("post_gen_project")
 
-ALL_TEMP_FOLDERS = ["licenses", "macros", "py_sources"]
+ALL_TEMP_FOLDERS = ["licenses", "py_sources"]
 
 PY_SOURCES = "py_sources"
 
