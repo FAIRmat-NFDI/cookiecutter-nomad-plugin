@@ -7,7 +7,6 @@ classifiers = [
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -36,7 +35,7 @@ maintainers = [
     { name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}" },
 ]
 license = { file = "LICENSE" }
-dependencies = ["nomad-lab>=1.2.0"]
+dependencies = ["nomad-lab>=1.2.2dev578"]
 
 [project.urls]
 Repository = "https://github.com/{{cookiecutter.github_username}}/nomad-{{cookiecutter.plugin_name}}"
