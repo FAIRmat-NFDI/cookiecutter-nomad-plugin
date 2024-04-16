@@ -45,7 +45,7 @@ This is entirely optional. To add this as a check in github actions pipeline, un
 ruff format .
 ```
 
-{% if cookiecutter.variant == "schema" -%}
+{% if cookiecutter.include_schema  -%}
 You can parse an example archive that uses the schema with `nomad`
 (installed via `nomad-lab` Python package):
 
@@ -61,7 +61,7 @@ You can now start to develop you schema. Here are a few things that you might wa
 - The name of the example section `ExampleSection`. You will also want to define more than one section.
 - When you change module and class names, make sure to update the `nomad_plugin.yaml` accordingly.
 {%- endif %}
-{% if cookiecutter.variant == "parser" -%}
+{% if cookiecutter.include_parser  -%}
 ### Developing your parser
 
 You can now start to develop you schema. Here are a few things that you might want to change:
@@ -70,7 +70,7 @@ You can now start to develop you schema. Here are a few things that you might wa
 - The name of the example parser `ExampleParser` and the schema definitions it might define.
 - When you change module and class names, make sure to update the `nomad_plugin.yaml` accordingly.
 {%- endif %}
-{% if cookiecutter.variant == "normalizer" -%}
+{% if cookiecutter.include_normalizer  -%}
 ### Developing your normalizer
 
 You can now start to develop your normalizer. Here are a few things that you might want to change:

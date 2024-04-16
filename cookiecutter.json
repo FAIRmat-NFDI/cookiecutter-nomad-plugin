@@ -12,11 +12,9 @@
         "GNU GPL v3.0+",
         "Apache Software License 2.0"
     ],
-    "variant": [
-        "schema",
-        "normalizer",
-        "parser"
-    ],
+    "include_schema": true,
+    "include_normalizer": true,
+    "include_parser": true,
     "_copy_without_render": [
         "*.html"
     ]

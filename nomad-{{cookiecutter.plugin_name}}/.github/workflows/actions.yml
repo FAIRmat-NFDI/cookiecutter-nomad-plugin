@@ -23,13 +23,13 @@ jobs:
         GITHUB_TOKEN: {% raw -%}${{ secrets.GITHUB_TOKEN }}{% endraw %}
       run: |
         coveralls --service=github
-    {% if cookiecutter.variant != "normalizer" -%}
+    {% if cookiecutter.include_parser or cookiecutter.include_schema -%}
     - name: Test with nomad
       run: |
-        {% if cookiecutter.variant == "parser" -%}
+        {% if cookiecutter.include_parser  -%}
         python -m nomad.cli parse tests/data/test.example-format.txt
         {%- endif %}
-        {% if cookiecutter.variant == "schema" -%}
+        {% if cookiecutter.include_schema  -%}
         python -m nomad.cli parse tests/data/test.archive.yaml
         {%- endif %}
     {%- endif %}

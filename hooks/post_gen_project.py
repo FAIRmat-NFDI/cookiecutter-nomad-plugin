@@ -40,12 +40,24 @@ def remove_temp_folders(temp_folders):
 
 if __name__ == "__main__":
     root = os.getcwd()
-    variant = "{{cookiecutter.variant}}"
+    variants = [
+        variant
+        for variant, condition in [
+            ("schema", "{{cookiecutter.include_schema}}"),
+            ("normalizer", "{{cookiecutter.include_normalizer}}"),
+            ("parser", "{{cookiecutter.include_parser}}"),
+        ]
+        if condition
+    ]
     module_name = "nomad_{{cookiecutter.module_name}}"
     src_path = os.path.join(root, "src", module_name)
     assert os.path.isdir(src_path), f"{src_path=} doesn't exist"
     test_path = os.path.join(root, "tests")
     assert os.path.isdir(test_path), f"{test_path=} doesn't exist"
-    move_py_files(variant=variant, save_path=src_path, save_type="src")
-    move_py_files(variant=variant, save_path=test_path, save_type="tests")
+    test_data_path = os.path.join(test_path, "data")
+    assert os.path.isdir(test_data_path), f"{test_data_path=} doesn't exist"
+    for variant in variants:
+        move_py_files(variant=variant, save_path=src_path, save_type="src")
+        move_py_files(variant=variant, save_path=test_path, save_type="tests")
+        move_py_files(variant=variant, save_path=test_data_path, save_type="tests_data")
     remove_temp_folders(ALL_TEMP_FOLDERS)
