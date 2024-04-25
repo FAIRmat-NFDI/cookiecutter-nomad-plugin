@@ -1,0 +1,16 @@
+site_name: cookiecutter-nomad-plugin
+site_description: Minimal Cookiecutter template for authoring nomad plugins.
+site_author: Ahmed Ilyas
+
+theme: readthedocs
+
+repo_url: todo
+
+pages:
+- Home: index.md
+- User Guide:
+    - Quickstart: user-guide/quickstart.md
+    - Publish: user-guide/publish-plugin.md
+- Contributor Guide:
+    - Quickstart: contributor-guide/quickstart.md
+    - Documentation: contributor-guide/documentation.md

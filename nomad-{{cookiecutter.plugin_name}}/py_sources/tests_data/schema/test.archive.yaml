@@ -1,0 +1,3 @@
+data:
+  m_def: nomad_{{cookiecutter.module_name}}.ExampleSection
+  name: Markus
