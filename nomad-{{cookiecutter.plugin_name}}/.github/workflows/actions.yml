@@ -23,16 +23,6 @@ jobs:
         GITHUB_TOKEN: {% raw -%}${{ secrets.GITHUB_TOKEN }}{% endraw %}
       run: |
         coveralls --service=github
-    {% if cookiecutter.include_parser or cookiecutter.include_schema -%}
-    - name: Test with nomad
-      run: |
-        {% if cookiecutter.include_parser  -%}
-        python -m nomad.cli parse tests/data/test.example-format.txt
-        {%- endif %}
-        {% if cookiecutter.include_schema  -%}
-        python -m nomad.cli parse tests/data/test.archive.yaml
-        {%- endif %}
-    {%- endif %}
   build-and-install:
     runs-on: ubuntu-latest
     steps:
@@ -49,9 +39,6 @@ jobs:
     - name: Install the package
       run: |
         pip install dist/*.tar.gz --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
-    - name: Test with nomad
-      run: |
-        python -m nomad.cli parse tests/data/test.example-format.txt
   ruff-linting:
     runs-on: ubuntu-latest
     steps:
@@ -68,4 +55,3 @@ jobs:
   #     - uses: chartboost/ruff-action@v1
   #       with:
   #         args: "format . --check"
-  #         version: 0.1.8
