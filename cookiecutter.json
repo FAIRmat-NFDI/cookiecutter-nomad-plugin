@@ -12,9 +12,10 @@
         "GNU GPL v3.0+",
         "Apache Software License 2.0"
     ],
-    "include_schema": true,
+    "include_schema_package": true,
     "include_normalizer": true,
     "include_parser": true,
+    "include_app": true,
     "_copy_without_render": [
         "*.html"
     ]

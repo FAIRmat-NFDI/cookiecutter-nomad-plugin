@@ -45,7 +45,7 @@ This is entirely optional. To add this as a check in github actions pipeline, un
 ruff format .
 ```
 
-{% if cookiecutter.include_schema  -%}
+{% if cookiecutter.include_schema_package  -%}
 You can parse an example archive that uses the schema with `nomad`
 (installed via `nomad-lab` Python package):
 

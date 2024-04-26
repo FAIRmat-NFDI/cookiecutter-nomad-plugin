@@ -43,9 +43,10 @@ if __name__ == "__main__":
     variants = [
         variant
         for variant, condition in [
-            ("schema", "{{cookiecutter.include_schema}}"),
-            ("normalizer", "{{cookiecutter.include_normalizer}}"),
-            ("parser", "{{cookiecutter.include_parser}}"),
+            ("schema_packages", "{{cookiecutter.include_schema_package}}"),
+            ("normalizers", "{{cookiecutter.include_normalizer}}"),
+            ("parsers", "{{cookiecutter.include_parser}}"),
+            ("apps", "{{cookiecutter.include_app}}"),
         ]
         if condition
     ]
@@ -57,7 +58,13 @@ if __name__ == "__main__":
     test_data_path = os.path.join(test_path, "data")
     assert os.path.isdir(test_data_path), f"{test_data_path=} doesn't exist"
     for variant in variants:
+        src_save_path = os.path.join(src_path, variant)
         move_py_files(variant=variant, save_path=src_path, save_type="src")
+        test_save_path = os.path.join(test_path, variant)
         move_py_files(variant=variant, save_path=test_path, save_type="tests")
-        move_py_files(variant=variant, save_path=test_data_path, save_type="tests_data")
+        if variant != "apps":
+            # apps don't have tests data
+            move_py_files(
+                variant=variant, save_path=test_data_path, save_type="tests_data"
+            )
     remove_temp_folders(ALL_TEMP_FOLDERS)
