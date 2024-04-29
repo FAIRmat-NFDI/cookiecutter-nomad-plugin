@@ -1,6 +1,5 @@
-
-from pydantic import Field
 from nomad.config.models.plugins import SchemaPackageEntryPoint
+from pydantic import Field
 
 
 class MySchemaPackageEntryPoint(SchemaPackageEntryPoint):
@@ -8,6 +7,7 @@ class MySchemaPackageEntryPoint(SchemaPackageEntryPoint):
 
     def load(self):
         from nomad_{{cookiecutter.module_name}}.schema_packages.mypackage import m_package
+ 
         return m_package
 
 
