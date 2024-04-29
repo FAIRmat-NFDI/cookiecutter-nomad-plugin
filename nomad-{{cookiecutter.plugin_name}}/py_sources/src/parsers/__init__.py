@@ -1,5 +1,5 @@
-from pydantic import Field
 from nomad.config.models.plugins import ParserEntryPoint
+from pydantic import Field
 
 
 class MyParserEntryPoint(ParserEntryPoint):
@@ -12,7 +12,7 @@ class MyParserEntryPoint(ParserEntryPoint):
 
 
 myparser = MyParserEntryPoint(
-    name = 'MyParser',
-    description = 'Parser defined using the new plugin mechanism.',
-    mainfile_name_re = '.*\.myparser',
+    name='MyParser',
+    description='Parser defined using the new plugin mechanism.',
+    mainfile_name_re='.*\.myparser',
 )

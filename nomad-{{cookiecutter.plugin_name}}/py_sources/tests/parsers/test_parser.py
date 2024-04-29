@@ -1,6 +1,7 @@
+import logging
+
 from nomad.datamodel import EntryArchive
 from nomad_example.parsers.myparser import MyParser
-import logging
 
 
 def test_parse_file():

@@ -1,5 +1,5 @@
-from pydantic import Field
 from nomad.config.models.plugins import NormalizerEntryPoint
+from pydantic import Field
 
 
 class MyNormalizerEntryPoint(NormalizerEntryPoint):
