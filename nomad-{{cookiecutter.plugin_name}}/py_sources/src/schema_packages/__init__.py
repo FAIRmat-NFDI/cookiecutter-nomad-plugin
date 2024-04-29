@@ -4,7 +4,7 @@ from nomad.config.models.plugins import SchemaPackageEntryPoint
 
 
 class MySchemaPackageEntryPoint(SchemaPackageEntryPoint):
-    parameter: int = Field(0, description='Config parameter for this plugin.')
+    parameter: int = Field(0, description='Custom configuration parameter')
 
     def load(self):
         from nomad_{{cookiecutter.module_name}}.schema_packages.mypackage import m_package
