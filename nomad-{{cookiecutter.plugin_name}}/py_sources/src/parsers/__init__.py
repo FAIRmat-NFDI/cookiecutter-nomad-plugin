@@ -3,7 +3,7 @@ from nomad.config.models.plugins import ParserEntryPoint
 
 
 class MyParserEntryPoint(ParserEntryPoint):
-    parameter: int = Field(0, description='Config parameter for this plugin.')
+    parameter: int = Field(0, description='Custom configuration parameter')
 
     def load(self):
         from nomad_{{cookiecutter.module_name}}.parsers.myparser import MyParser
