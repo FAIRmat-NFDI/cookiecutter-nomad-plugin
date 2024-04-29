@@ -59,9 +59,11 @@ if __name__ == "__main__":
     assert os.path.isdir(test_data_path), f"{test_data_path=} doesn't exist"
     for variant in variants:
         src_save_path = os.path.join(src_path, variant)
-        move_py_files(variant=variant, save_path=src_path, save_type="src")
+        os.makedirs(src_save_path, exist_ok=True)
+        move_py_files(variant=variant, save_path=src_save_path, save_type="src")
         test_save_path = os.path.join(test_path, variant)
-        move_py_files(variant=variant, save_path=test_path, save_type="tests")
+        os.makedirs(test_save_path, exist_ok=True)
+        move_py_files(variant=variant, save_path=test_save_path, save_type="tests")
         if variant != "apps":
             # apps don't have tests data
             move_py_files(
