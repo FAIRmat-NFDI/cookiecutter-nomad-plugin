@@ -45,41 +45,9 @@ This is entirely optional. To add this as a check in github actions pipeline, un
 ruff format .
 ```
 
-{% if cookiecutter.include_schema_package  -%}
-You can parse an example archive that uses the schema with `nomad`
-(installed via `nomad-lab` Python package):
+### Developing a NOMAD plugin
 
-```sh
-nomad parse tests/data/test.archive.yaml --show-archive
-```
-
-### Developing your schema
-
-You can now start to develop you schema. Here are a few things that you might want to change:
-
-- The metadata in `nomad_plugin.yaml`.
-- The name of the example section `ExampleSection`. You will also want to define more than one section.
-- When you change module and class names, make sure to update the `nomad_plugin.yaml` accordingly.
-{%- endif %}
-{% if cookiecutter.include_parser  -%}
-### Developing your parser
-
-You can now start to develop you schema. Here are a few things that you might want to change:
-
-- The metadata in `nomad_plugin.yaml`.
-- The name of the example parser `ExampleParser` and the schema definitions it might define.
-- When you change module and class names, make sure to update the `nomad_plugin.yaml` accordingly.
-{%- endif %}
-{% if cookiecutter.include_normalizer  -%}
-### Developing your normalizer
-
-You can now start to develop your normalizer. Here are a few things that you might want to change:
-
-- The metadata in `nomad_plugin.yaml`.
-- The name of the example section `ExampleSection`. You will also want to define more than one section.
--  The name of the example normalizer `ExampleNormalizer`. You will also want to extend the normalizer.
-- When you change module and class names, make sure to update the `nomad_plugin.yaml` accordingly.
-{%- endif %}
+Follow the [guide](#TODO: insert new URL here) on how to develop NOMAD plugins.
 
 ### Build the python package
 
@@ -101,7 +69,5 @@ Read more about python packages, `pyproject.toml`, and how to upload packages to
 on the [PyPI documentation](https://packaging.python.org/en/latest/tutorials/packaging-projects/).
 
 
-
 ### License
 Distributed under the terms of the `{{cookiecutter.license}}`_ license, "nomad-{{cookiecutter.plugin_name}}" is free and open source software
-
