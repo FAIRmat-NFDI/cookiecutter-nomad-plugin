@@ -48,7 +48,7 @@ if __name__ == "__main__":
             ("parsers", "{{cookiecutter.include_parser}}"),
             ("apps", "{{cookiecutter.include_app}}"),
         ]
-        if condition
+        if condition != "False"
     ]
     module_name = "nomad_{{cookiecutter.module_name}}"
     src_path = os.path.join(root, "src", module_name)
