@@ -68,6 +68,20 @@ pip install dist/nomad-{{cookiecutter.plugin_name}}-{{cookiecutter.version}}
 Read more about python packages, `pyproject.toml`, and how to upload packages to PyPI
 on the [PyPI documentation](https://packaging.python.org/en/latest/tutorials/packaging-projects/).
 
+### Documentation on Github pages
+
+To deploy documentation on Github pages, make sure to [enable GitHub pages via the repo settings](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-from-a-branch). 
+
+To view the documentation locally, install the documentation related packages using:
+
+```sh
+pip install -r requirements_docs.txt
+```
+
+Run the documentation server:
+```sh
+mkdocs serve
+```
 
 ### License
 Distributed under the terms of the `{{cookiecutter.license}}`_ license, "nomad-{{cookiecutter.plugin_name}}" is free and open source software
