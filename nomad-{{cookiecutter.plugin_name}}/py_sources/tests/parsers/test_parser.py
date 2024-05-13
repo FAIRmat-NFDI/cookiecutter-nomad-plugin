@@ -1,7 +1,7 @@
 import logging
 
 from nomad.datamodel import EntryArchive
-from nomad_example.parsers.myparser import MyParser
+from nomad_{{cookiecutter.module_name}}.myparser import MyParser
 
 
 def test_parse_file():
@@ -9,4 +9,4 @@ def test_parse_file():
     archive = EntryArchive()
     parser.parse('tests/data/example.out', archive, logging.getLogger())
 
-    assert archive.data.name == 'Value from parser'
+    assert archive.results.material.elements == ['H', 'O']
