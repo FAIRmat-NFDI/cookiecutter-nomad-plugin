@@ -83,5 +83,11 @@ Run the documentation server:
 mkdocs serve
 ```
 
+### Template update
+
+We use cruft to update the project based on template changes. A `cruft-update.yml` is included in Github workflows to automatically check for updates and create pull requests to apply updates. Follow the [instructions](https://github.blog/changelog/2022-05-03-github-actions-prevent-github-actions-from-creating-and-approving-pull-requests/) on how to enable Github Actions to create pull requests. 
+
+To run the check for updates locally, follow the instructions on [`cruft` website](https://cruft.github.io/cruft/#updating-a-project).
+
 ### License
 Distributed under the terms of the `{{cookiecutter.license}}`_ license, "nomad-{{cookiecutter.plugin_name}}" is free and open source software
