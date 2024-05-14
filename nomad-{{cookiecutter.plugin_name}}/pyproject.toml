@@ -35,13 +35,13 @@ maintainers = [
     { name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}" },
 ]
 license = { file = "LICENSE" }
-dependencies = ["nomad-lab>=1.2.2dev578"]
+dependencies = ["nomad-lab>=1.2.2dev578", "structlog"]
 
 [project.urls]
 Repository = "https://github.com/{{cookiecutter.github_username}}/nomad-{{cookiecutter.plugin_name}}"
 
 [project.optional-dependencies]
-dev = ['ruff>=0.3.2', 'pytest']
+dev = ['ruff', 'pytest']
 
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
@@ -112,7 +112,7 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 
 [tool.setuptools]
-package-dir = {"" = "src"}
+package-dir = { "" = "src" }
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -120,13 +120,17 @@ where = ["src"]
 [project.entry-points.'nomad.plugin']
 {% if cookiecutter.include_parser  -%}
 myparser = "nomad_{{cookiecutter.module_name}}.parsers:myparser"
+
 {%- endif %}
 {% if cookiecutter.include_schema_package  -%}
 mypackage = "nomad_{{cookiecutter.module_name}}.schema_packages:mypackage"
+
 {%- endif %}
 {% if cookiecutter.include_normalizer  -%}
 mynormalizer = "nomad_{{cookiecutter.module_name}}.normalizers:mynormalizer"
+
 {%- endif %}
 {% if cookiecutter.include_app  -%}
 myapp = "nomad_{{cookiecutter.module_name}}.apps:myapp"   
+
 {%- endif %}
