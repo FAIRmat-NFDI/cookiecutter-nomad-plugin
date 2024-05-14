@@ -35,13 +35,13 @@ maintainers = [
     { name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}" },
 ]
 license = { file = "LICENSE" }
-dependencies = ["nomad-lab>=1.2.2dev578", "structlog"]
+dependencies = ["nomad-lab>=1.2.2dev578"]
 
 [project.urls]
 Repository = "https://github.com/{{cookiecutter.github_username}}/nomad-{{cookiecutter.plugin_name}}"
 
 [project.optional-dependencies]
-dev = ['ruff', 'pytest']
+dev = ["ruff", "pytest", "structlog"]
 
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.

@@ -27,5 +27,5 @@ class MyParser(MatchingParser):
         logger: 'BoundLogger',
         child_archives: dict[str, 'EntryArchive'] = None,
     ) -> None:
-        logger.info(f'MyParser.parse: parameter={configuration.parameter}')
+        logger.info('MyParser.parse', parameter=configuration.parameter)
         archive.results = Results(material=Material(elements=['H', 'O']))
