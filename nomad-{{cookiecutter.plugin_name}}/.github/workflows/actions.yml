@@ -4,9 +4,9 @@ jobs:
   install-and-test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: 3.9
     - name: Install dependencies
@@ -26,9 +26,9 @@ jobs:
   build-and-install:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python 3.9
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: 3.9
     - name: Build the package
@@ -42,16 +42,15 @@ jobs:
   ruff-linting:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: chartboost/ruff-action@v1
         with:
           args: "check ."
-          version: 0.1.8
   # to enable auto-formatting check, uncomment the following lines below
   # ruff-formatting:
   #   runs-on: ubuntu-latest
   #   steps:
-  #     - uses: actions/checkout@v3
+  #     - uses: actions/checkout@v4
   #     - uses: chartboost/ruff-action@v1
   #       with:
   #         args: "format . --check"
