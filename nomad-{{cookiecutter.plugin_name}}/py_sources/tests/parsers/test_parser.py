@@ -1,7 +1,7 @@
 import logging
 
 from nomad.datamodel import EntryArchive
-from nomad_{{cookiecutter.module_name}}.myparser import MyParser
+from nomad_{{cookiecutter.module_name}}.parsers.myparser import MyParser
 
 
 def test_parse_file():

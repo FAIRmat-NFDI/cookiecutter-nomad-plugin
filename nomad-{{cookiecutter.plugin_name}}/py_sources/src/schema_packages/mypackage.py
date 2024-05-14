@@ -31,7 +31,7 @@ class MySchema(Schema):
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
         super().normalize(archive, logger)
 
-        logger.info(f'MySchema.normalize: parameter={configuration.parameter}')
+        logger.info('MySchema.normalize', parameter=configuration.parameter)
         self.message = f'Hello {self.name}!'
 
 
