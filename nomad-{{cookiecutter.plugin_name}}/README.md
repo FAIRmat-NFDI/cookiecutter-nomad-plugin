@@ -47,7 +47,7 @@ ruff format .
 
 ### Developing a NOMAD plugin
 
-Follow the [guide](#TODO: insert new URL here) on how to develop NOMAD plugins.
+Follow the [guide](https://nomad-lab.eu/prod/v1/staging/docs/howto/plugins/plugins.html) on how to develop NOMAD plugins.
 
 ### Build the python package
 
