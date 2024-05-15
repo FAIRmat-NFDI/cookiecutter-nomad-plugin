@@ -22,22 +22,21 @@ Cookiecutter prompts you for information regarding your plugin:
 full_name [John Doe]: Citizen Kane
 email [john.doe@physik.hu-berlin.de]: citizen@kane.de
 github_username [foo]: kane
-plugin_name [foobar]: awesome
-module_name [awesome]: awesome
-short_description [Nomad example template]: An awesome plugin for nomad
+plugin_name [foobar]: awesome-tools
+module_name [awesome_tools]: awesome_tools
+short_description [NOMAD example template]: An awesome plugin for NOMAD
 version [0.1.0]:
 Select license:
 1 - MIT
 2 - BSD-3
 3 - GNU GPL v3.0+
 Choose from 1, 2, 3 [1]: 2
-Select variant:
-1 - schema
-2 - normalizer
-3 - parser
-Choose from 1, 2, 3 [1]: 2
+include_schema_package [y/n] (y): y
+include_normalizer [y/n] (y): n
+include_parser [y/n] (y): y
+include_app [y/n] (y): n
 
-INFO:post_gen_project:Initializing python for schema - src
+INFO:post_gen_project:Initializing python for package - src
 ..
 INFO:post_gen_project:Remove temporary folder: licenses
 INFO:post_gen_project:Remove temporary folder: macros
@@ -47,14 +46,21 @@ INFO:post_gen_project:Remove temporary folder: py_sources
 There you go - you just created a minimal nomad plugin:
 
 ```no-highlight
-nomad-awesome/
+nomad-awesome-tools/
 ├── LICENSE
 ├── README.rst
 ├── pyproject.toml
+├── move_template_files.sh
 ├── src
-│   └── noamd_awesome
+│   └── nomad_awesome_tools
 │       ├── __init__.py
-│       └── plugin.py
+|       ├── schema_packages
+│       |   ├── __init__.py
+│       |   └── plugin.py
+|       └── parsers
+│           ├── __init__.py
+│           └── plugin.py
+|
 ├── tests
 │   ├── conftest.py
 │   └── test_awesome.py
@@ -66,7 +72,7 @@ nomad-awesome/
 
 - Installable [PyPI] package featuring a `pyproject.toml`.
 - Working example code 
-- Comprehensive `README.rst` file that contains useful information about your
+- Comprehensive `README.md` file that contains useful information about your
   plugin
 - Continuous integration configuration for [GitHub Actions]
 - Optional documentation with [MkDocs]
@@ -82,3 +88,5 @@ detailed description.
 
 Distributed under the terms of the [MIT license], Cookiecutter nomad
 Plugin is free and open source software.
+
+This template is a forked version of the [`cookiecutter-pytest-plugin`](https://github.com/pytest-dev/cookiecutter-pytest-plugin). Special thanks to the contributors of the pytest cookiecutter template.
