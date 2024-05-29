@@ -16,12 +16,8 @@ We recommend using Python 3.9.
 python3 -m venv .pyenv
 source .pyenv/bin/activate
 pip install --upgrade pip
-pip install -e '.[dev]' --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
+pip install -e '.[dev]'
 ```
-
-**Note!**
-Until we have an official pypi NOMAD release with the plugins functionality. Make
-sure to include NOMAD's internal package registry (e.g. via `--index-url`).
 
 ### Testing
 
