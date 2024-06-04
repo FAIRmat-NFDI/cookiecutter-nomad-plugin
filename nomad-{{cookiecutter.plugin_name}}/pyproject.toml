@@ -134,3 +134,6 @@ mynormalizer = "nomad_{{cookiecutter.module_name}}.normalizers:mynormalizer"
 myapp = "nomad_{{cookiecutter.module_name}}.apps:myapp"   
 
 {%- endif %}
+[tool.cruft]
+# Avoid updating workflow files, this leads to permissions issues
+skip = [".github/*"]
