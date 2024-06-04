@@ -18,5 +18,8 @@
     "include_app": true,
     "_copy_without_render": [
         "*.html"
-    ]
+    ],
+    "__prompts__": {
+        "module_name": "module_name (recommended: press enter to use the default module name)"
+    }
 }
