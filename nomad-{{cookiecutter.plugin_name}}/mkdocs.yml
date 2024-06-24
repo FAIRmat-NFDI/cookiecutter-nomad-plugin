@@ -3,6 +3,7 @@ site_description: {{cookiecutter.short_description}}
 site_author: {{cookiecutter.full_name}}
 
 repo_url: https://github.com/{{cookiecutter.github_username}}/nomad-{{cookiecutter.plugin_name}}
+edit_uri: ""
 
 nav:
   - Home: index.md
@@ -28,6 +29,8 @@ theme:
   features:
     - navigation.instant
   custom_dir: docs/theme
+  icon:
+    repo: fontawesome/brands/github
 markdown_extensions:
   - attr_list
   - md_in_html
