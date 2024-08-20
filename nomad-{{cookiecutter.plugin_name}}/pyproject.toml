@@ -120,19 +120,18 @@ where = ["src"]
 [project.entry-points.'nomad.plugin']
 {% if cookiecutter.include_parser  -%}
 myparser = "nomad_{{cookiecutter.module_name}}.parsers:myparser"
-
 {%- endif %}
 {% if cookiecutter.include_schema_package  -%}
 mypackage = "nomad_{{cookiecutter.module_name}}.schema_packages:mypackage"
-
 {%- endif %}
 {% if cookiecutter.include_normalizer  -%}
 mynormalizer = "nomad_{{cookiecutter.module_name}}.normalizers:mynormalizer"
-
 {%- endif %}
 {% if cookiecutter.include_app  -%}
 myapp = "nomad_{{cookiecutter.module_name}}.apps:myapp"   
-
+{%- endif %}
+{% if cookiecutter.include_example_uploads  -%}
+myexampleupload = "nomad_{{cookiecutter.module_name}}.example_uploads:myexampleupload"
 {%- endif %}
 [tool.cruft]
 # Avoid updating workflow files, this leads to permissions issues
