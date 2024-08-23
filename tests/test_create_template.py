@@ -41,7 +41,7 @@ def run_tox(plugin):
     [True, False],
 )
 @pytest.mark.parametrize(
-    "include_schema_package",
+    "include_schema",
     [True, False],
 )
 def test_run_cookiecutter_and_plugin_tests(
@@ -50,7 +50,7 @@ def test_run_cookiecutter_and_plugin_tests(
     include_normalizer,
     include_app,
     include_parser,
-    include_schema_package,
+    include_schema,
 ):
     """Create a new plugin via cookiecutter and run its tests."""
     result = cookies.bake(
@@ -59,57 +59,57 @@ def test_run_cookiecutter_and_plugin_tests(
             "include_app": str(include_app),
             "include_parser": str(include_parser),
             "include_normalizer": str(include_normalizer),
-            "include_schema_package": str(include_schema_package),
+            "include_schema": str(include_schema),
         }
     )
     module_name = plugin_name.replace("-", "_")
 
     assert result.exit_code == 0
     assert result.exception is None
-    assert result.project_path.name == f"nomad-{plugin_name}"
+    assert result.project_path.name == f"{plugin_name}"
     assert result.project_path.is_dir()
     assert result.project_path.joinpath(
-        "src", f"nomad_{module_name}", "__init__.py"
+        "src", f"{module_name}", "__init__.py"
     ).is_file()
 
     if include_normalizer:
         assert result.project_path.joinpath(
-            "src", f"nomad_{module_name}", "normalizers", "mynormalizer.py"
+            "src", f"{module_name}", "normalizers", "normalizer.py"
         ).is_file()
     else:
         assert not result.project_path.joinpath(
             "src",
-            f"nomad_{module_name}",
+            f"{module_name}",
             "normalizers",
         ).is_dir()
     if include_app:
         assert result.project_path.joinpath(
-            "src", f"nomad_{module_name}", "apps", "__init__.py"
+            "src", f"{module_name}", "apps", "__init__.py"
         ).is_file()
     else:
         assert not result.project_path.joinpath(
             "src",
-            f"nomad_{module_name}",
+            f"{module_name}",
             "apps",
         ).is_dir()
-    if include_schema_package:
+    if include_schema:
         assert result.project_path.joinpath(
-            "src", f"nomad_{module_name}", "schema_packages", "mypackage.py"
+            "src", f"{module_name}", "schemas", "schema.py"
         ).is_file()
     else:
         assert not result.project_path.joinpath(
             "src",
-            f"nomad_{module_name}",
-            "schema_packages",
+            f"{module_name}",
+            "schemas",
         ).is_dir()
     if include_parser:
         assert result.project_path.joinpath(
-            "src", f"nomad_{module_name}", "parsers", "myparser.py"
+            "src", f"{module_name}", "parsers", "parser.py"
         ).is_file()
     else:
         assert not result.project_path.joinpath(
             "src",
-            f"nomad_{module_name}",
+            f"{module_name}",
             "parsers",
         ).is_dir()
 

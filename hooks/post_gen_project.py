@@ -43,7 +43,7 @@ if __name__ == "__main__":
     variants = [
         variant
         for variant, condition in [
-            ("schema_packages", "{{cookiecutter.include_schema_package}}"),
+            ("schemas", "{{cookiecutter.include_schema}}"),
             ("normalizers", "{{cookiecutter.include_normalizer}}"),
             ("parsers", "{{cookiecutter.include_parser}}"),
             ("apps", "{{cookiecutter.include_app}}"),
@@ -51,7 +51,7 @@ if __name__ == "__main__":
         ]
         if condition != "False"
     ]
-    module_name = "nomad_{{cookiecutter.module_name}}"
+    module_name = "{{cookiecutter.module_name}}"
     src_path = os.path.join(root, "src", module_name)
     assert os.path.isdir(src_path), f"{src_path=} doesn't exist"
     test_path = os.path.join(root, "tests")
