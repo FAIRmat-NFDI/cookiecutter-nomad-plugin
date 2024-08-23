@@ -9,4 +9,4 @@ def test_parse_file():
     archive = EntryArchive()
     parser.parse('tests/data/example.out', archive, logging.getLogger())
 
-    assert archive.results.material.elements == ['H', 'O']
+    assert archive.workflow2.name == 'test'
