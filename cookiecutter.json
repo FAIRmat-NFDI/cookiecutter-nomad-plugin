@@ -1,7 +1,7 @@
 {
     "full_name": "John Doe",
     "email": "john.doe@physik.hu-berlin.de",
-    "github_username": "foo",
+    "github_username": "Github organization or profile tag, default: foo",
     "plugin_name": "foobar",
     "module_name": "{{ cookiecutter.plugin_name|lower|replace('-', '_') }}",
     "short_description": "Nomad example template",
@@ -12,7 +12,7 @@
         "GNU GPL v3.0+",
         "Apache Software License 2.0"
     ],
-    "include_schema_package": true,
+    "include_schema": true,
     "include_normalizer": true,
     "include_parser": true,
     "include_app": true,

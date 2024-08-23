@@ -21,9 +21,9 @@ Cookiecutter prompts you for information regarding your plugin:
 ```no-highlight
 full_name [John Doe]: Citizen Kane
 email [john.doe@physik.hu-berlin.de]: citizen@kane.de
-github_username [foo]: kane
-plugin_name [foobar]: awesome-tools
-module_name [awesome_tools]: awesome_tools
+github_username [Github organization or profile tag, default: foo]: kane
+plugin_name [foobar]: nomad-awesome-tools
+module_name [nomad_awesome_tools]: nomad_awesome_tools
 short_description [NOMAD example template]: An awesome plugin for NOMAD
 version [0.1.0]:
 Select license:
@@ -31,7 +31,7 @@ Select license:
 2 - BSD-3
 3 - GNU GPL v3.0+
 Choose from 1, 2, 3 [1]: 2
-include_schema_package [y/n] (y): y
+include_schema [y/n] (y): y
 include_normalizer [y/n] (y): n
 include_parser [y/n] (y): y
 include_app [y/n] (y): n
@@ -54,13 +54,12 @@ nomad-awesome-tools/
 ├── src
 │   └── nomad_awesome_tools
 │       ├── __init__.py
-|       ├── schema_packages
+|       ├── schemas
 │       |   ├── __init__.py
-│       |   └── plugin.py
+│       |   └── schema.py
 |       └── parsers
 │           ├── __init__.py
-│           └── plugin.py
-|
+│           └── parsers.py
 ├── tests
 │   ├── conftest.py
 │   └── test_awesome.py
