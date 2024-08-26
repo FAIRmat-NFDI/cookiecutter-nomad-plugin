@@ -1,70 +1,56 @@
-name: Installing and Testing
+name: install-and-test-workflow
 on: [push]
-
-# https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs
-# `contents` is for permission to the contents of the repository.
-# `pull-requests` is for permission to pull request
-permissions:
-  contents: write
-  checks: write
-  pull-requests: write
-
-env:
-  UV_SYSTEM_PYTHON: true
-
 jobs:
   install-and-test:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python_version: ["3.9", "3.10", "3.11"]
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python ${{matrix.python_version}}
+    - name: Set up Python 3.9
       uses: actions/setup-python@v5
       with:
-        python-version: ${{matrix.python_version}}
-    - name: Install uv
-      run: |
-        curl -LsSf https://astral.sh/uv/install.sh | sh
+        python-version: 3.9
     - name: Install dependencies
       run: |
         pip install --upgrade pip
-        uv pip install '.[dev]' --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
+        pip install '.[dev]' --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
+        pip install coverage coveralls
     - name: Test with pytest
       run: |
-        python -m pytest -sv tests
+        python -m coverage run -m pytest -sv
+    - name: Submit to coveralls
+      continue-on-error: true
+      env:
+        GITHUB_TOKEN: {% raw -%}${{ secrets.GITHUB_TOKEN }}{% endraw %}
+      run: |
+        coveralls --service=github
   build-and-install:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.11
+    - name: Set up Python 3.9
       uses: actions/setup-python@v5
       with:
-        python-version: 3.11
-    - name: Install uv
-      run: |
-        curl -LsSf https://astral.sh/uv/install.sh | sh
+        python-version: 3.9
     - name: Build the package
       run: |
-        uv pip install build
+        pip install --upgrade pip
+        pip install build
         python -m build --sdist
     - name: Install the package
       run: |
-        uv pip install dist/*.tar.gz --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
+        pip install dist/*.tar.gz --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
   ruff-linting:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4
-        - uses: chartboost/ruff-action@v1
-          with:
-            args: "check ."
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: chartboost/ruff-action@v1
+        with:
+          args: "check ."
   # to enable auto-formatting check, uncomment the following lines below
   # ruff-formatting:
-  #     runs-on: ubuntu-latest
-  #     steps:
-  #       - uses: actions/checkout@v4
-  #       - uses: chartboost/ruff-action@v1
-  #         with:
-  #           args: "format . --check --verbose"
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: chartboost/ruff-action@v1
+  #       with:
+  #         args: "format . --check"
