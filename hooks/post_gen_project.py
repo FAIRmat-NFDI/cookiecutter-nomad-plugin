@@ -51,7 +51,7 @@ if __name__ == "__main__":
         ]
         if condition != "False"
     ]
-    module_name = "nomad_{{cookiecutter.module_name}}"
+    module_name = "{{cookiecutter.module_name}}"
     src_path = os.path.join(root, "src", module_name)
     assert os.path.isdir(src_path), f"{src_path=} doesn't exist"
     test_path = os.path.join(root, "tests")

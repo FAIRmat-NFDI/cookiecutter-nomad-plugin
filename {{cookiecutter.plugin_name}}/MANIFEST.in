@@ -1,0 +1,2 @@
+recursive-include * nomad_plugin.yaml
+graft src/{{cookiecutter.module_name}}/example_uploads

@@ -66,50 +66,50 @@ def test_run_cookiecutter_and_plugin_tests(
 
     assert result.exit_code == 0
     assert result.exception is None
-    assert result.project_path.name == f"nomad-{plugin_name}"
+    assert result.project_path.name == f"{plugin_name}"
     assert result.project_path.is_dir()
     assert result.project_path.joinpath(
-        "src", f"nomad_{module_name}", "__init__.py"
+        "src", f"{module_name}", "__init__.py"
     ).is_file()
 
     if include_normalizer:
         assert result.project_path.joinpath(
-            "src", f"nomad_{module_name}", "normalizers", "mynormalizer.py"
+            "src", f"{module_name}", "normalizers", "normalizer.py"
         ).is_file()
     else:
         assert not result.project_path.joinpath(
             "src",
-            f"nomad_{module_name}",
+            f"{module_name}",
             "normalizers",
         ).is_dir()
     if include_app:
         assert result.project_path.joinpath(
-            "src", f"nomad_{module_name}", "apps", "__init__.py"
+            "src", f"{module_name}", "apps", "__init__.py"
         ).is_file()
     else:
         assert not result.project_path.joinpath(
             "src",
-            f"nomad_{module_name}",
+            f"{module_name}",
             "apps",
         ).is_dir()
     if include_schema_package:
         assert result.project_path.joinpath(
-            "src", f"nomad_{module_name}", "schema_packages", "mypackage.py"
+            "src", f"{module_name}", "schema_packages", "schema_package.py"
         ).is_file()
     else:
         assert not result.project_path.joinpath(
             "src",
-            f"nomad_{module_name}",
+            f"{module_name}",
             "schema_packages",
         ).is_dir()
     if include_parser:
         assert result.project_path.joinpath(
-            "src", f"nomad_{module_name}", "parsers", "myparser.py"
+            "src", f"{module_name}", "parsers", "parser.py"
         ).is_file()
     else:
         assert not result.project_path.joinpath(
             "src",
-            f"nomad_{module_name}",
+            f"{module_name}",
             "parsers",
         ).is_dir()
 
