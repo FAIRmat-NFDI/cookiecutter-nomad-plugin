@@ -6,12 +6,12 @@ class NewSchemaPackageEntryPoint(SchemaPackageEntryPoint):
     parameter: int = Field(0, description='Custom configuration parameter')
 
     def load(self):
-        from {{cookiecutter.module_name}}.schemas.schema import m_package
+        from {{cookiecutter.module_name}}.schema_packages.schema_package import m_package
  
         return m_package
 
 
-schema_entry_point = NewSchemaPackageEntryPoint(
-    name='NewSchema',
-    description='New schema entry point configuration.',
+schema_package_entry_point = NewSchemaPackageEntryPoint(
+    name='NewSchemaPackage',
+    description='New schema package entry point configuration.',
 )

@@ -43,7 +43,7 @@ if __name__ == "__main__":
     variants = [
         variant
         for variant, condition in [
-            ("schemas", "{{cookiecutter.include_schema}}"),
+            ("schema_packages", "{{cookiecutter.include_schema_package}}"),
             ("normalizers", "{{cookiecutter.include_normalizer}}"),
             ("parsers", "{{cookiecutter.include_parser}}"),
             ("apps", "{{cookiecutter.include_app}}"),

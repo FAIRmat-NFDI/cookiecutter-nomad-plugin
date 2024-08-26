@@ -41,7 +41,7 @@ def run_tox(plugin):
     [True, False],
 )
 @pytest.mark.parametrize(
-    "include_schema",
+    "include_schema_package",
     [True, False],
 )
 def test_run_cookiecutter_and_plugin_tests(
@@ -50,7 +50,7 @@ def test_run_cookiecutter_and_plugin_tests(
     include_normalizer,
     include_app,
     include_parser,
-    include_schema,
+    include_schema_package,
 ):
     """Create a new plugin via cookiecutter and run its tests."""
     result = cookies.bake(
@@ -59,7 +59,7 @@ def test_run_cookiecutter_and_plugin_tests(
             "include_app": str(include_app),
             "include_parser": str(include_parser),
             "include_normalizer": str(include_normalizer),
-            "include_schema": str(include_schema),
+            "include_schema_package": str(include_schema_package),
         }
     )
     module_name = plugin_name.replace("-", "_")
@@ -92,15 +92,15 @@ def test_run_cookiecutter_and_plugin_tests(
             f"{module_name}",
             "apps",
         ).is_dir()
-    if include_schema:
+    if include_schema_package:
         assert result.project_path.joinpath(
-            "src", f"{module_name}", "schemas", "schema.py"
+            "src", f"{module_name}", "schema_packages", "schema_package.py"
         ).is_file()
     else:
         assert not result.project_path.joinpath(
             "src",
             f"{module_name}",
-            "schemas",
+            "schema_packages",
         ).is_dir()
     if include_parser:
         assert result.project_path.joinpath(

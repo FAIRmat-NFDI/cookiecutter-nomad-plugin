@@ -1,3 +1,0 @@
-data:
-  m_def: {{cookiecutter.module_name}}.schemas.schema.NewSchema
-  name: Markus
