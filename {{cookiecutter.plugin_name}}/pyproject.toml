@@ -41,7 +41,34 @@ dependencies = ["nomad-lab>=1.3.0"]
 Repository = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}"
 
 [project.optional-dependencies]
-dev = ["ruff", "pytest", "structlog"]
+dev = [
+    "ruff",
+    "pytest>=6.0",
+    "structlog",
+    "pytest-cov"
+]
+
+docs = [
+    "mkdocs",
+    "mkdocs-material==8.1.1",
+    "pymdown-extensions",
+    "mkdocs-click"
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-q -s -v"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.paths]
+source = ["src"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
 
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
@@ -110,6 +137,11 @@ skip-magic-trailing-comma = false
 
 # Like Black, automatically detect the appropriate line ending.
 line-ending = "auto"
+
+[tool.uv]
+extra-index-url = [
+    "https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple",
+]
 
 [tool.setuptools]
 package-dir = { "" = "src" }
