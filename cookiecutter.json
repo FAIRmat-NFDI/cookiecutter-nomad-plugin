@@ -1,7 +1,7 @@
 {
     "full_name": "John Doe",
     "email": "john.doe@physik.hu-berlin.de",
-    "github_username": "Github organization or profile name, default: foo",
+    "github_username": "foo",
     "plugin_name": "foobar",
     "module_name": "{{ cookiecutter.plugin_name|lower|replace('-', '_') }}",
     "short_description": "Nomad example template",
@@ -21,6 +21,7 @@
         "*.html"
     ],
     "__prompts__": {
-        "module_name": "module_name (recommended: press enter to use the default module name)"
+        "module_name": "module_name (recommended: press enter to use the default module name)",
+        "github_username": "Github organization or profile name, default: foo"
     }
 }
