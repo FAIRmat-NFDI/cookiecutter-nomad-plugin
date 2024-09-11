@@ -1,6 +1,7 @@
 import logging
 
 from nomad.datamodel import EntryArchive
+
 from {{cookiecutter.module_name}}.parsers.parser import NewParser
 
 

@@ -7,7 +7,7 @@ class NewSchemaPackageEntryPoint(SchemaPackageEntryPoint):
 
     def load(self):
         from {{cookiecutter.module_name}}.schema_packages.schema_package import m_package
- 
+
         return m_package
 
 

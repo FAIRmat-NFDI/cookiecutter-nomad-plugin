@@ -11,9 +11,8 @@ if TYPE_CHECKING:
     )
 
 from nomad.config import config
-from nomad.parsing.parser import MatchingParser
-
 from nomad.datamodel.metainfo.workflow import Workflow
+from nomad.parsing.parser import MatchingParser
 
 configuration = config.get_plugin_entry_point(
     '{{cookiecutter.module_name}}.parsers:parser_entry_point'
