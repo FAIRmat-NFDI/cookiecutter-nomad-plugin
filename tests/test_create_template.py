@@ -10,13 +10,11 @@ def run_tox(plugin):
     shutil.copy("tox.ini", tox_plugin_path)
     command = [
         "tox",
-        "-v",
         "--workdir",
         plugin,
         "-c",
         tox_plugin_path,
-        "-e",
-        "py",
+        "run",
     ]
 
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -25,9 +23,10 @@ def run_tox(plugin):
     print("Command Output:")
     print(stdout.decode())
     print(stderr.decode())
+    assert process.returncode == 0
 
 
-@pytest.mark.parametrize("plugin_name", ["foo-bar"])
+@pytest.mark.parametrize("plugin_name", ["long-name-foo-bar"])
 @pytest.mark.parametrize(
     "include_normalizer",
     [True, False],
@@ -113,4 +112,5 @@ def test_run_cookiecutter_and_plugin_tests(
             "parsers",
         ).is_dir()
 
-    run_tox(str(result.project_path))
+    if include_app and include_parser and include_normalizer and include_schema_package:
+        run_tox(str(result.project_path))

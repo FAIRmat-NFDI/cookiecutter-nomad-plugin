@@ -3,4 +3,3 @@ def test_importing_app():
     from {{cookiecutter.module_name}}.apps import app_entry_point
 
     assert app_entry_point.app.label == 'NewApp'
-
