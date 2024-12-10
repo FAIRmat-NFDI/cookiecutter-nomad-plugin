@@ -13,7 +13,7 @@ pipx install cruft
 # If pipx is not an option,
 # you can install cruft in your Python user directory.
 python -m pip install --user cruft
-$ cruft create https://github.com/blueraft/cookiecutter-nomad-plugin
+$ cruft create https://github.com/FAIRmat-NFDI/cookiecutter-nomad-plugin
 ```
 
 Cookiecutter prompts you for information regarding your plugin:
