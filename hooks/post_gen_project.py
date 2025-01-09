@@ -47,7 +47,7 @@ if __name__ == "__main__":
             ("normalizers", "{{cookiecutter.include_normalizer}}"),
             ("parsers", "{{cookiecutter.include_parser}}"),
             ("apps", "{{cookiecutter.include_app}}"),
-            ("example_uploads", "{{cookiecutter.include_example_uploads}}"),
+            ("example_uploads", "{{cookiecutter.include_example_upload}}"),
         ]
         if condition != "False"
     ]
