@@ -1,6 +1,6 @@
 {
     "full_name": "John Doe",
-    "email": "john.doe@physik.hu-berlin.de",
+    "email": "joh.doe@physik.hu-berlin.de",
     "github_username": "foo",
     "plugin_name": "foobar",
     "module_name": "{{ cookiecutter.plugin_name|lower|replace('-', '_') }}",
