@@ -121,10 +121,10 @@ package-dir = { "" = "src" }
 where = ["src"]
 
 [project.entry-points.'nomad.plugin']
-{%if cookiecutter.include_parser -%}parser_entry_point = "{{cookiecutter.module_name}}.parsers:parser_entry_point"{% endif -%}
-{%if cookiecutter.include_schema_package -%}schema_package_entry_point = "{{cookiecutter.module_name}}.schema_packages:schema_package_entry_point"{% endif -%}
-{%if cookiecutter.include_normalizer -%}normalizer_entry_point = "{{cookiecutter.module_name}}.normalizers:normalizer_entry_point"{% endif -%}
-{%if cookiecutter.include_app -%}app_entry_point = "{{cookiecutter.module_name}}.apps:app_entry_point"{% endif -%}
+{%if cookiecutter.include_parser -%}parser_entry_point = "{{cookiecutter.module_name}}.parsers:parser_entry_point"{% endif %}
+{%if cookiecutter.include_schema_package -%}schema_package_entry_point = "{{cookiecutter.module_name}}.schema_packages:schema_package_entry_point"{% endif %}
+{%if cookiecutter.include_normalizer -%}normalizer_entry_point = "{{cookiecutter.module_name}}.normalizers:normalizer_entry_point"{% endif %}
+{%if cookiecutter.include_app -%}app_entry_point = "{{cookiecutter.module_name}}.apps:app_entry_point"{% endif %}
 {%if cookiecutter.include_example_upload -%}example_upload_entry_point = "{{cookiecutter.module_name}}.example_uploads:example_upload_entry_point"{% endif%}
 
 [tool.cruft]
