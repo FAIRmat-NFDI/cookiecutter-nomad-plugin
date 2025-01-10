@@ -16,7 +16,7 @@
     "include_normalizer": true,
     "include_parser": true,
     "include_app": true,
-    "include_example_uploads": true,
+    "include_example_upload": true,
     "_copy_without_render": [
         "*.html"
     ],
