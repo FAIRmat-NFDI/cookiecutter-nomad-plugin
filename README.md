@@ -69,23 +69,23 @@ nomad-awesome-tools/
 
 ## Features
 
-- Installable [PyPI] package featuring a `pyproject.toml`.
+- Installable [PyPI](https://pypi.org/) package featuring a `pyproject.toml`.
 - Working example code
 - Comprehensive `README.md` file that contains useful information about your
   plugin
-- Continuous integration configuration for [GitHub Actions]
-- Optional documentation with [MkDocs]
+- Continuous integration configuration for [GitHub Actions](https://github.com/features/actions)
+- Optional documentation with [MkDocs](https://github.com/mkdocs/mkdocs)
 - Choose from several licenses, such as [MIT], [BSD-3], [Apache v2.0], [GNU GPL
   v3.0+], or [MPL v2.0]
 
 ## Issues
 
-If you encounter any problems, please [file an issue] along with a
+If you encounter any problems, please [file an issue](https://github.com/FAIRmat-NFDI/cookiecutter-nomad-plugin/issues/new) along with a
 detailed description.
 
 ## License
 
-Distributed under the terms of the [MIT license], Cookiecutter nomad
+Distributed under the terms of the [MIT license](./LICENSE), Cookiecutter nomad
 Plugin is free and open source software.
 
 This template is a forked version of the [`cookiecutter-pytest-plugin`](https://github.com/pytest-dev/cookiecutter-pytest-plugin). Special thanks to the contributors of the pytest cookiecutter template.
