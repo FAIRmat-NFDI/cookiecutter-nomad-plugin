@@ -1,5 +1,7 @@
 name: install-and-test-workflow
+
 on: [push]
+
 jobs:
   install-and-test:
     runs-on: ubuntu-latest
@@ -23,6 +25,7 @@ jobs:
         GITHUB_TOKEN: {% raw -%}${{ secrets.GITHUB_TOKEN }}{% endraw %}
       run: |
         coveralls --service=github
+
   build-and-install:
     runs-on: ubuntu-latest
     steps:
@@ -39,18 +42,12 @@ jobs:
     - name: Install the package
       run: |
         pip install dist/*.tar.gz --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
+
   ruff-linting:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: chartboost/ruff-action@v1
-        with:
-          args: "check ."
-  # to enable auto-formatting check, uncomment the following lines below
-  # ruff-formatting:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: chartboost/ruff-action@v1
-  #       with:
-  #         args: "format . --check"
+      - uses: astral-sh/ruff-action@v3
+      - run: ruff check .
+      # Uncomment the following line to enable format check
+      # - run: ruff format --check .
