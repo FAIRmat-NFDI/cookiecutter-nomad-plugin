@@ -7,7 +7,7 @@ This `nomad` plugin was generated with `Cookiecutter` along with `@nomad`'s [`co
 
 ## Development
 
-If you want to develop locally this plugin, clone the project and in the plugin folder, create a virtual environment (you can use Python 3.9, 3.10, or 3.11):
+If you want to develop locally this plugin, clone the project and in the plugin folder, create a virtual environment (you can use Python 3.10, 3.11 or 3.12):
 ```sh
 git clone https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}.git
 cd {{cookiecutter.plugin_name}}
@@ -160,7 +160,7 @@ on the [PyPI documentation](https://packaging.python.org/en/latest/tutorials/pac
 
 ### Template update
 
-We use cruft to update the project based on template changes. A `cruft-update.yml` is included in Github workflows to automatically check for updates and create pull requests to apply updates. Follow the [instructions](https://github.blog/changelog/2022-05-03-github-actions-prevent-github-actions-from-creating-and-approving-pull-requests/) on how to enable Github Actions to create pull requests. 
+We use cruft to update the project based on template changes. A `cruft-update.yml` is included in Github workflows to automatically check for updates and create pull requests to apply updates. Follow the [instructions](https://github.blog/changelog/2022-05-03-github-actions-prevent-github-actions-from-creating-and-approving-pull-requests/) on how to enable Github Actions to create pull requests.
 
 To run the check for updates locally, follow the instructions on [`cruft` website](https://cruft.github.io/cruft/#updating-a-project).
 
