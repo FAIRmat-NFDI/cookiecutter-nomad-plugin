@@ -50,4 +50,4 @@ jobs:
       - uses: astral-sh/ruff-action@v3
       - run: ruff check .
       # Uncomment the following line to enable format check
-      # - run: ruff format .
+      # - run: ruff format --check .
