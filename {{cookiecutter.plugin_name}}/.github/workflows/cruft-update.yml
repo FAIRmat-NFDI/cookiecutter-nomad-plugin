@@ -1,4 +1,3 @@
-# /.github/workflows/cruft-update.yml
 name: Update repository with Cruft
 
 permissions:
