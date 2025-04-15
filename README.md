@@ -1,10 +1,10 @@
 # cookiecutter-nomad-plugin
 
-Minimal [Cookiecutter] template for authoring [nomad] plugins.
+Minimal [Cookiecutter](https://github.com/cookiecutter/cookiecutter) template for authoring [nomad] plugins.
 
 ## Getting Started
 
-Install [Cruf] and generate a new nomad plugin project:
+Install [Cruft](https://github.com/cruft/cruft) and generate a new nomad plugin project:
 
 ```no-highlight
 # pipx is strongly recommended.
@@ -70,7 +70,7 @@ nomad-awesome-tools/
 ## Features
 
 - Installable [PyPI] package featuring a `pyproject.toml`.
-- Working example code 
+- Working example code
 - Comprehensive `README.md` file that contains useful information about your
   plugin
 - Continuous integration configuration for [GitHub Actions]
