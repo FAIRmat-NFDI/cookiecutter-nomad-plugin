@@ -138,26 +138,6 @@ source .pyenv/bin/activate
 Alternatively and only valid for your local NOMAD installation, you can modify `nomad.yaml` to include this plugin, see [NOMAD Oasis - Install plugins](https://nomad-lab.eu/prod/v1/staging/docs/howto/oasis/plugins_install.html).
 
 
-### Build the python package
-
-The `pyproject.toml` file contains everything that is necessary to turn the project
-into a pip installable python package. Run the python build tool to create a package distribution:
-
-```sh
-pip install build
-python -m build --sdist
-```
-
-You can install the package with pip:
-
-```sh
-pip install dist/{{cookiecutter.plugin_name}}-{{cookiecutter.version}}
-```
-
-Read more about python packages, `pyproject.toml`, and how to upload packages to PyPI
-on the [PyPI documentation](https://packaging.python.org/en/latest/tutorials/packaging-projects/).
-
-
 ### Template update
 
 We use [`cruft`](https://github.com/cruft/cruft) to update the project based on template changes. To run the check for updates locally, run `cruft update` in the root of the project. More details see the instructions on [`cruft` website](https://cruft.github.io/cruft/#updating-a-project).
