@@ -7,7 +7,6 @@ classifiers = [
     "Intended Audience :: Developers",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -27,7 +26,7 @@ name = "{{cookiecutter.plugin_name}}"
 description = "{{cookiecutter.short_description}}"
 version = "{{cookiecutter.version}}"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 authors = [
     { name = "{{cookiecutter.full_name}}", email = "{{cookiecutter.email}}" },
 ]
@@ -87,7 +86,7 @@ select = [
     "UP",
     # isort
     "I",
-    # pylint 
+    # pylint
     "PL",
 ]
 
@@ -131,7 +130,7 @@ schema_package_entry_point = "{{cookiecutter.module_name}}.schema_packages:schem
 normalizer_entry_point = "{{cookiecutter.module_name}}.normalizers:normalizer_entry_point"
 {%- endif %}
 {% if cookiecutter.include_app  -%}
-app_entry_point = "{{cookiecutter.module_name}}.apps:app_entry_point"   
+app_entry_point = "{{cookiecutter.module_name}}.apps:app_entry_point"
 {%- endif %}
 {% if cookiecutter.include_example_uploads  -%}
 example_upload_entry_point = "{{cookiecutter.module_name}}.example_uploads:example_upload_entry_point"

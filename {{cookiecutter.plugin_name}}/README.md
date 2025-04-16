@@ -4,10 +4,9 @@
 
 This `nomad` plugin was generated with `Cookiecutter` along with `@nomad`'s [`cookiecutter-nomad-plugin`](https://github.com/FAIRmat-NFDI/cookiecutter-nomad-plugin) template.
 
-
 ## Development
 
-If you want to develop locally this plugin, clone the project and in the plugin folder, create a virtual environment (you can use Python 3.9, 3.10, or 3.11):
+If you want to develop locally this plugin, clone the project and in the plugin folder, create a virtual environment (you can use Python 3.10, 3.11 or 3.12):
 ```sh
 git clone https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}.git
 cd {{cookiecutter.plugin_name}}
@@ -27,18 +26,8 @@ pip install uv
 
 Install the `nomad-lab` package:
 ```sh
-uv pip install '.[dev]' --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
+uv pip install -e '.[dev]'
 ```
-
-**Note!**
-Until we have an official pypi NOMAD release with the plugins functionality make
-sure to include NOMAD's internal package registry (via `--index-url` in the above command).
-
-The plugin is still under development. If you would like to contribute, install the package in editable mode (with the added `-e` flag):
-```sh
-uv pip install -e '.[dev]' --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
-```
-
 
 ### Run the tests
 
@@ -62,7 +51,6 @@ We use [Ruff](https://docs.astral.sh/ruff/) for linting and formatting the code.
 ruff check .
 ruff format . --check
 ```
-
 
 ### Debugging
 
@@ -94,7 +82,6 @@ where `<path-to-plugin-tests>` must be changed to the local path to the test mod
 
 The settings configuration file `.vscode/settings.json` automatically applies the linting and formatting upon saving the modified file.
 
-
 ### Documentation on Github pages
 
 To view the documentation locally, install the related packages using:
@@ -106,7 +93,6 @@ Run the documentation server:
 ```sh
 mkdocs serve
 ```
-
 
 ## Adding this plugin to NOMAD
 
@@ -120,50 +106,11 @@ Read the [NOMAD plugin documentation](https://nomad-lab.eu/prod/v1/staging/docs/
 
 ### Adding this plugin in your local NOMAD installation and the source code of NOMAD
 
-Modify the text file under `/nomad/default_plugins.txt` and add:
-```sh
-<other-content-in-default_plugins.txt>
-{{cookiecutter.plugin_name}}==x.y.z
-```
-where `x.y.z` represents the released version of this plugin.
-
-Then, go to your NOMAD folder, activate your NOMAD virtual environment and run:
-```sh
-deactivate
-cd <route-to-NOMAD-folder>/nomad
-source .pyenv/bin/activate
-./scripts/setup_dev_env.sh
-```
-
-Alternatively and only valid for your local NOMAD installation, you can modify `nomad.yaml` to include this plugin, see [NOMAD Oasis - Install plugins](https://nomad-lab.eu/prod/v1/staging/docs/howto/oasis/plugins_install.html).
-
-
-### Build the python package
-
-The `pyproject.toml` file contains everything that is necessary to turn the project
-into a pip installable python package. Run the python build tool to create a package distribution:
-
-```sh
-pip install build
-python -m build --sdist
-```
-
-You can install the package with pip:
-
-```sh
-pip install dist/{{cookiecutter.plugin_name}}-{{cookiecutter.version}}
-```
-
-Read more about python packages, `pyproject.toml`, and how to upload packages to PyPI
-on the [PyPI documentation](https://packaging.python.org/en/latest/tutorials/packaging-projects/).
-
+We now recommend using the dedicated [`nomad-distro-dev`](https://github.com/FAIRmat-NFDI/nomad-distro-dev) repository to simplify the process. Please refer to that repository for detailed instructions.
 
 ### Template update
 
-We use cruft to update the project based on template changes. A `cruft-update.yml` is included in Github workflows to automatically check for updates and create pull requests to apply updates. Follow the [instructions](https://github.blog/changelog/2022-05-03-github-actions-prevent-github-actions-from-creating-and-approving-pull-requests/) on how to enable Github Actions to create pull requests. 
-
-To run the check for updates locally, follow the instructions on [`cruft` website](https://cruft.github.io/cruft/#updating-a-project).
-
+We use [`cruft`](https://github.com/cruft/cruft) to update the project based on template changes. To run the check for updates locally, run `cruft update` in the root of the project. More details see the instructions on [`cruft` website](https://cruft.github.io/cruft/#updating-a-project).
 
 ## Main contributors
 | Name | E-mail     |
