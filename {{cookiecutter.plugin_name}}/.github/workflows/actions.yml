@@ -7,41 +7,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v5
+    - name: Install uv and set the python version
+      uses: astral-sh/setup-uv@v5
       with:
-        python-version: 3.12
+          python-version: 3.12
     - name: Install dependencies
       run: |
-        pip install --upgrade pip
-        pip install '.[dev]' --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
-        pip install coverage coveralls
+        uv pip install '.[dev]' --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
+        uv pip install coverage coveralls
     - name: Test with pytest
       run: |
-        python -m coverage run -m pytest -sv
+        uv run coverage run -m pytest -sv
     - name: Submit to coveralls
       continue-on-error: true
       env:
         GITHUB_TOKEN: {% raw -%}${{ secrets.GITHUB_TOKEN }}{% endraw %}
       run: |
-        coveralls --service=github
+        uv run coveralls --service=github
 
   build-and-install:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v5
+    - name: Install uv and set the python version
+      uses: astral-sh/setup-uv@v5
       with:
-        python-version: 3.12
+          python-version: 3.12
     - name: Build the package
       run: |
-        pip install --upgrade pip
-        pip install build
-        python -m build --sdist
+        uv build --sdist
     - name: Install the package
       run: |
-        pip install dist/*.tar.gz --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
+        uv pip install dist/*.tar.gz --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
 
   ruff-linting:
     runs-on: ubuntu-latest
