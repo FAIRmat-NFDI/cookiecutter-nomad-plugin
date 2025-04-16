@@ -8,7 +8,7 @@ class NewParserEntryPoint(ParserEntryPoint):
     def load(self):
         from {{cookiecutter.module_name}}.parsers.parser import NewParser
 
-        return NewParser(**self.dict())
+        return NewParser(**self.model_dump())
 
 
 parser_entry_point = NewParserEntryPoint(
