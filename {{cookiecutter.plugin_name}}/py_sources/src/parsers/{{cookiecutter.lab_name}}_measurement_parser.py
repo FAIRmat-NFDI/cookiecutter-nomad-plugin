@@ -38,21 +38,21 @@ from nomad.metainfo import (
 )
 from nomad.parsing import MatchingParser
 
-from nomad_hysprint.schema_packages.hysprint_package import (
-    HySprint_CyclicVoltammetry,
-    HySprint_ElectrochemicalImpedanceSpectroscopy,
-    HySprint_EQEmeasurement,
-    HySprint_JVmeasurement,
-    HySprint_Measurement,
-    HySprint_OpenCircuitVoltage,
-    HySprint_PLImaging,
-    HySprint_PLmeasurement,
-    HySprint_SEM,
-    HySprint_SimpleMPPTracking,
-    HySprint_trSPVmeasurement,
-    HySprint_UVvismeasurement,
-    HySprint_XPS,
-    HySprint_XRD_XY,
+from {{cookiecutter.module_name}}.schema_packages.{{cookiecutter.lab_name}}_package import (
+    {{cookiecutter.lab_name}}_CyclicVoltammetry,
+    {{cookiecutter.lab_name}}_ElectrochemicalImpedanceSpectroscopy,
+    {{cookiecutter.lab_name}}_EQEmeasurement,
+    {{cookiecutter.lab_name}}_JVmeasurement,
+    {{cookiecutter.lab_name}}_Measurement,
+    {{cookiecutter.lab_name}}_OpenCircuitVoltage,
+    {{cookiecutter.lab_name}}_PLImaging,
+    {{cookiecutter.lab_name}}_PLmeasurement,
+    {{cookiecutter.lab_name}}_SEM,
+    {{cookiecutter.lab_name}}_SimpleMPPTracking,
+    {{cookiecutter.lab_name}}_trSPVmeasurement,
+    {{cookiecutter.lab_name}}_UVvismeasurement,
+    {{cookiecutter.lab_name}}_XPS,
+    {{cookiecutter.lab_name}}_XRD_XY,
     HZB_EnvironmentMeasurement,
     HZB_NKData,
 )
@@ -77,7 +77,7 @@ def update_general_process_entries(entry, entry_id, archive, logger):
     }
     search_result = search(owner='all', query=query, user_id=archive.metadata.main_author.user_id)
     entry_type = search_result.data[0].get('entry_type') if len(search_result.data) == 1 else None
-    if entry_type != 'HySprint_Measurement':
+    if entry_type != '{{cookiecutter.lab_name}}_Measurement':
         return None
     new_entry_dict = entry.m_to_dict()
     res = search_result.data[0]
@@ -96,7 +96,7 @@ def update_general_process_entries(entry, entry_id, archive, logger):
     return new_entry
 
 
-class HySprintParser(MatchingParser):
+class {{cookiecutter.lab_name}}Parser(MatchingParser):
     def parse(self, mainfile: str, archive: EntryArchive, logger):
         # Log a hello world, just to get us started. TODO remove from an actual parser.
 
@@ -105,20 +105,20 @@ class HySprintParser(MatchingParser):
         if len(mainfile_split) > 2:
             notes = '.'.join(mainfile_split[1:-2])
         measurment_type = mainfile_split[-2].lower()
-        entry = HySprint_Measurement()
+        entry = {{cookiecutter.lab_name}}_Measurement()
         if mainfile_split[-1] == 'mpt' and measurment_type == 'hy':
-            from nomad_hysprint.schema_packages.file_parser.mps_file_parser import (
+            from {{cookiecutter.module_name}}.schema_packages.file_parser.mps_file_parser import (
                 read_mpt_file,
             )
 
             with open(mainfile) as f:
                 metadata, _, technique = read_mpt_file(f)
             if 'Cyclic Voltammetry' in technique:
-                entry = HySprint_CyclicVoltammetry()
+                entry = {{cookiecutter.lab_name}}_CyclicVoltammetry()
             if 'Open Circuit Voltage' in technique:
-                entry = HySprint_OpenCircuitVoltage()
+                entry = {{cookiecutter.lab_name}}_OpenCircuitVoltage()
             if 'Potentio Electrochemical Impedance Spectroscopy' in technique:
-                entry = HySprint_ElectrochemicalImpedanceSpectroscopy()
+                entry = {{cookiecutter.lab_name}}_ElectrochemicalImpedanceSpectroscopy()
         if mainfile_split[-1] == 'csv' and measurment_type == 'hy':
             with open(mainfile) as f:
                 file_content = f.read()
@@ -127,39 +127,39 @@ class HySprintParser(MatchingParser):
                 and 'Start date:' in file_content
                 and ' Charge (C)' in file_content
             ):
-                entry = HySprint_CyclicVoltammetry()
+                entry = {{cookiecutter.lab_name}}_CyclicVoltammetry()
             if (
                 'Experiment:' in file_content
                 and 'Start date:' in file_content
                 and 'Aux A (V)' in file_content
             ):
-                entry = HySprint_OpenCircuitVoltage()
+                entry = {{cookiecutter.lab_name}}_OpenCircuitVoltage()
         if mainfile_split[-1] == 'txt' and measurment_type == 'jv':
-            entry = HySprint_JVmeasurement()
+            entry = {{cookiecutter.lab_name}}_JVmeasurement()
         if mainfile_split[-1] == 'txt' and measurment_type == 'spv':
-            entry = HySprint_trSPVmeasurement()
+            entry = {{cookiecutter.lab_name}}_trSPVmeasurement()
         if (mainfile_split[-1] == 'txt' or mainfile_split[-1] == 'TRQ') and measurment_type == 'eqe':
-            entry = HySprint_EQEmeasurement()
+            entry = {{cookiecutter.lab_name}}_EQEmeasurement()
         if mainfile_split[-1] in ['tif', 'tiff'] and measurment_type.lower() == 'sem':
-            entry = HySprint_SEM()
+            entry = {{cookiecutter.lab_name}}_SEM()
             entry.detector_data = [os.path.basename(mainfile)]
         if measurment_type == 'pl':
-            entry = HySprint_PLmeasurement()
+            entry = {{cookiecutter.lab_name}}_PLmeasurement()
         if measurment_type == 'pli':
-            entry = HySprint_PLImaging()
+            entry = {{cookiecutter.lab_name}}_PLImaging()
         if measurment_type == 'xrd' and mainfile_split[-1] == 'xy':
-            entry = HySprint_XRD_XY()
+            entry = {{cookiecutter.lab_name}}_XRD_XY()
         if measurment_type == 'xps' and mainfile_split[-1] in ['xy']:
-            entry = HySprint_XPS()
+            entry = {{cookiecutter.lab_name}}_XPS()
         if measurment_type == 'uvvis':
-            entry = HySprint_UVvismeasurement()
+            entry = {{cookiecutter.lab_name}}_UVvismeasurement()
             entry.data_file = [os.path.basename(mainfile)]
         if mainfile_split[-1] in ['txt'] and measurment_type == 'env':
             entry = HZB_EnvironmentMeasurement()
         if mainfile_split[-1] in ['nk']:
             entry = HZB_NKData()
         if mainfile_split[-1] in ['txt', 'csv'] and measurment_type == 'mppt':
-            entry = HySprint_SimpleMPPTracking()
+            entry = {{cookiecutter.lab_name}}_SimpleMPPTracking()
         archive.metadata.entry_name = os.path.basename(mainfile)
 
         if mainfile_split[-1] not in ['nk']:

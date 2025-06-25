@@ -111,14 +111,14 @@ def randStr(chars=string.ascii_uppercase + string.digits, N=6):
     return ''.join(random.choice(chars) for _ in range(N))
 
 
-class HySprint_VoilaNotebook(VoilaNotebook, EntryData):
+class {{cookiecutter.lab_name}}_VoilaNotebook(VoilaNotebook, EntryData):
     m_def = Section(a_eln=dict(hide=['lab_id']))
 
     def normalize(self, archive, logger):
         super().normalize(archive, logger)
 
 
-class HySprint_ExperimentalPlan(ExperimentalPlan, EntryData):
+class {{cookiecutter.lab_name}}_ExperimentalPlan(ExperimentalPlan, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['users'],
@@ -146,17 +146,17 @@ class HySprint_ExperimentalPlan(ExperimentalPlan, EntryData):
             execute_solar_sample_plan,
         )
 
-        execute_solar_sample_plan(self, archive, HySprint_Sample, HySprint_Batch, logger)
+        execute_solar_sample_plan(self, archive, {{cookiecutter.lab_name}}_Sample, {{cookiecutter.lab_name}}_Batch, logger)
 
         # actual normalization!!
         archive.results = Results()
         archive.results.properties = Properties()
         archive.results.material = Material()
         archive.results.eln = ELN()
-        archive.results.eln.sections = ['HySprint_ExperimentalPlan']
+        archive.results.eln.sections = ['{{cookiecutter.lab_name}}_ExperimentalPlan']
 
 
-class HySprint_StandardSample(StandardSampleSolarCell, EntryData):
+class {{cookiecutter.lab_name}}_StandardSample(StandardSampleSolarCell, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['users'],
@@ -165,11 +165,11 @@ class HySprint_StandardSample(StandardSampleSolarCell, EntryData):
     )
 
 
-class HySprint_SpinCoating_Recipe(SpinCoatingRecipe, EntryData):
+class {{cookiecutter.lab_name}}_SpinCoating_Recipe(SpinCoatingRecipe, EntryData):
     m_def = Section(a_eln=dict(hide=['lab_id', 'users']))
 
 
-class HySprint_Chemical(Chemical, EntryData):
+class {{cookiecutter.lab_name}}_Chemical(Chemical, EntryData):
     m_def = Section(a_eln=dict(hide=['lab_id', 'users']))
 
 
@@ -182,7 +182,7 @@ class Hysprint_Electrode(Electrode, EntryData):
     )
 
 
-class HySprint_ElectroChemicalSetup(ElectroChemicalSetup, EntryData):
+class {{cookiecutter.lab_name}}_ElectroChemicalSetup(ElectroChemicalSetup, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['users', 'components', 'elemental_composition', 'origin'],
@@ -202,7 +202,7 @@ class HySprint_ElectroChemicalSetup(ElectroChemicalSetup, EntryData):
     setup_id = SubSection(section_def=ReadableIdentifiersCustom)
 
 
-class HySprint_Environment(Environment, EntryData):
+class {{cookiecutter.lab_name}}_Environment(Environment, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['users', 'components', 'elemental_composition', 'origin'],
@@ -222,7 +222,7 @@ class HySprint_Environment(Environment, EntryData):
     environment_id = SubSection(section_def=ReadableIdentifiersCustom)
 
 
-class HySprint_Substrate(Substrate, EntryData):
+class {{cookiecutter.lab_name}}_Substrate(Substrate, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['lab_id', 'users', 'components', 'elemental_composition'],
@@ -240,7 +240,7 @@ class HySprint_Substrate(Substrate, EntryData):
     )
 
 
-class HySprint_Solution(Solution, EntryData):
+class {{cookiecutter.lab_name}}_Solution(Solution, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -275,11 +275,11 @@ class HySprint_Solution(Solution, EntryData):
     preparation = SubSection(section_def=SolutionPreparationStandard)
 
     # def normalize(self, archive, logger):
-    #     super(HySprint_Solution, self).normalize(archive, logger)
+    #     super({{cookiecutter.lab_name}}_Solution, self).normalize(archive, logger)
     #     print(Solution.schema())
 
 
-class HySprint_Ink(Ink, EntryData):
+class {{cookiecutter.lab_name}}_Ink(Ink, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['users', 'components', 'elemental_composition', 'chemical_formula'],
@@ -298,7 +298,7 @@ class HySprint_Ink(Ink, EntryData):
     )
 
 
-class HySprint_Sample(SolcarCellSample, EntryData):
+class {{cookiecutter.lab_name}}_Sample(SolcarCellSample, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['users', 'components', 'elemental_composition'],
@@ -309,7 +309,7 @@ class HySprint_Sample(SolcarCellSample, EntryData):
     )
 
 
-class HySprint_BasicSample(BasicSampleWithID, EntryData):
+class {{cookiecutter.lab_name}}_BasicSample(BasicSampleWithID, EntryData):
     m_def = Section(
         a_eln=dict(hide=['users', 'components', 'elemental_composition']),
         a_template=dict(institute='HZB_Hysprint'),
@@ -317,7 +317,7 @@ class HySprint_BasicSample(BasicSampleWithID, EntryData):
     )
 
 
-class HySprint_Batch(Batch, EntryData):
+class {{cookiecutter.lab_name}}_Batch(Batch, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['users', 'samples'],
@@ -329,7 +329,7 @@ class HySprint_Batch(Batch, EntryData):
 # %% ####################### Cleaning
 
 
-class HySprint_BasicCrystallization(Crystallization, EntryData):
+class {{cookiecutter.lab_name}}_BasicCrystallization(Crystallization, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -349,7 +349,7 @@ class HySprint_BasicCrystallization(Crystallization, EntryData):
 
 
 # %% ####################### Cleaning
-class HySprint_Cleaning(Cleaning, EntryData):
+class {{cookiecutter.lab_name}}_Cleaning(Cleaning, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['lab_id', 'users', 'end_time', 'steps', 'instruments', 'results'],
@@ -371,7 +371,7 @@ class HySprint_Cleaning(Cleaning, EntryData):
         type=str,
         a_eln=dict(
             component='EnumEditQuantity',
-            props=dict(suggestions=['HySprint', 'IRIS Printerlab', 'IRIS Preparationlab']),
+            props=dict(suggestions=['{{cookiecutter.lab_name}}', 'IRIS Printerlab', 'IRIS Preparationlab']),
         ),
     )
 
@@ -383,7 +383,7 @@ class HySprint_Cleaning(Cleaning, EntryData):
 
 
 # %% ##################### Layer Deposition
-class HySprint_SprayPyrolysis(SprayPyrolysis, EntryData):
+class {{cookiecutter.lab_name}}_SprayPyrolysis(SprayPyrolysis, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['lab_id', 'users', 'end_time', 'steps', 'instruments', 'results'],
@@ -410,7 +410,7 @@ class HySprint_SprayPyrolysis(SprayPyrolysis, EntryData):
         type=str,
         a_eln=dict(
             component='EnumEditQuantity',
-            props=dict(suggestions=['HySprint HTFumeHood']),
+            props=dict(suggestions=['{{cookiecutter.lab_name}} HTFumeHood']),
         ),
     )
 
@@ -418,7 +418,7 @@ class HySprint_SprayPyrolysis(SprayPyrolysis, EntryData):
 # %% ### Dropcasting
 
 
-class HySprint_VaporizationAndDropCasting(VaporizationAndDropCasting, EntryData):
+class {{cookiecutter.lab_name}}_VaporizationAndDropCasting(VaporizationAndDropCasting, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -456,7 +456,7 @@ class HySprint_VaporizationAndDropCasting(VaporizationAndDropCasting, EntryData)
 # %% ### Printing
 
 
-class HySprint_Inkjet_Printing(LP50InkjetPrinting, EntryData):
+class {{cookiecutter.lab_name}}_Inkjet_Printing(LP50InkjetPrinting, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['lab_id', 'users', 'end_time', 'steps', 'instruments', 'results'],
@@ -496,7 +496,7 @@ class HySprint_Inkjet_Printing(LP50InkjetPrinting, EntryData):
 
 
 # %% ### Spin Coating
-class HySprint_SpinCoating(SpinCoating, EntryData):
+class {{cookiecutter.lab_name}}_SpinCoating(SpinCoating, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -536,10 +536,10 @@ class HySprint_SpinCoating(SpinCoating, EntryData):
             component='EnumEditQuantity',
             props=dict(
                 suggestions=[
-                    'HySprint HyFlowBox',
-                    'HySprint HyPeroSpin',
-                    'HySprint HySpin',
-                    'HySprint ProtoVap',
+                    '{{cookiecutter.lab_name}} HyFlowBox',
+                    '{{cookiecutter.lab_name}} HyPeroSpin',
+                    '{{cookiecutter.lab_name}} HySpin',
+                    '{{cookiecutter.lab_name}} ProtoVap',
                     'IRIS HZBGloveBoxes Pero2Spincoater',
                 ]
             ),
@@ -550,7 +550,7 @@ class HySprint_SpinCoating(SpinCoating, EntryData):
 # %% ### Dip Coating
 
 
-class HySprint_DipCoating(DipCoating, EntryData):
+class {{cookiecutter.lab_name}}_DipCoating(DipCoating, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['lab_id', 'users', 'end_time', 'steps', 'instruments', 'results'],
@@ -576,11 +576,11 @@ class HySprint_DipCoating(DipCoating, EntryData):
 
     location = Quantity(
         type=str,
-        a_eln=dict(component='EnumEditQuantity', props=dict(suggestions=['HySprint'])),
+        a_eln=dict(component='EnumEditQuantity', props=dict(suggestions=['{{cookiecutter.lab_name}}'])),
     )
 
 
-class HySprint_BladeCoating(BladeCoating, EntryData):
+class {{cookiecutter.lab_name}}_BladeCoating(BladeCoating, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['lab_id', 'users', 'end_time', 'steps', 'instruments', 'results'],
@@ -605,7 +605,7 @@ class HySprint_BladeCoating(BladeCoating, EntryData):
 # %% ### Slot Die Coating
 
 
-class HySprint_SlotDieCoating(SlotDieCoating, EntryData):
+class {{cookiecutter.lab_name}}_SlotDieCoating(SlotDieCoating, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -639,12 +639,12 @@ class HySprint_SlotDieCoating(SlotDieCoating, EntryData):
 
     location = Quantity(
         type=str,
-        a_eln=dict(component='EnumEditQuantity', props=dict(suggestions=['HySprint HySDC'])),
+        a_eln=dict(component='EnumEditQuantity', props=dict(suggestions=['{{cookiecutter.lab_name}} HySDC'])),
     )
 
 
 # %% ### Sputterring
-class HySprint_Sputtering(Sputtering, EntryData):
+class {{cookiecutter.lab_name}}_Sputtering(Sputtering, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['lab_id', 'users', 'end_time', 'steps', 'instruments', 'results'],
@@ -664,12 +664,12 @@ class HySprint_Sputtering(Sputtering, EntryData):
 
     location = Quantity(
         type=str,
-        a_eln=dict(component='EnumEditQuantity', props=dict(suggestions=['IRIS', 'HySprint'])),
+        a_eln=dict(component='EnumEditQuantity', props=dict(suggestions=['IRIS', '{{cookiecutter.lab_name}}'])),
     )
 
 
 # %% ### AtomicLayerDepositio
-class HySprint_AtomicLayerDeposition(AtomicLayerDeposition, EntryData):
+class {{cookiecutter.lab_name}}_AtomicLayerDeposition(AtomicLayerDeposition, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['lab_id', 'users', 'end_time', 'steps', 'instruments', 'results'],
@@ -689,7 +689,7 @@ class HySprint_AtomicLayerDeposition(AtomicLayerDeposition, EntryData):
 
     location = Quantity(
         type=str,
-        a_eln=dict(component='EnumEditQuantity', props=dict(suggestions=['IRIS', 'HySprint'])),
+        a_eln=dict(component='EnumEditQuantity', props=dict(suggestions=['IRIS', '{{cookiecutter.lab_name}}'])),
     )
 
 
@@ -720,7 +720,7 @@ class IRIS_AtomicLayerDeposition(AtomicLayerDeposition, EntryData):
 
 
 # %% ### Evaporation
-class HySprint_Evaporation(Evaporations, EntryData):
+class {{cookiecutter.lab_name}}_Evaporation(Evaporations, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['lab_id', 'users', 'end_time', 'steps', 'instruments', 'results'],
@@ -745,9 +745,9 @@ class HySprint_Evaporation(Evaporations, EntryData):
             props=dict(
                 suggestions=[
                     'IRIS HZBGloveBoxes Pero5Evaporation',
-                    'HySprint HyVap',
-                    'HySprint HyPeroVap',
-                    'HySprint ProtoVap',
+                    '{{cookiecutter.lab_name}} HyVap',
+                    '{{cookiecutter.lab_name}} HyPeroVap',
+                    '{{cookiecutter.lab_name}} ProtoVap',
                 ]
             ),
         ),
@@ -755,7 +755,7 @@ class HySprint_Evaporation(Evaporations, EntryData):
 
 
 # %% ## Laser Scribing
-class HySprint_LaserScribing(LaserScribing, EntryData):
+class {{cookiecutter.lab_name}}_LaserScribing(LaserScribing, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=['lab_id', 'users', 'end_time', 'steps', 'instruments', 'results'],
@@ -767,7 +767,7 @@ class HySprint_LaserScribing(LaserScribing, EntryData):
 # %% ## Storage
 
 
-class HySprint_Storage(Storage, EntryData):
+class {{cookiecutter.lab_name}}_Storage(Storage, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -835,7 +835,7 @@ class HZB_EnvironmentMeasurement(EnvironmentMeasurement, EntryData):
     )
 
 
-class HySprint_trSPVmeasurement(trSPVMeasurement, EntryData):
+class {{cookiecutter.lab_name}}_trSPVmeasurement(trSPVMeasurement, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -884,7 +884,7 @@ class HySprint_trSPVmeasurement(trSPVMeasurement, EntryData):
             get_spv_archive,
         )
 
-        from nomad_hysprint.schema_packages.file_parser.spv_parser import (
+        from {{cookiecutter.module_name}}.schema_packages.file_parser.spv_parser import (
             get_spv_data,
         )
 
@@ -899,7 +899,7 @@ class HySprint_trSPVmeasurement(trSPVMeasurement, EntryData):
         super().normalize(archive, logger)
 
 
-class HySprint_JVmeasurement(JVMeasurement, EntryData):
+class {{cookiecutter.lab_name}}_JVmeasurement(JVMeasurement, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -944,7 +944,7 @@ class HySprint_JVmeasurement(JVMeasurement, EntryData):
     def normalize(self, archive, logger):
         from baseclasses.helper.archive_builder.jv_archive import get_jv_archive
 
-        from nomad_hysprint.schema_packages.file_parser.jv_parser import (
+        from {{cookiecutter.module_name}}.schema_packages.file_parser.jv_parser import (
             get_jv_data,
         )
 
@@ -964,7 +964,7 @@ class HySprint_JVmeasurement(JVMeasurement, EntryData):
         super().normalize(archive, logger)
 
 
-class HySprint_SimpleMPPTracking(MPPTracking, EntryData):
+class {{cookiecutter.lab_name}}_SimpleMPPTracking(MPPTracking, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -992,7 +992,7 @@ class HySprint_SimpleMPPTracking(MPPTracking, EntryData):
     )
 
     def normalize(self, archive, logger):
-        from nomad_hysprint.schema_packages.file_parser.mppt_simple import (
+        from {{cookiecutter.module_name}}.schema_packages.file_parser.mppt_simple import (
             read_mppt_file,
         )
 
@@ -1018,7 +1018,7 @@ class HySprint_SimpleMPPTracking(MPPTracking, EntryData):
         super().normalize(archive, logger)
 
 
-class HySprint_MPPTracking(MPPTrackingHsprintCustom, PlotSection, EntryData):
+class {{cookiecutter.lab_name}}_MPPTracking(MPPTrackingHsprintCustom, PlotSection, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1055,7 +1055,7 @@ class HySprint_MPPTracking(MPPTrackingHsprintCustom, PlotSection, EntryData):
         )
         from baseclasses.helper.utilities import rewrite_json
 
-        from nomad_hysprint.schema_packages.file_parser.load_mpp_hysprint import (
+        from {{cookiecutter.module_name}}.schema_packages.file_parser.load_mpp_hysprint import (
             load_mpp_file,
         )
 
@@ -1133,7 +1133,7 @@ class HySprint_MPPTracking(MPPTrackingHsprintCustom, PlotSection, EntryData):
         super().normalize(archive, logger)
 
 
-class HySprint_TimeResolvedPhotoluminescence(TimeResolvedPhotoluminescence, EntryData):
+class {{cookiecutter.lab_name}}_TimeResolvedPhotoluminescence(TimeResolvedPhotoluminescence, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1170,7 +1170,7 @@ class HySprint_TimeResolvedPhotoluminescence(TimeResolvedPhotoluminescence, Entr
         super().normalize(archive, logger)
 
 
-class HySprint_OpticalMicroscope(OpticalMicroscope, EntryData):
+class {{cookiecutter.lab_name}}_OpticalMicroscope(OpticalMicroscope, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1197,7 +1197,7 @@ class HySprint_OpticalMicroscope(OpticalMicroscope, EntryData):
         super().normalize(archive, logger)
 
 
-class HySprint_EQEmeasurement(EQEMeasurement, EntryData):
+class {{cookiecutter.lab_name}}_EQEmeasurement(EQEMeasurement, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1228,7 +1228,7 @@ class HySprint_EQEmeasurement(EQEMeasurement, EntryData):
     )
 
     def normalize(self, archive, logger):
-        from nomad_hysprint.schema_packages.file_parser.eqe_parser import read_eqe_file
+        from {{cookiecutter.module_name}}.schema_packages.file_parser.eqe_parser import read_eqe_file
 
         if not self.samples and self.data_file:
             search_id = self.data_file.split('.')[0]
@@ -1261,7 +1261,7 @@ class HySprint_EQEmeasurement(EQEMeasurement, EntryData):
         super().normalize(archive, logger)
 
 
-class HySprint_PLmeasurement(PLMeasurement, EntryData):
+class {{cookiecutter.lab_name}}_PLmeasurement(PLMeasurement, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1295,7 +1295,7 @@ class HySprint_PLmeasurement(PLMeasurement, EntryData):
         super().normalize(archive, logger)
 
 
-class HySprint_SEM(SEM_Microscope_Merlin, EntryData):
+class {{cookiecutter.lab_name}}_SEM(SEM_Microscope_Merlin, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1321,7 +1321,7 @@ class HySprint_SEM(SEM_Microscope_Merlin, EntryData):
         super().normalize(archive, logger)
 
 
-class HySprint_XRD_XY(XRD, EntryData):
+class {{cookiecutter.lab_name}}_XRD_XY(XRD, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1374,7 +1374,7 @@ class HySprint_XRD_XY(XRD, EntryData):
         super().normalize(archive, logger)
 
 
-class HySprint_XPS(XPS, EntryData):
+class {{cookiecutter.lab_name}}_XPS(XPS, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1399,7 +1399,7 @@ class HySprint_XPS(XPS, EntryData):
 
         if self.data_file:
             with archive.m_context.raw_file(self.data_file, 'tr') as f:
-                from nomad_hysprint.schema_packages.file_parser.xps_parser import (
+                from {{cookiecutter.module_name}}.schema_packages.file_parser.xps_parser import (
                     map_specs_lab_prodigy_data,
                     parse_xps_xy_file,
                 )
@@ -1426,7 +1426,7 @@ class HySprint_XPS(XPS, EntryData):
         super().normalize(archive, logger)
 
 
-class HySprint_PLImaging(PLImaging, EntryData):
+class {{cookiecutter.lab_name}}_PLImaging(PLImaging, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1450,7 +1450,7 @@ class HySprint_PLImaging(PLImaging, EntryData):
         super().normalize(archive, logger)
 
 
-class HySprint_UVvismeasurement(UVvisMeasurement, EntryData):
+class {{cookiecutter.lab_name}}_UVvismeasurement(UVvisMeasurement, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1473,7 +1473,7 @@ class HySprint_UVvismeasurement(UVvisMeasurement, EntryData):
         super().normalize(archive, logger)
 
 
-class HySprint_CyclicVoltammetry(CyclicVoltammetry, EntryData):
+class {{cookiecutter.lab_name}}_CyclicVoltammetry(CyclicVoltammetry, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1535,7 +1535,7 @@ class HySprint_CyclicVoltammetry(CyclicVoltammetry, EntryData):
                         get_voltammetry_data,
                     )
 
-                    from nomad_hysprint.schema_packages.file_parser.mps_file_parser import (
+                    from {{cookiecutter.module_name}}.schema_packages.file_parser.mps_file_parser import (
                         read_mpt_file,
                     )
 
@@ -1576,7 +1576,7 @@ class HySprint_CyclicVoltammetry(CyclicVoltammetry, EntryData):
         super().normalize(archive, logger)
 
 
-class HySprint_ElectrochemicalImpedanceSpectroscopy(ElectrochemicalImpedanceSpectroscopy, EntryData):
+class {{cookiecutter.lab_name}}_ElectrochemicalImpedanceSpectroscopy(ElectrochemicalImpedanceSpectroscopy, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1629,7 +1629,7 @@ class HySprint_ElectrochemicalImpedanceSpectroscopy(ElectrochemicalImpedanceSpec
                         get_meta_data,
                     )
 
-                    from nomad_hysprint.schema_packages.file_parser.mps_file_parser import (
+                    from {{cookiecutter.module_name}}.schema_packages.file_parser.mps_file_parser import (
                         read_mpt_file,
                     )
 
@@ -1643,7 +1643,7 @@ class HySprint_ElectrochemicalImpedanceSpectroscopy(ElectrochemicalImpedanceSpec
         super().normalize(archive, logger)
 
 
-class HySprint_OpenCircuitVoltage(OpenCircuitVoltage, EntryData):
+class {{cookiecutter.lab_name}}_OpenCircuitVoltage(OpenCircuitVoltage, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1693,7 +1693,7 @@ class HySprint_OpenCircuitVoltage(OpenCircuitVoltage, EntryData):
                         get_voltammetry_data,
                     )
 
-                    from nomad_hysprint.schema_packages.file_parser.mps_file_parser import (
+                    from {{cookiecutter.module_name}}.schema_packages.file_parser.mps_file_parser import (
                         read_mpt_file,
                     )
 
@@ -1768,7 +1768,7 @@ class HZB_NKData(NKData, EntryData):
         with archive.m_context.raw_file(self.data_file, 'tr', encoding=encoding) as f:
             from baseclasses.helper.archive_builder.nk_archive import get_nk_archive
 
-            from nomad_hysprint.schema_packages.file_parser.nk_parser import get_nk_data
+            from {{cookiecutter.module_name}}.schema_packages.file_parser.nk_parser import get_nk_data
 
             nk_data, metadata = get_nk_data(f.read())
 
@@ -1816,7 +1816,7 @@ class ProcessParameter(ArchiveSection):
     )
 
 
-class HySprint_Process(BaseProcess, EntryData):
+class {{cookiecutter.lab_name}}_Process(BaseProcess, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1842,7 +1842,7 @@ class HySprint_Process(BaseProcess, EntryData):
     process_parameters = SubSection(section_def=ProcessParameter, repeats=True)
 
 
-class HySprint_WetChemicalDepoistion(WetChemicalDeposition, EntryData):
+class {{cookiecutter.lab_name}}_WetChemicalDepoistion(WetChemicalDeposition, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1879,7 +1879,7 @@ class HySprint_WetChemicalDepoistion(WetChemicalDeposition, EntryData):
     )
 
 
-class HySprint_Deposition(LayerDeposition, EntryData):
+class {{cookiecutter.lab_name}}_Deposition(LayerDeposition, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
@@ -1913,7 +1913,7 @@ class HySprint_Deposition(LayerDeposition, EntryData):
     )
 
 
-class HySprint_Measurement(BaseMeasurement, EntryData):
+class {{cookiecutter.lab_name}}_Measurement(BaseMeasurement, EntryData):
     m_def = Section(
         a_eln=dict(
             hide=[
