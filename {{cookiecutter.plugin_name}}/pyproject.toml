@@ -126,9 +126,12 @@ where = ["src"]
 [project.entry-points.'nomad.plugin']
 {% if cookiecutter.include_parser  -%}
 parser_entry_point = "{{cookiecutter.module_name}}.parsers:parser_entry_point"
+{{cookiecutter.lab_name}}_experiment_parser_entry_point = "{{cookiecutter.module_name}}.parsers:{{cookiecutter.lab_name}}_experiment_parser_entry_point"
+{{cookiecutter.lab_name}}_parser_entry_point = "{{cookiecutter.module_name}}.parsers:{{cookiecutter.lab_name}}_parser_entry_point"
 {%- endif %}
 {% if cookiecutter.include_schema_package  -%}
 schema_package_entry_point = "{{cookiecutter.module_name}}.schema_packages:schema_package_entry_point"
+{{cookiecutter.lab_name}}_schema_package_entry_point = "{{cookiecutter.module_name}}.schema_packages:{{cookiecutter.lab_name}}_schema_package_entry_point"
 {%- endif %}
 {% if cookiecutter.include_normalizer  -%}
 normalizer_entry_point = "{{cookiecutter.module_name}}.normalizers:normalizer_entry_point"
