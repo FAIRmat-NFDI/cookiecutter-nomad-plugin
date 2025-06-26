@@ -4,6 +4,7 @@
     "github_username": "foo",
     "plugin_name": "foobar",
     "module_name": "{{ cookiecutter.plugin_name|lower|replace('-', '_') }}",
+    "lab_name": "labname",
     "short_description": "Nomad example template",
     "version": "0.1.0",
     "license": [
