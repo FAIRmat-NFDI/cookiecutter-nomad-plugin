@@ -39,7 +39,6 @@ from nomad.datamodel.metainfo.basesections import Entity
 from nomad.metainfo import Quantity
 from nomad.parsing import MatchingParser
 
-from {{cookiecutter.module_name}}.parsers.file_parser.ink_recycling_mappers import map_ink_recycling
 from {{cookiecutter.module_name}}.schema_packages.{{cookiecutter.lab_name}}_package import (
     {{cookiecutter.lab_name}}_Batch,
     {{cookiecutter.lab_name}}_Cleaning,
@@ -52,12 +51,10 @@ from {{cookiecutter.module_name}}.schema_packages.{{cookiecutter.lab_name}}_pack
     {{cookiecutter.lab_name}}_SpinCoating,
     {{cookiecutter.lab_name}}_Sputtering,
     {{cookiecutter.lab_name}}_Substrate,
-    IRIS_AtomicLayerDeposition,
+    {{cookiecutter.lab_name}}_AtomicLayerDeposition,
     ProcessParameter,
 )
-from {{cookiecutter.module_name}}.schema_packages.ink_recycling_package import (
-    InkRecycling_RecyclingExperiment,  # Added back this import
-)
+
 
 """
 This is a hello world style example for an example parser/converter.
@@ -92,7 +89,8 @@ class {{cookiecutter.lab_name}}ExperimentParser(MatchingParser):
         decoded_buffer: str,
         compression: str = None,
     ):
-        is_mainfile_super = super().is_mainfile(filename, mime, buffer, decoded_buffer, compression)
+        is_mainfile_super = super().is_mainfile(
+            filename, mime, buffer, decoded_buffer, compression)
         if not is_mainfile_super:
             return False
         try:
@@ -120,7 +118,8 @@ class {{cookiecutter.lab_name}}ExperimentParser(MatchingParser):
             'Substrate material',
             'Substrate conductive layer',
         ]
-        substrates_col = [s for s in substrates_col if s in df['Experiment Info'].columns]
+        substrates_col = [
+            s for s in substrates_col if s in df['Experiment Info'].columns]
         for i, sub in df['Experiment Info'][substrates_col].drop_duplicates().iterrows():
             if pd.isna(sub).all():
                 continue
@@ -134,7 +133,8 @@ class {{cookiecutter.lab_name}}ExperimentParser(MatchingParser):
         for i, row in df['Experiment Info'].iterrows():
             if pd.isna(row).all():
                 continue
-            substrate_name = find_substrate(row[substrates_col]) + '.archive.json' if substrates_col else None
+            substrate_name = find_substrate(
+                row[substrates_col]) + '.archive.json' if substrates_col else None
             archives.append(map_basic_sample(row, substrate_name, upload_id, {{cookiecutter.lab_name}}_Sample))
 
         for i, col in enumerate(df.columns.get_level_values(0).unique()):
@@ -155,11 +155,6 @@ class {{cookiecutter.lab_name}}ExperimentParser(MatchingParser):
 
                 if 'Laser Scribing' in col:
                     archives.append(map_laser_scribing(i, j, lab_ids, row, upload_id, {{cookiecutter.lab_name}}_LaserScribing))
-
-                if 'Ink Recycling' in col:
-                    archives.append(
-                        map_ink_recycling(i, j, lab_ids, row, upload_id, InkRecycling_RecyclingExperiment)
-                    )
 
                 if 'Generic Process' in col:  # move up
                     generic_process = map_generic(i, j, lab_ids, row, upload_id, {{cookiecutter.lab_name}}_Process)
@@ -193,7 +188,8 @@ class {{cookiecutter.lab_name}}ExperimentParser(MatchingParser):
 
                 if 'ALD' in col:
                     archives.append(
-                        map_atomic_layer_deposition(i, j, lab_ids, row, upload_id, IRIS_AtomicLayerDeposition)
+                        map_atomic_layer_deposition(
+                            i, j, lab_ids, row, upload_id, {{cookiecutter.lab_name}}_AtomicLayerDeposition)
                     )
 
         refs = []

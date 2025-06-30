@@ -712,7 +712,6 @@ class {{cookiecutter.lab_name}}_Process(BaseProcess, EntryData):
             hide=[
                 'lab_id',
                 'users',
-                'location',
                 'end_time',
                 'steps',
                 'instruments',
@@ -739,7 +738,6 @@ class {{cookiecutter.lab_name}}_WetChemicalDeposition(WetChemicalDeposition, Ent
             hide=[
                 'lab_id',
                 'users',
-                'location',
                 'end_time',
                 'steps',
                 'instruments',
@@ -776,7 +774,6 @@ class {{cookiecutter.lab_name}}_Deposition(LayerDeposition, EntryData):
             hide=[
                 'lab_id',
                 'users',
-                'location',
                 'end_time',
                 'steps',
                 'instruments',
@@ -810,7 +807,6 @@ class {{cookiecutter.lab_name}}_Measurement(BaseMeasurement, EntryData):
             hide=[
                 'lab_id',
                 'users',
-                'location',
                 'end_time',
                 'steps',
                 'instruments',
