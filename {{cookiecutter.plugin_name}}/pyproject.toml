@@ -36,7 +36,7 @@ maintainers = [
 license = { file = "LICENSE" }
 dependencies = [
     "nomad-baseclasses @ git+https://github.com/nomad-hzb/nomad-baseclasses.git",
-    "nomad-lab>=1.3.0",
+    "nomad-lab>=1.3.16",
     "numpy",
     "pandas",
     "pynxtools",
@@ -138,6 +138,7 @@ normalizer_entry_point = "{{cookiecutter.module_name}}.normalizers:normalizer_en
 {%- endif %}
 {% if cookiecutter.include_app  -%}
 app_entry_point = "{{cookiecutter.module_name}}.apps:app_entry_point"
+{{cookiecutter.lab_name}}_voila_app = "{{cookiecutter.module_name}}.apps:{{cookiecutter.lab_name}}_voila_app"
 {%- endif %}
 {% if cookiecutter.include_example_uploads  -%}
 example_upload_entry_point = "{{cookiecutter.module_name}}.example_uploads:example_upload_entry_point"
