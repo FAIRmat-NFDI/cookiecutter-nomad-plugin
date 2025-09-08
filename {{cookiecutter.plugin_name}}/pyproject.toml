@@ -147,6 +147,9 @@ app_entry_point = "{{cookiecutter.module_name}}.apps:app_entry_point"
 {% if cookiecutter.include_example_uploads  -%}
 example_upload_entry_point = "{{cookiecutter.module_name}}.example_uploads:example_upload_entry_point"
 {%- endif %}
+{% if cookiecutter.include_action -%}
+action_entry_point = "{{cookiecutter.module_name}}.actions:simple_action"
+{%- endif %}
 [tool.cruft]
 # Avoid updating workflow files, this leads to permissions issues
 skip = [".github/*"]

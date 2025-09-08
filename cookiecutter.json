@@ -17,11 +17,13 @@
     "include_parser": true,
     "include_app": true,
     "include_example_uploads": true,
+    "include_action": false,
     "_copy_without_render": [
         "*.html"
     ],
     "__prompts__": {
         "module_name": "module_name (recommended: press enter to use the default module name)",
-        "github_username": "Github organization or profile name, default: foo"
+        "github_username": "Github organization or profile name, default: foo",
+        "include_action": "Include NOMAD Actions (in beta)"
     }
 }
