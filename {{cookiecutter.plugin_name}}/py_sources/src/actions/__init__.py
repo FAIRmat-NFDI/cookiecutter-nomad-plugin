@@ -1,7 +1,9 @@
-from nomad.config.models.plugins import ActionEntryPoint
 from nomad.actions import TaskQueue
 from pydantic import Field
+from temporalio import workflow
 
+with workflow.unsafe.imports_passed_through():
+    from nomad.config.models.plugins import ActionEntryPoint
 
 class SimpleActionEntryPoint(ActionEntryPoint):
     task_queue: str = Field(
