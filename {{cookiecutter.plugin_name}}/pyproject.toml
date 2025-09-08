@@ -54,6 +54,9 @@ dev = [
     "mkdocs-material==8.1.1",
     "pymdown-extensions",
     "mkdocs-click",
+    {% if cookiecutter.include_action -%}
+    "pytest-asyncio",
+    {%- endif %}
 ]
 
 [tool.uv]
