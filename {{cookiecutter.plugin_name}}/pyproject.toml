@@ -46,7 +46,14 @@ dependencies = [
 Repository = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}"
 
 [project.optional-dependencies]
-dev = ["ruff", "pytest", "structlog"]
+dev = [
+    "ruff",
+    "pytest",
+    "structlog",
+    {% if cookiecutter.include_action -%}
+    "pytest-asyncio",
+    {%- endif %}
+]
 
 [tool.uv]
 extra-index-url = [
