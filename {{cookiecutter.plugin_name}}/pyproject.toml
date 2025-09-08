@@ -37,7 +37,9 @@ license = { file = "LICENSE" }
 dependencies = [
     "nomad-lab>=1.3.18.dev127",
     "python-magic-bin; sys_platform == 'win32'",
+    {% if cookiecutter.include_action -%}
     "temporalio",
+    {%- endif %}
 ]
 
 [project.urls]
