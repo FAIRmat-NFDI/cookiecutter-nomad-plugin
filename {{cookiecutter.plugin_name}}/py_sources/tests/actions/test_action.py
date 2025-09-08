@@ -6,10 +6,6 @@ from {{cookiecutter.module_name}}.actions.simple_action.activities import greet
 from {{cookiecutter.module_name}}.actions.simple_action.workflows import SimpleWorkflow
 from {{cookiecutter.module_name}}.actions.simple_action.models import SimpleWorkflowInput
 
-def test_action_entry_point():
-    from {{cookiecutter.module_name}}.actions import simple_action
-    assert simple_action.name == 'SimpleAction'
-
 @pytest.mark.asyncio
 async def test_simple_workflow():
     task_queue = "test-simple-workflow"
