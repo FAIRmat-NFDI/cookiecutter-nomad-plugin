@@ -35,7 +35,7 @@ maintainers = [
 ]
 license = { file = "LICENSE" }
 dependencies = [
-    "nomad-lab>=1.3.0",
+    "nomad-lab>=1.3.18.dev127",
     "python-magic-bin; sys_platform == 'win32'",
 ]
 
@@ -53,6 +53,11 @@ dev = [
     "mkdocs-click",
 ]
 
+[tool.uv]
+extra-index-url = [
+  "https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple",
+]
+    
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
 exclude = [
