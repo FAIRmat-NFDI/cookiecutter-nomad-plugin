@@ -43,7 +43,15 @@ dependencies = [
 Repository = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}"
 
 [project.optional-dependencies]
-dev = ["ruff", "pytest", "structlog"]
+dev = [
+    "ruff", 
+    "pytest", 
+    "structlog",
+    "mkdocs",
+    "mkdocs-material==8.1.1",
+    "pymdown-extensions",
+    "mkdocs-click",    
+]
 
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
