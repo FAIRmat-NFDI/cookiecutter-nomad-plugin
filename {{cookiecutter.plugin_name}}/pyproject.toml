@@ -44,13 +44,13 @@ Repository = "https://github.com/{{cookiecutter.github_username}}/{{cookiecutter
 
 [project.optional-dependencies]
 dev = [
-    "ruff", 
-    "pytest", 
+    "ruff",
+    "pytest",
     "structlog",
     "mkdocs",
     "mkdocs-material==8.1.1",
     "pymdown-extensions",
-    "mkdocs-click",    
+    "mkdocs-click",
 ]
 
 [tool.ruff]
