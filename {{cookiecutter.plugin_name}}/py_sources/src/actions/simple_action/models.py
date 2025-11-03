@@ -6,10 +6,10 @@ class SimpleWorkflowInput(BaseModel):
 
     upload_id: str = Field(
         ...,
-        description="Unique identifier for the upload associated with the workflow.",
+        description='Unique identifier for the upload associated with the workflow.',
     )
     user_id: str = Field(
-        ..., description="Unique identifier for the user who initiated the workflow."
+        ..., description='Unique identifier for the user who initiated the workflow.'
     )
 
-    name: str = Field(..., description="The name to greet.")
+    name: str = Field(..., description='The name to greet.')

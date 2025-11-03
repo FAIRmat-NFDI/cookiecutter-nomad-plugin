@@ -1,5 +1,7 @@
 from temporalio import activity
+
 from {{cookiecutter.module_name}}.actions.simple_action.models import SimpleWorkflowInput
+
 
 @activity.defn
 async def greet(data: SimpleWorkflowInput) -> str:

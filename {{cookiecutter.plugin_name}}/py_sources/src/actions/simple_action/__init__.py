@@ -5,6 +5,7 @@ from temporalio import workflow
 with workflow.unsafe.imports_passed_through():
     from nomad.config.models.plugins import ActionEntryPoint
 
+
 class SimpleActionEntryPoint(ActionEntryPoint):
     task_queue: str = Field(
         default=TaskQueue.CPU, description='Determines the task queue for this action'
@@ -12,8 +13,9 @@ class SimpleActionEntryPoint(ActionEntryPoint):
 
     def load(self):
         from nomad.actions import Action
-        from {{cookiecutter.module_name}}.actions.simple_action.workflows import SimpleWorkflow
+
         from {{cookiecutter.module_name}}.actions.simple_action.activities import greet
+        from {{cookiecutter.module_name}}.actions.simple_action.workflows import SimpleWorkflow
 
         return Action(
             task_queue=self.task_queue,
