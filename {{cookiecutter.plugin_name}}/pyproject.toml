@@ -35,8 +35,11 @@ maintainers = [
 ]
 license = { file = "LICENSE" }
 dependencies = [
-    "nomad-lab>=1.3.0",
-    "python-magic-bin; sys_platform == 'win32'",
+    "nomad-lab>=1.4.0",
+    {% if cookiecutter.include_action -%}
+    "pydantic",
+    "temporalio",
+    {%- endif %}
 ]
 
 [project.urls]
@@ -51,8 +54,14 @@ dev = [
     "mkdocs-material==8.1.1",
     "pymdown-extensions",
     "mkdocs-click",
+    "pytest-asyncio",
 ]
 
+[tool.uv]
+extra-index-url = [
+  "https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple",
+]
+    
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.
 exclude = [
@@ -101,6 +110,7 @@ select = [
 ignore = [
     "F403", # 'from module import *' used; unable to detect undefined names
     "PLC0415", # `import` should be at the top-level of a file
+    "E501", # line too long
 ]
 
 fixable = ["ALL"]
@@ -146,6 +156,9 @@ app_entry_point = "{{cookiecutter.module_name}}.apps:app_entry_point"
 {%- endif %}
 {% if cookiecutter.include_example_uploads  -%}
 example_upload_entry_point = "{{cookiecutter.module_name}}.example_uploads:example_upload_entry_point"
+{%- endif %}
+{% if cookiecutter.include_action -%}
+action_entry_point = "{{cookiecutter.module_name}}.actions:simple_action_entry_point"
 {%- endif %}
 [tool.cruft]
 # Avoid updating workflow files, this leads to permissions issues
