@@ -54,9 +54,7 @@ dev = [
     "mkdocs-material==8.1.1",
     "pymdown-extensions",
     "mkdocs-click",
-    {% if cookiecutter.include_action -%}
     "pytest-asyncio",
-    {%- endif %}
 ]
 
 [tool.uv]
@@ -112,6 +110,7 @@ select = [
 ignore = [
     "F403", # 'from module import *' used; unable to detect undefined names
     "PLC0415", # `import` should be at the top-level of a file
+    "E501", # line too long
 ]
 
 fixable = ["ALL"]
