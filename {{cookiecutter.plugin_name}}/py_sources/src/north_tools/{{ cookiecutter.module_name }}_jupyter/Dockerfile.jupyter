@@ -1,0 +1,84 @@
+ARG JUPYTER_TAG=2025-10-20
+ARG BASE_JUPYTER=quay.io/jupyter/scipy-notebook
+ARG UV_VERSION=0.9
+ARG PLUGIN_NAME="{{ cookiecutter.plugin_name }}"
+ARG NORTH_TOOL_DIR="src/{{ cookiecutter.module_name }}/north_tools/{{ cookiecutter.module_name }}_jupyter"
+# Relative path to docker build context
+ARG EXAMPLES_DIR="src/{{ cookiecutter.module_name }}/north_tools/{{ cookiecutter.module_name }}_jupyter/examples"
+
+FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv_stage
+
+FROM ${BASE_JUPYTER}:${JUPYTER_TAG} AS scipy_notebook
+# https://github.com/hadolint/hadolint/wiki/DL4006
+# https://github.com/koalaman/shellcheck/wiki/SC3014
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+COPY --from=uv_stage /uv /uvx /bin/
+
+USER root
+
+# Define environment variables
+# With pre-exinsting NB_USER="jovyan" and NB_UID=100, NB_GID=1000
+ENV HOME=/home/${NB_USER}
+ENV CONDA_DIR=/opt/conda
+
+ARG PLUGIN_NAME
+ARG EXAMPLES_DIR
+ARG NORTH_TOOL_DIR
+
+RUN apt-get update \
+ && apt-get install --yes --quiet --no-install-recommends \
+      libgomp1 \
+      libmagic1 \
+      file \
+      gcc \
+      build-essential \
+      curl \
+      zip \
+      unzip \
+      git
+
+# By default scipy-notebook:2025-10-20 has node 18
+# But, node > 20 needed for jupyterlab >= 4.4.10
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
+
+RUN apt-get install nodejs -y \
+       && npm install -g configurable-http-proxy@^4.2.0 \
+       # clean cache and logs
+       && rm -rf /var/lib/apt/lists/* /var/log/* /var/tmp/* ~/.npm
+
+USER ${NB_USER}
+
+# uv env
+ENV UV_PROJECT_ENVIRONMENT=${CONDA_DIR} \
+    UV_LINK_MODE=copy \
+    UV_NO_CACHE=1 \
+    # Use python from conda which is default for scipy-notebook
+    # so that uv pip and pip refer to the same python
+    # If needed one can create another venv with 'uv venv'
+    UV_SYSTEM_PYTHON=1
+
+COPY --chown=${NB_USER}:${NB_GID} . ${HOME}/${PLUGIN_NAME}
+
+WORKDIR ${HOME}/${PLUGIN_NAME}
+
+# RUN export SETUPTOOLS_SCM_PRETEND_VERSION=${SETUPTOOLS_SCM_PRETEND_VERSION}
+# https://docs.astral.sh/uv/guides/integration/docker/#intermediate-layers
+# Install dependencies
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv pip install . --requirements ${NORTH_TOOL_DIR}/requirements-jupyter.txt
+
+WORKDIR ${HOME}
+RUN rm -rf ${HOME}/${PLUGIN_NAME}
+
+RUN jupyter lab build --dev-build=False --minimize=False && \
+    fix-permissions "/home/${NB_USER}" \ 
+    && fix-permissions "${CONDA_DIR}"
+
+# WORKDIR ${HOME}
+
+# # copy north examples
+# COPY --chown=${NB_UID}:${NB_GID}  ${EXAMPLES_DIR} ${HOME}/examples
+
+# RUN touch ${HOME}/.hushlogin
+

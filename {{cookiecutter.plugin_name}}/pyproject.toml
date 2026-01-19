@@ -160,6 +160,9 @@ example_upload_entry_point = "{{cookiecutter.module_name}}.example_uploads:examp
 {% if cookiecutter.include_action -%}
 action_entry_point = "{{cookiecutter.module_name}}.actions:simple_action_entry_point"
 {%- endif %}
+{% if cookiecutter.include_north_tools  -%}
+north_tool_entry_point = "{{cookiecutter.module_name}}.north_tools.{{ cookiecutter.module_name }}_jupyter:north_tool_jupyter"
+{%- endif %}
 [tool.cruft]
 # Avoid updating workflow files, this leads to permissions issues
 skip = [".github/*"]

@@ -31,6 +31,25 @@ def move_py_files(variant, save_path, save_type):
 
         os.rename(src_path, dst_path)
 
+def remove_redundant_init_files(root, variant, file_type):
+    if variant == "none" or file_type == "none":
+        return
+    source_pattern = f"{root}"
+    if file_type:
+        source_pattern += f"/{file_type}"
+    source_pattern += f"/{variant}"
+    if os.path.isdir(source_pattern):
+        source_pattern += "/*"
+    logger.info("Source pattern for removing : %s", source_pattern)
+    logger.info(
+        "Removing redundant __init__.py files (%s) for - %s - %s", glob.glob(source_pattern), variant, file_type
+    )
+
+    files = glob.glob(source_pattern)
+    logger.info("Found files: %s", files)
+    for f in files:
+        logger.info("Removing %s.", f)
+        os.remove(f) 
 
 def remove_temp_folders(temp_folders):
     for folder in temp_folders:
@@ -49,6 +68,7 @@ if __name__ == "__main__":
             ("apps", "{{cookiecutter.include_app}}"),
             ("example_uploads", "{{cookiecutter.include_example_uploads}}"),
             ("actions", "{{cookiecutter.include_action}}"),
+            ("north_tools", "{{cookiecutter.include_north_tools}}"),
         ]
         if condition != "False"
     ]
@@ -71,4 +91,18 @@ if __name__ == "__main__":
             move_py_files(
                 variant=variant, save_path=test_data_path, save_type="tests_data"
             )
+        # # Include .dockerignore for north_tools
+        # if variant == "north_tools":
+        #     move_py_files(variant=".dockerignore", save_path=root, save_type="docker")
+    if "actions" not in variants:
+        remove_redundant_init_files(
+            root=root, variant="actions.yml", file_type=".github/workflows"
+        )
+    if "north_tools" not in variants:
+        remove_redundant_init_files(
+            root=root, variant="publish_north.yml", file_type=".github/workflows"
+        )
+        remove_redundant_init_files(
+            root=root, variant=".dockerignore", file_type=""
+        )
     remove_temp_folders(ALL_TEMP_FOLDERS)

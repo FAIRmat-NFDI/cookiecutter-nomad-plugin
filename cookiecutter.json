@@ -12,12 +12,14 @@
         "GNU GPL v3.0+",
         "Apache Software License 2.0"
     ],
+    "north_tool_name": "north-tool-name",
     "include_schema_package": true,
     "include_normalizer": true,
     "include_parser": true,
     "include_app": true,
     "include_example_uploads": true,
     "include_action": true,
+    "include_north_tools": true,
     "_copy_without_render": [
         "*.html"
     ],
