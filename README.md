@@ -78,34 +78,6 @@ nomad-awesome-tools/
 - Choose from several licenses, such as [MIT], [BSD-3], [Apache v2.0], [GNU GPL
   v3.0+], or [MPL v2.0]
 
-## Development
-
-### Testing Utilities
-
-The `tests/` directory contains utility scripts for debugging template generation issues:
-
-- **test_final_check.py** - Comprehensive validation of generated plugins
-  - Generates a plugin with all features enabled
-  - Verifies file structure and presence
-  - Runs ruff format checks and shows diffs
-  - Useful for validating template changes
-
-- **check_format_diff.py** - Quick formatting validation
-  - Generates a plugin and checks ruff formatting
-  - Shows exact formatting differences
-  - Lightweight alternative to full validation
-
-- **test_tox_debug.py** - Tox environment debugging
-  - Runs tox with detailed output capture
-  - Helps diagnose dependency or test failures
-  - Can be adapted for specific tox environments
-
-- **test_pyproject_generation.py** - TOML validation
-  - Tests if generated pyproject.toml parses correctly
-  - Useful when modifying pyproject.toml template
-
-Run these scripts with `uv run python tests/<script_name>.py` to debug template issues.
-
 ## Issues
 
 If you encounter any problems, please [file an issue](https://github.com/FAIRmat-NFDI/cookiecutter-nomad-plugin/issues/new) along with a
