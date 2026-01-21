@@ -42,7 +42,7 @@ def remove_redundant_init_files(root, variant, file_type):
     if os.path.isdir(source_pattern):
         source_pattern += "/*"
 
-    logger.info("Removing redundant files with for %s in %s.", variant, file_type)
+    logger.info("Removing redundant files for %s in %s.", variant, file_type)
 
     files = glob.glob(source_pattern)
     logger.info("Found Redundant files: %s", files)
