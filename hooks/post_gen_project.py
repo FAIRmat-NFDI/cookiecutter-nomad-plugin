@@ -92,10 +92,6 @@ if __name__ == "__main__":
                 variant=variant, save_path=test_data_path, save_type="tests_data"
             )
     # Remove redundant init files
-    if "actions" not in variants:
-        remove_redundant_init_files(
-            root=root, variant="actions.yml", file_type=".github/workflows"
-        )
     if "north_tools" not in variants:
         remove_redundant_init_files(
             root=root, variant="publish_north.yml", file_type=".github/workflows"
