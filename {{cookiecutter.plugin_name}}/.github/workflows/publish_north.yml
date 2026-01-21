@@ -16,7 +16,7 @@ env:
   JUPYTER_VERSION: 2025-04-14
   IMAGE_PREFIX: /jupyter
   SERVICES: jupyter
-  NORTH_TOOL_DIR: src/{% raw %}{{ cookiecutter.module_name }}/north_tools/{{ cookiecutter.module_name }}{% endraw %}_jupyter
+  NORTH_TOOL_DIR: src/{% raw %}{{cookiecutter.module_name}}/north_tools/{{cookiecutter.module_name}}{% endraw %}_jupyter
   # With respect to NORTH_TOOL_DIR
   EXAMPLES_DIR: examples
   # Absolute path to test data directory

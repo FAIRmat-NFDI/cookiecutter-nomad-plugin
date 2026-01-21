@@ -3,7 +3,7 @@
     "email": "john.doe@physik.hu-berlin.de",
     "github_username": "foo",
     "plugin_name": "foobar",
-    "module_name": "{{ cookiecutter.plugin_name|lower|replace('-', '_') }}",
+    "module_name": "{{cookiecutter.plugin_name|lower|replace('-', '_')}}",
     "short_description": "Nomad example template",
     "version": "0.1.0",
     "license": [

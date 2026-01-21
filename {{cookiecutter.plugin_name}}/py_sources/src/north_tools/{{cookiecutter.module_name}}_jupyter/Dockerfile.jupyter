@@ -1,10 +1,10 @@
 ARG JUPYTER_TAG=2025-10-20
 ARG BASE_JUPYTER=quay.io/jupyter/scipy-notebook
 ARG UV_VERSION=0.9
-ARG PLUGIN_NAME="{{ cookiecutter.plugin_name }}"
-ARG NORTH_TOOL_DIR="src/{{ cookiecutter.module_name }}/north_tools/{{ cookiecutter.module_name }}_jupyter"
+ARG PLUGIN_NAME="{{cookiecutter.plugin_name}}"
+ARG NORTH_TOOL_DIR="src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.module_name}}_jupyter"
 # Relative path to docker build context
-ARG EXAMPLES_DIR="src/{{ cookiecutter.module_name }}/north_tools/{{ cookiecutter.module_name }}_jupyter/examples"
+ARG EXAMPLES_DIR="src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.module_name}}_jupyter/examples"
 
 FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv_stage
 
