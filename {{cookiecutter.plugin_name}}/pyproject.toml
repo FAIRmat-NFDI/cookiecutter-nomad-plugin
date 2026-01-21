@@ -35,7 +35,7 @@ maintainers = [
 ]
 license = { file = "LICENSE" }
 dependencies = [
-    "nomad-lab @ git+https://gitlab.mpcdf.mpg.de/nomad-lab/nomad-FAIR.git@develop#egg=nomad-lab"
+    "nomad-lab @ git+https://gitlab.mpcdf.mpg.de/nomad-lab/nomad-FAIR.git@develop"
     {%- if cookiecutter.include_action %},
     "pydantic",
     "temporalio"

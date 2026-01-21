@@ -145,6 +145,9 @@ def test_run_cookiecutter_and_plugin_tests(
             "__init__.py",
         ).is_file()
         assert not result.project_path.joinpath(".dockerignore").is_file()
+        assert not result.project_path.joinpath(
+            ".github", "workflows", "publish_north.yaml"
+        ).is_file()
 
     if include_app and include_parser and include_normalizer and include_schema_package and include_north_tools:
         run_tox(str(result.project_path))
