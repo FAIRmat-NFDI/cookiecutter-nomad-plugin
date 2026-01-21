@@ -21,4 +21,6 @@ tool = NORTHTool(
     display_name="nomad-north-{{ cookiecutter.north_tool_name }}",
 )
 
-north_tool_jupyter = NorthToolEntryPoint(id_url_safe="nomad-north-{{ cookiecutter.north_tool_name }}", north_tool=tool)
+north_tool_jupyter = NorthToolEntryPoint(       
+    id_url_safe="nomad-north-{{ cookiecutter.plugin_name }}", north_tool=tool
+)
