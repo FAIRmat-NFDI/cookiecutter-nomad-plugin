@@ -72,7 +72,7 @@ WORKDIR ${HOME}
 RUN rm -rf ${HOME}/${PLUGIN_NAME}
 
 RUN jupyter lab build --dev-build=False --minimize=False && \
-    fix-permissions "/home/${NB_USER}" \ 
+    fix-permissions "/home/${NB_USER}" \
     && fix-permissions "${CONDA_DIR}"
 
 # WORKDIR ${HOME}
