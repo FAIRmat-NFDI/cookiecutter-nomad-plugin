@@ -24,7 +24,7 @@ cd "$PROJECT_ROOT"
 
 # Compile requirements
 echo "Compiling requirements-jupyter.txt from $REQUIREMENTS_IN, pyproject.toml, and extra 'nomad'"
-# M
+# Use uv to compile requirements from pyproject.toml and requirements.in into requirements-jupyter.txt
 uv pip compile pyproject.toml "$REQUIREMENTS_IN" -o "$REQUIREMENTS_OUT"
 
 if [ $? -eq 0 ]; then
