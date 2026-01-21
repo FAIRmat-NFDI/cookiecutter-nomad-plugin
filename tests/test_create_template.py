@@ -143,7 +143,7 @@ def test_run_cookiecutter_and_plugin_tests(
             "north_tools",
             f"{module_name}_jupyter",
             "__init__.py",
-        ).is_dir()
+        ).is_file()
         assert not result.project_path.joinpath(".dockerignore").is_file()
 
     if include_app and include_parser and include_normalizer and include_schema_package and include_north_tools:
