@@ -18,7 +18,7 @@ COPY --from=uv_stage /uv /uvx /bin/
 USER root
 
 # Define environment variables
-# With pre-exinsting NB_USER="jovyan" and NB_UID=100, NB_GID=1000
+# With pre-existing NB_USER="jovyan" and NB_UID=100, NB_GID=1000
 ENV HOME=/home/${NB_USER}
 ENV CONDA_DIR=/opt/conda
 
