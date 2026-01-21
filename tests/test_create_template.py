@@ -54,7 +54,8 @@ def test_run_cookiecutter_and_plugin_tests(
     include_app,
     include_parser,
     include_schema_package,
-    include_north_tools,):
+    include_north_tools,
+):
     """Create a new plugin via cookiecutter and run its tests."""
     result = cookies.bake(
         extra_context={
@@ -122,20 +123,26 @@ def test_run_cookiecutter_and_plugin_tests(
             "src", f"{module_name}", "north_tools", f"{module_name}_jupyter"
         ).is_dir()
         assert result.project_path.joinpath(
-            "src", f"{module_name}", "north_tools", f"{module_name}_jupyter", "__init__.py"
+            "src",
+            f"{module_name}",
+            "north_tools",
+            f"{module_name}_jupyter",
+            "__init__.py",
         ).is_file()
         assert result.project_path.joinpath(".dockerignore").is_file()
     else:
         assert not result.project_path.joinpath(
             "src",
             f"{module_name}",
-            "north_tools", f"{module_name}_jupyter",
+            "north_tools",
+            f"{module_name}_jupyter",
         ).is_dir()
         assert not result.project_path.joinpath(
             "src",
             f"{module_name}",
             "north_tools",
-            f"{module_name}_jupyter", "__init__.py",
+            f"{module_name}_jupyter",
+            "__init__.py",
         ).is_dir()
         assert not result.project_path.joinpath(".dockerignore").is_file()
 
