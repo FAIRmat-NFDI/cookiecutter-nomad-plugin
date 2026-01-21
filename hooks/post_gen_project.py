@@ -62,13 +62,13 @@ if __name__ == "__main__":
     variants = [
         variant
         for variant, condition in [
+            ("north_tools", "{{cookiecutter.include_north_tools}}"),
             ("schema_packages", "{{cookiecutter.include_schema_package}}"),
             ("normalizers", "{{cookiecutter.include_normalizer}}"),
             ("parsers", "{{cookiecutter.include_parser}}"),
             ("apps", "{{cookiecutter.include_app}}"),
             ("example_uploads", "{{cookiecutter.include_example_uploads}}"),
             ("actions", "{{cookiecutter.include_action}}"),
-            ("north_tools", "{{cookiecutter.include_north_tools}}"),
         ]
         if condition != "False"
     ]
