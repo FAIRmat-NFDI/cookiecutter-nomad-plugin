@@ -5,6 +5,6 @@ def test_importing_north_tool():
     )
 
     assert (
-        north_tool_jupyter.id_url_safe == "nomad-north-{{cookiecutter.plugin_name}}"
-        or north_tool_jupyter.id == "nomad-north-{{cookiecutter.plugin_name}}"
-    ), "North tool entry point has incorrect id or id_url_safe"
+        north_tool_jupyter.id_url_safe == 'nomad-north-{{cookiecutter.plugin_name}}'
+        or north_tool_jupyter.id == 'nomad-north-{{cookiecutter.plugin_name}}'
+    ), 'North tool entry point has incorrect id or id_url_safe'
