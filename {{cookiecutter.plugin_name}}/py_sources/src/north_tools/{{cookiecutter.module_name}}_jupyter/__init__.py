@@ -16,9 +16,9 @@ tool = NORTHTool(
     path_prefix='lab/tree',
     privileged=False,
     with_path=True,
-    display_name='nomad-north-{{cookiecutter.north_tool_name}}',
+    display_name='nomad-north-{{cookiecutter.plugin_name}}',
 )
 
 north_tool_jupyter = NorthToolEntryPoint(
-    id_url_safe='nomad-north-{{cookiecutter.north_tool_name}}', north_tool=tool
+    id_url_safe='nomad-north-{{cookiecutter.plugin_name}}', north_tool=tool
 )
