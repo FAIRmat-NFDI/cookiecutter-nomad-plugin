@@ -17,9 +17,13 @@ def move_py_files(variant, save_path, save_type):
     if variant == "none" or save_path == "none":
         return
 
-    logger.info("Initializing python for %s - %s", variant, save_type)
+    logger.info("Initializing files for %s - %s", variant, save_type)
 
-    py_files = glob.glob(f"{PY_SOURCES}/{save_type}/{variant}/*")
+    path_pattern = f"{PY_SOURCES}/{save_type}/{variant}"
+    if os.path.isdir(path_pattern):
+        path_pattern += "/*"
+
+    py_files = glob.glob(path_pattern)
 
     for src_path in py_files:
         filename = os.path.basename(src_path)
@@ -30,25 +34,6 @@ def move_py_files(variant, save_path, save_type):
             os.unlink(dst_path)
 
         os.rename(src_path, dst_path)
-
-
-def remove_redundant_init_files(root, variant, file_type):
-    if variant == "none" or file_type == "none":
-        return
-    source_pattern = f"{root}"
-    if file_type:
-        source_pattern += f"/{file_type}"
-    source_pattern += f"/{variant}"
-    if os.path.isdir(source_pattern):
-        source_pattern += "/*"
-
-    logger.info("Removing redundant files for %s in %s.", variant, file_type)
-
-    files = glob.glob(source_pattern)
-    logger.info("Found Redundant files: %s", files)
-    for f in files:
-        logger.info("Removing redundant file %s.", f)
-        os.remove(f)
 
 
 def remove_temp_folders(temp_folders):
@@ -92,9 +77,10 @@ if __name__ == "__main__":
                 variant=variant, save_path=test_data_path, save_type="tests_data"
             )
     # Remove redundant init files
-    if "north_tools" not in variants:
-        remove_redundant_init_files(
-            root=root, variant="publish_north.yml", file_type=".github/workflows"
+    if "north_tools" in variants:
+        move_py_files(
+            variant="publish_north.yml", save_type="north_sources", save_path=os.path.join(root, ".github", "workflows")
         )
-        remove_redundant_init_files(root=root, variant=".dockerignore", file_type="")
+        move_py_files(variant=".dockerignore", save_type="north_sources", save_path=root)
+        
     remove_temp_folders(ALL_TEMP_FOLDERS)
