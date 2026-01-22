@@ -19,8 +19,8 @@ env:
   NORTH_TOOL_DIR: src/{% raw %}{{cookiecutter.module_name}}/north_tools/{{cookiecutter.module_name}}{% endraw %}_jupyter
   # With respect to NORTH_TOOL_DIR
   EXAMPLES_DIR: examples
-  # Absolute path to test data directory
-  TEST_DATA_DIR: examples
+  # 
+  TEST_DATA_DIR: tests_data/north_tools
   # Path w.r.t. TEST_DATA_DIR multi-line in single string
   TEST_NOTEBOOKS: CommandLine.ipynb
 
@@ -128,7 +128,7 @@ jobs:
           for nb in ${{ env.TEST_NOTEBOOKS }}; do
             echo "Running notebook: $nb"
             docker run \
-              --mount type=bind,src=./${{ env.NORTH_TOOL_DIR }}/${{ env.TEST_DATA_DIR }},dst="/home/jovyan/north_test" \
+              --mount type=bind,src=./${{ env.TEST_DATA_DIR }},dst="/home/jovyan/north_test" \
               --rm "$FIRST_TAG" \
               /bin/bash -c "jupyter execute \$HOME/north_test/$nb"
           done
