@@ -40,8 +40,10 @@ RUN apt-get update \
 
 # By default scipy-notebook:2025-10-20 has node 18
 # But, node > 20 needed for jupyterlab >= 4.4.10
+# Add NodeSource APT repo for Debian-base distributions repository
 RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
 
+# Install Node.js from the Debian-based distributions repository
 RUN apt-get install nodejs -y \
        && npm install -g configurable-http-proxy@^4.2.0 \
        # clean cache and logs
@@ -62,7 +64,6 @@ COPY --chown=${NB_USER}:${NB_GID} . ${HOME}/${PLUGIN_NAME}
 
 WORKDIR ${HOME}/${PLUGIN_NAME}
 
-# RUN export SETUPTOOLS_SCM_PRETEND_VERSION=${SETUPTOOLS_SCM_PRETEND_VERSION}
 # https://docs.astral.sh/uv/guides/integration/docker/#intermediate-layers
 # Install dependencies
 RUN --mount=type=cache,target=/root/.cache/uv \
@@ -75,10 +76,12 @@ RUN jupyter lab build --dev-build=False --minimize=False && \
     fix-permissions "/home/${NB_USER}" \
     && fix-permissions "${CONDA_DIR}"
 
-# WORKDIR ${HOME}
+WORKDIR ${HOME}
 
-# # copy north examples
-# COPY --chown=${NB_UID}:${NB_GID}  ${EXAMPLES_DIR} ${HOME}/examples
+# copy north examples
+COPY --chown=${NB_UID}:${NB_GID}  ${EXAMPLES_DIR} ${HOME}/examples
 
-# RUN touch ${HOME}/.hushlogin
+EXPOSE 8888
+
+RUN touch ${HOME}/.hushlogin
 

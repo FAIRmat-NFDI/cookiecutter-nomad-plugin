@@ -14,7 +14,7 @@ env:
   UV_VERSION: 0.9
   PYTHON_VERSION: 3.12
   JUPYTER_VERSION: 2025-04-14
-  IMAGE_PREFIX: /jupyter
+  IMAGE_SUEFIX: /jupyter
   SERVICES: jupyter
   NORTH_TOOL_DIR: src/{% raw %}{{cookiecutter.module_name}}/north_tools/{{cookiecutter.module_name}}{% endraw %}_jupyter
   # With respect to NORTH_TOOL_DIR
@@ -66,7 +66,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: {% raw %}${{ env.REGISTRY }}/${{ github.repository }}${{ env.IMAGE_PREFIX }}{% endraw %}
+          images: {% raw %}${{ env.REGISTRY }}/${{ github.repository }}${{ env.IMAGE_SUEFIX }}{% endraw %}
           # set latest tag for main branch and tags
           # https://github.com/docker/metadata-action?tab=readme-ov-file#image-name-and-tag-sanitization
           tags: |
