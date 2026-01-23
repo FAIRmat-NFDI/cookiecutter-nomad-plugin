@@ -2,9 +2,6 @@ ARG JUPYTER_TAG=2025-10-20
 ARG BASE_JUPYTER=quay.io/jupyter/scipy-notebook
 ARG UV_VERSION=0.9
 ARG PLUGIN_NAME="{{cookiecutter.plugin_name}}"
-ARG NORTH_TOOL_DIR="src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.module_name}}_jupyter"
-# Relative path to docker build context
-ARG EXAMPLES_DIR="src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.module_name}}_jupyter/examples"
 
 FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv_stage
 
@@ -23,8 +20,6 @@ ENV HOME=/home/${NB_USER}
 ENV CONDA_DIR=/opt/conda
 
 ARG PLUGIN_NAME
-ARG EXAMPLES_DIR
-ARG NORTH_TOOL_DIR
 
 RUN apt-get update \
  && apt-get install --yes --quiet --no-install-recommends \
@@ -67,7 +62,8 @@ WORKDIR ${HOME}/${PLUGIN_NAME}
 # https://docs.astral.sh/uv/guides/integration/docker/#intermediate-layers
 # Install dependencies
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv pip install . --requirements ${NORTH_TOOL_DIR}/requirements-jupyter.txt
+    uv pip install ".[north_jupyter]" --constraints requirements.txt
+
 
 WORKDIR ${HOME}
 RUN rm -rf ${HOME}/${PLUGIN_NAME}
@@ -77,9 +73,6 @@ RUN jupyter lab build --dev-build=False --minimize=False && \
     && fix-permissions "${CONDA_DIR}"
 
 WORKDIR ${HOME}
-
-# copy north examples
-COPY --chown=${NB_UID}:${NB_GID}  ${EXAMPLES_DIR} ${HOME}/examples
 
 EXPOSE 8888
 

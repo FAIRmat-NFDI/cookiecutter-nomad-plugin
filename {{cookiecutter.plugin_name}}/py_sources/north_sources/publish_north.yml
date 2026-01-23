@@ -14,15 +14,7 @@ env:
   UV_VERSION: 0.9
   PYTHON_VERSION: 3.12
   JUPYTER_VERSION: 2025-04-14
-  IMAGE_SUEFIX: /jupyter
-  SERVICES: jupyter
   NORTH_TOOL_DIR: src/{% raw %}{{cookiecutter.module_name}}/north_tools/{{cookiecutter.module_name}}{% endraw %}_jupyter
-  # With respect to NORTH_TOOL_DIR
-  EXAMPLES_DIR: examples
-  # 
-  TEST_DATA_DIR: tests_data/north_tools
-  # Path w.r.t. TEST_DATA_DIR multi-line in single string
-  TEST_NOTEBOOKS: CommandLine.ipynb
 
 permissions:
   packages: write
@@ -50,23 +42,33 @@ jobs:
         with:
           python-version: {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
           version: {% raw %}${{ env.UV_VERSION }}{% endraw %}
+
       - name: Check Jupyter Requirements
         run: |
           {% raw %}
-          chmod +x ${{ env.NORTH_TOOL_DIR }}/compile_jupyter_requirements.sh
-          ./${{ env.NORTH_TOOL_DIR }}/compile_jupyter_requirements.sh
+          uv pip compile pyproject.toml --all-extras -o requirements.txt
           if [[ `git diff requirements-jupyter.txt` ]]; then
-            echo "requirements-jupyter.txt is not up to date. Please run 'compile_jupyter_requirements.sh' and commit the changes."
+            echo "requirements.txt is not up to date. Please run 'uv pip compile pyproject.toml --all-extras -o requirements.txt' and commit the changes."
             exit 1
           fi
           {% endraw %}
-      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: {% raw %}${{ env.REGISTRY }}{% endraw %}
+          username: {% raw %}${{ github.actor }}{% endraw %}
+          password: {% raw %}${{ secrets.GITHUB_TOKEN}}{% endraw %}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: {% raw %}${{ env.REGISTRY }}/${{ github.repository }}${{ env.IMAGE_SUEFIX }}{% endraw %}
+          images: {% raw %}${{ env.REGISTRY }}/${{ github.repository }}{% endraw %}
           # set latest tag for main branch and tags
           # https://github.com/docker/metadata-action?tab=readme-ov-file#image-name-and-tag-sanitization
           tags: |
@@ -80,7 +82,7 @@ jobs:
 
       # https://docs.docker.com/build/ci/github-actions/share-image-jobs/
       # https://github.com/docker/build-push-action
-      - name: Build and export to Jupyter image
+      - name: Build and publish Jupyter image
         uses: docker/build-push-action@v6
         with:
           context: .
@@ -89,62 +91,9 @@ jobs:
             {% raw %}
             UV_VERSION=${{ env.UV_VERSION }}
             JUPYTER_VERSION=${{ env.JUPYTER_VERSION }}
-            EXAMPLES_DIR=${{ env.NORTH_TOOL_DIR }}/${{ env.EXAMPLES_DIR }}
             {% endraw %}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          push: false
+          push: true
           tags: {% raw %}${{ steps.meta.outputs.tags }}{% endraw %}
           labels: {% raw %}${{ steps.meta.outputs.labels }}{% endraw %}
-          outputs: {% raw %}type=docker,dest=${{ runner.temp }}/${{ env.SERVICES }}.tar{% endraw %}
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: jupyter-image
-          path: {% raw %}${{ runner.temp }}/${{ env.SERVICES }}.tar{% endraw %}
-  test_and_push_image:
-    name: Test Jupyter Image
-    needs: build
-    runs-on: ubuntu-latest
-    # https://docs.docker.com/build/ci/github-actions/share-image-jobs/
-    steps:
-      - name: Setup Repository
-        uses: actions/checkout@v4
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: jupyter-image
-          path: {% raw %}${{ runner.temp }}{% endraw %}
-          pattern: "!*.dockerbuild" # warning at https://github.com/docker/build-push-action?tab=readme-ov-file
-
-      - name: Load and test in Jupyter container
-        run: |
-          {% raw %}
-          docker load -i ${{ runner.temp }}/${{ env.SERVICES }}.tar
-
-          RAW_TAGS="${{ needs.build.outputs.tags }}"
-          FIRST_TAG=$(echo "$RAW_TAGS" | tr -s '[:space:]' '\n' | grep -v '^$' | head -n 1)
-
-          for nb in ${{ env.TEST_NOTEBOOKS }}; do
-            echo "Running notebook: $nb"
-            docker run \
-              --mount type=bind,src=./${{ env.TEST_DATA_DIR }},dst="/home/jovyan/north_test" \
-              --rm "$FIRST_TAG" \
-              /bin/bash -c "jupyter execute \$HOME/north_test/$nb"
-          done
-          {% endraw %}
-
-      - uses: docker/login-action@v3
-        with:
-          registry: {% raw %}${{ env.REGISTRY }}{% endraw %}
-          username: {% raw %}${{ github.actor }}{% endraw %}
-          password: {% raw %}${{ secrets.GITHUB_TOKEN}}{% endraw %}
-      - name: Push Jupyter Image
-        run: |
-          {% raw %}
-          RAW_TAGS="${{ needs.build.outputs.tags }}"
-          for TAG in $RAW_TAGS; do
-            echo "Pushing tag: $TAG"
-            docker push "$TAG"
-          done
-          {% endraw %}

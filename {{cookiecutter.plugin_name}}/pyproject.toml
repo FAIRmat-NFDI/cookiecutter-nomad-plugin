@@ -57,6 +57,17 @@ dev = [
     "pytest-asyncio",
 ]
 
+{%- if cookiecutter.include_north_tools %}
+north_jupyter = [
+    "h5glance>=0.8",
+    "h5grove>=1.1.0",
+    "jupyterlab-h5web[full]>=7.1.1",
+    "jupyterlab",
+    "punx>=0.2.5",
+    "ipywidgets",
+]
+{%- endif %}
+
 [tool.uv]
 extra-index-url = [
   "https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple",

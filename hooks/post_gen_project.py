@@ -4,6 +4,7 @@ import logging
 import os
 import shutil
 import glob
+import subprocess
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("post_gen_project")
@@ -40,6 +41,18 @@ def remove_temp_folders(temp_folders):
     for folder in temp_folders:
         logger.info("Remove temporary folder: %s", folder)
         shutil.rmtree(folder)
+
+def generate_requirements_txt():
+    """Generate requirements.txt from pyproject.toml using uv pip compile."""
+    try:
+        logger.info("Generating requirements.txt from pyproject.toml")
+        command = ["uv", "pip", "compile", "pyproject.toml", "--all-extras", "-o", "requirements.txt"]
+        subprocess.run(command, check=True)
+        logger.info("Successfully generated requirements.txt")
+    except subprocess.CalledProcessError as e:
+        logger.error("Failed to generate requirements.txt: %s", e)
+    except FileNotFoundError:
+        logger.error("uv command not found. Please install uv to generate requirements.txt")
 
 
 if __name__ == "__main__":
@@ -84,3 +97,6 @@ if __name__ == "__main__":
         move_py_files(variant=".dockerignore", save_type="north_sources", save_path=root)
         
     remove_temp_folders(ALL_TEMP_FOLDERS)
+    
+    # Generate requirements.txt file from pyproject.toml file
+    generate_requirements_txt()
