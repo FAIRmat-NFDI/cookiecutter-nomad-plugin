@@ -46,7 +46,7 @@ def generate_requirements_txt():
     """Generate requirements.txt from pyproject.toml using uv pip compile."""
     try:
         logger.info("Generating requirements.txt from pyproject.toml")
-        command = ["uv", "pip", "compile", "pyproject.toml", "--all-extras", "-o", "requirements.txt"]
+        command = ["uv", "pip", "compile", "pyproject.toml", "--group", "north", "-o", "requirements.txt"]
         subprocess.run(command, check=True)
         logger.info("Successfully generated requirements.txt")
     except subprocess.CalledProcessError as e:

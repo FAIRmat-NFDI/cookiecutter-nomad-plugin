@@ -58,6 +58,7 @@ dev = [
 ]
 
 {%- if cookiecutter.include_north_tools %}
+[dependency-groups]
 north = [
     "jupyterlab",
     "ipywidgets",
