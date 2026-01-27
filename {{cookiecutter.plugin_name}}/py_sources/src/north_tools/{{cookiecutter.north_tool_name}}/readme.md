@@ -20,7 +20,7 @@ The Docker image is built from `Dockerfile` and includes:
 - **Base Image**: Jupyter scipy-notebook (includes NumPy, SciPy, Pandas, Matplotlib, etc.)
 - **Node.js 24**: For JupyterLab extensions
 - **uv Package Manager**: Fast Python package installation
-- **Custom Dependencies**: Defined in the `north_jupyter` optional dependency group in `pyproject.toml`
+- **Custom Dependencies**: Defined in the `north` optional dependency group in `pyproject.toml`
 
 ### Key Dependencies
 
@@ -79,11 +79,11 @@ Once NOMAD database is mounted, users can:
 
 ### Adding Python Packages
 
-Add packages to the `north_jupyter` optional dependency group in `pyproject.toml`:
+Add packages to the `north` optional dependency group in `pyproject.toml`:
 
 ```toml
 [project.optional-dependencies]
-north_jupyter = [
+north = [
     "jupyterlab",
     "your-custom-package>=1.0.0",
     # ... other packages

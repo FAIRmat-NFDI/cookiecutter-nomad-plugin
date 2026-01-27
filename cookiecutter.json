@@ -19,7 +19,7 @@
     "include_example_uploads": true,
     "include_action": true,
     "include_north_tools": false,
-    "north_tool_name": "MyNorthTool",
+    "north_tool_name": "my_north_tool",
     "__north_tool_EP_name": "north_tool",
     "_copy_without_render": [
         "*.html"
