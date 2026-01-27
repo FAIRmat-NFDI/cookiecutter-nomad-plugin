@@ -14,7 +14,7 @@ env:
   UV_VERSION: 0.9
   PYTHON_VERSION: 3.12
   JUPYTER_VERSION: 2025-04-14
-  NORTH_TOOL_DIR: src/{% raw %}{{cookiecutter.module_name}}/north_tools/{{cookiecutter.module_name}}{% endraw %}_jupyter
+  NORTH_TOOL_DIR: src/{% raw %}{{cookiecutter.module_name}}/north_tools/{{cookiecutter.north_tool_name}}{% endraw %}
 
 permissions:
   packages: write
@@ -86,7 +86,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: {% raw %}${{ env.NORTH_TOOL_DIR }}{% endraw %}/Dockerfile.jupyter
+          file: {% raw %}${{ env.NORTH_TOOL_DIR }}{% endraw %}/Dockerfile
           build-args: |
             {% raw %}
             UV_VERSION=${{ env.UV_VERSION }}

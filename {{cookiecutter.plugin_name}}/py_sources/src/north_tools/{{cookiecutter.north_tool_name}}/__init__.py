@@ -18,6 +18,6 @@ tool = NORTHTool(
     display_name='{{cookiecutter.north_tool_name}}',
 )
 
-north_tool_jupyter = NorthToolEntryPoint(
+{{cookiecutter.__north_tool_EP_name}} = NorthToolEntryPoint(
     id_url_safe='{{cookiecutter.module_name}}_{{cookiecutter.north_tool_name}}', north_tool=tool
 )

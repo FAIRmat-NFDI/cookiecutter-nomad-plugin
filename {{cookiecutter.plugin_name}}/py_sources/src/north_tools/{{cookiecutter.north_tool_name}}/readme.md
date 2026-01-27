@@ -15,7 +15,7 @@ data associated with {{cookiecutter.north_tool_name}}.
 
 ## Docker Image
 
-The Docker image is built from `Dockerfile.jupyter` and includes:
+The Docker image is built from `Dockerfile` and includes:
 
 - **Base Image**: Jupyter scipy-notebook (includes NumPy, SciPy, Pandas, Matplotlib, etc.)
 - **Node.js 24**: For JupyterLab extensions
@@ -62,7 +62,7 @@ To build the image manually:
 
 ```bash
 cd {{cookiecutter.plugin_name}}
-docker build -f src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.module_name}}_jupyter/Dockerfile.jupyter \
+docker build -f src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.north_tool_name}}/Dockerfile \
     -t ghcr.io/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}:latest .
 ```
 
@@ -92,7 +92,7 @@ north_jupyter = [
 
 ### Adding System Dependencies
 
-Edit `Dockerfile.jupyter` to install system packages:
+Edit `Dockerfile` to install system packages:
 
 ```dockerfile
 RUN apt-get update \
@@ -118,7 +118,7 @@ To test the Docker image locally:
 
 ```bash
 # Build the image
-docker build -f src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.module_name}}_jupyter/Dockerfile.jupyter -t test-jupyter .
+docker build -f src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.north_tool_name}}/Dockerfile -t test-jupyter .
 
 # Run the container
 docker run -p 8888:8888 test-jupyter
