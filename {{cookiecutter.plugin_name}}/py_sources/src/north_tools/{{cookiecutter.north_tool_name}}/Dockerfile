@@ -62,7 +62,7 @@ WORKDIR ${HOME}/${PLUGIN_NAME}
 # https://docs.astral.sh/uv/guides/integration/docker/#intermediate-layers
 # Install dependencies
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv pip install --group north --constraint requirements.txt
+    uv pip install --group north
 
 
 WORKDIR ${HOME}
