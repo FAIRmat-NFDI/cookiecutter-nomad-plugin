@@ -1,12 +1,12 @@
-# {{cookiecutter.north_tool_name}} - NORTH Jupyter Tool
+# {{cookiecutter.north_tool_name}} - NORTH Jupyter tool
 
 This directory contains the NORTH tool configuration and Docker image for a Jupyter-based tool in the NOMAD NORTH (NOMAD Oasis Remote Tools Hub) environment.
 
-## Quick Start
+## Quick start
 
 The {{cookiecutter.north_tool_name}} NORTH tool provides a containerized JupyterLab environment for interactive analysis with the {{cookiecutter.plugin_name}} plugin.
 
-## Building and Testing
+## Building and testing
 
 Build the Docker image locally:
 
