@@ -23,10 +23,8 @@ ARG PLUGIN_NAME
 
 RUN apt-get update \
  && apt-get install --yes --quiet --no-install-recommends \
-      libgomp1 \
       libmagic1 \
       file \
-      gcc \
       build-essential \
       curl \
       zip \
