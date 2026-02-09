@@ -32,4 +32,3 @@ For comprehensive documentation on creating and managing NORTH tools, including 
 - Dependency management
 
 See the [NOMAD NORTH Tools documentation](https://fairmat-nfdi.github.io/nomad-docs/howto/plugins/types/north_tools.html).
-

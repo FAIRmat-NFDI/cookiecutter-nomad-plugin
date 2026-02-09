@@ -1,58 +1,20 @@
-ARG JUPYTER_TAG=2025-12-31
-ARG BASE_JUPYTER=quay.io/jupyter/base-notebook
-ARG UV_VERSION=0.9
-ARG PLUGIN_NAME="{{cookiecutter.plugin_name}}"
+ARG IMAGE_TAG=main
+ARG BASE_IMAGE=ghcr.io/fairmat-nfdi/nomad-north-jupyter
+ARG PLUGIN_NAME={{cookiecutter.plugin_name}}
 
-FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv_stage
+FROM ${BASE_IMAGE}:${IMAGE_TAG} AS base
 
-FROM ${BASE_JUPYTER}:${JUPYTER_TAG} AS base_notebook
-# https://github.com/hadolint/hadolint/wiki/DL4006
-# https://github.com/koalaman/shellcheck/wiki/SC3014
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+# Base image may also come from nomad-north-jupyter at https://github.com/FAIRmat-NFDI/nomad-north-jupyter
+# e.g., ghcr.io/fairmat-nfdi/nomad-north-jupyter:main
+# Please check for details of the base image and Dockerfile at https://github.com/FAIRmat-NFDI/nomad-north-jupyter
 
-COPY --from=uv_stage /uv /uvx /bin/
+# Or base image may also come from nomad-north-destop-base at https://github.com/FAIRmat-NFDI/nomad-north-desktop-base
+# e.g., ghcr.io/fairmat-nfdi/nomad-north-desktop-base:main
+# Please check for details of the base image and Dockerfile at https://github.com/FAIRmat-NFDI/nomad-north-desktop-base
 
-USER root
-
-# Define environment variables
-# With pre-existing NB_USER="jovyan" and NB_UID=100, NB_GID=1000
-ENV HOME=/home/${NB_USER}
-ENV CONDA_DIR=/opt/conda
 
 ARG PLUGIN_NAME
-
-RUN apt-get update \
- && apt-get install --yes --quiet --no-install-recommends \
-      libmagic1 \
-      file \
-      build-essential \
-      curl \
-      zip \
-      unzip \
-      git
-
-# By default base-notebook:2025-10-20 has node 18
-# But, node > 20 needed for jupyterlab >= 4.4.10
-# Add NodeSource APT repo for Debian-base distributions repository
-RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
-
-# Install Node.js from the Debian-based distributions repository
-RUN apt-get install nodejs -y \
-       && npm install -g configurable-http-proxy@^4.2.0 \
-       # clean cache and logs
-       && rm -rf /var/lib/apt/lists/* /var/log/* /var/tmp/* ~/.npm
-
-USER ${NB_USER}
-
-# uv env
-ENV UV_PROJECT_ENVIRONMENT=${CONDA_DIR} \
-    UV_LINK_MODE=copy \
-    UV_NO_CACHE=1 \
-    # Use python from conda which is default for base-notebook
-    # so that uv pip and pip refer to the same python
-    # If needed one can create another venv with 'uv venv'
-    UV_SYSTEM_PYTHON=1
-
+# Copy the plugin source code to the image 
 COPY --chown=${NB_USER}:${NB_GID} . ${HOME}/${PLUGIN_NAME}
 
 WORKDIR ${HOME}/${PLUGIN_NAME}
@@ -75,4 +37,3 @@ WORKDIR ${HOME}
 EXPOSE 8888
 
 RUN touch ${HOME}/.hushlogin
-

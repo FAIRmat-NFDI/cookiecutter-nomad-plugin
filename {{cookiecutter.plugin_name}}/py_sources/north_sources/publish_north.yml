@@ -13,7 +13,7 @@ env:
   REGISTRY: ghcr.io
   UV_VERSION: 0.9
   PYTHON_VERSION: 3.12
-  JUPYTER_TAG: 2025-12-31
+  IMAGE_TAG: main
   NORTH_TOOL_DIR: src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.north_tool_name}}
 
 permissions:
@@ -70,8 +70,7 @@ jobs:
           context: .
           file: {% raw %}${{ env.NORTH_TOOL_DIR }}{% endraw %}/Dockerfile
           build-args: |
-            {% raw %}UV_VERSION=${{ env.UV_VERSION }}
-            JUPYTER_TAG=${{ env.JUPYTER_TAG }}{% endraw %}
+            {% raw %}IMAGE_TAG=${{ env.IMAGE_TAG }}{% endraw %}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: true
