@@ -1,10 +1,26 @@
 # {{cookiecutter.north_tool_name}} - NORTH Jupyter tool
 
-This directory contains the NORTH tool configuration and Docker image for a Jupyter-based tool in the NOMAD NORTH (NOMAD Oasis Remote Tools Hub) environment.
+This directory contains the NORTH tool configuration and a bare minimum dockerfile for NOMAD NORTH (NOMAD Oasis Remote Tools Hub) environment.
 
 ## Quick start
 
-The {{cookiecutter.north_tool_name}} NORTH tool provides a containerized JupyterLab environment for interactive analysis with the {{cookiecutter.plugin_name}} plugin.
+The {{cookiecutter.north_tool_name}} NORTH tool provides a containerized environment e.g., Jupyter notebook for interactive analysis with the {{cookiecutter.plugin_name}} plugin.
+
+## Base Image
+
+This tool uses a pre-built base image that includes the NOMAD NORTH environment. You can choose between two base images:
+
+1. **nomad-north-jupyter** — JupyterLab-based environment
+   - Repository: https://github.com/FAIRmat-NFDI/nomad-north-jupyter
+   - Image: `ghcr.io/fairmat-nfdi/nomad-north-jupyter:main`
+
+2. **nomad-north-desktop-base** — Desktop-based environment
+   - Repository: https://github.com/FAIRmat-NFDI/nomad-north-desktop-base
+   - Image: `ghcr.io/fairmat-nfdi/nomad-north-desktop-base:main`
+
+Select the appropriate base image for your use case. The {{cookiecutter.plugin_name}} plugin can be installed on top of your chosen base image during the Docker build process (user need to extend the dockerfile for that).
+
+As required one can also use any base image and tags.
 
 ## Building and testing
 
@@ -15,7 +31,7 @@ docker build -f src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.nort
     -t ghcr.io/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}:latest .
 ```
 
-Test the image:
+Test the image (for jupyter notebook image):
 
 ```bash
 docker run -p 8888:8888 ghcr.io/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}:latest
