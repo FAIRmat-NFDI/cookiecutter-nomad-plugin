@@ -4,7 +4,7 @@ This directory contains the configuration and a minimal Dockerfile template for 
 
 ## Quick start
 
-The {{cookiecutter.north_tool_name}} NORTH tool provides a containerized environment e.g., Jupyter notebook for interactive analysis with the {{cookiecutter.plugin_name}} plugin.
+The {{cookiecutter.north_tool_name}} NORTH tool provides a containerized environment defined in `NORTHtool` definition, `NorthToolEntryPoint`, and Dockerfile.
 
 ## Base Image
 
