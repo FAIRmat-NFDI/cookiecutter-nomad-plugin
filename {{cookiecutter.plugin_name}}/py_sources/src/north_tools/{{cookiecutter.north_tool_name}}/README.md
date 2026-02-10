@@ -1,6 +1,6 @@
 # {{cookiecutter.north_tool_name}} - NORTH tool
 
-This directory contains the NORTH tool configuration and a bare minimum dockerfile for NOMAD NORTH (NOMAD Oasis Remote Tools Hub) environment.
+This directory contains the configuration and a minimal Dockerfile template for defining a NORTH (NOMAD Remote Tools Hub) tool.
 
 ## Quick start
 
