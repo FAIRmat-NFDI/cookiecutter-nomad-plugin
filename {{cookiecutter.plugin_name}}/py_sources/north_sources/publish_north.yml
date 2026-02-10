@@ -11,8 +11,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  UV_VERSION: 0.9
-  PYTHON_VERSION: 3.12
   IMAGE_TAG: main
   NORTH_TOOL_DIR: src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.north_tool_name}}
 

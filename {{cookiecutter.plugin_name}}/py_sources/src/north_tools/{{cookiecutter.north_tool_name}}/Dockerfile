@@ -8,6 +8,6 @@ FROM ${BASE_IMAGE}:${IMAGE_TAG} AS base
 # e.g., ghcr.io/fairmat-nfdi/nomad-north-jupyter:main
 # Please check for details of the base image and Dockerfile at https://github.com/FAIRmat-NFDI/nomad-north-jupyter
 
-# Or base image may also come from nomad-north-destop-base at https://github.com/FAIRmat-NFDI/nomad-north-desktop-base
+# Or base image may also come from nomad-north-desktop-base at https://github.com/FAIRmat-NFDI/nomad-north-desktop-base
 # e.g., ghcr.io/fairmat-nfdi/nomad-north-desktop-base:main
 # Please check for details of the base image and Dockerfile at https://github.com/FAIRmat-NFDI/nomad-north-desktop-base

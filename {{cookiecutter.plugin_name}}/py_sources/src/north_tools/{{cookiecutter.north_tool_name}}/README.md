@@ -1,4 +1,4 @@
-# {{cookiecutter.north_tool_name}} - NORTH Jupyter tool
+# {{cookiecutter.north_tool_name}} - NORTH tool
 
 This directory contains the NORTH tool configuration and a bare minimum dockerfile for NOMAD NORTH (NOMAD Oasis Remote Tools Hub) environment.
 
@@ -18,9 +18,8 @@ This tool uses a pre-built base image that includes the NOMAD NORTH environment.
    - Repository: https://github.com/FAIRmat-NFDI/nomad-north-desktop-base
    - Image: `ghcr.io/fairmat-nfdi/nomad-north-desktop-base:main`
 
-Select the appropriate base image for your use case. The {{cookiecutter.plugin_name}} plugin can be installed on top of your chosen base image during the Docker build process (user need to extend the dockerfile for that).
+Select the appropriate base image for your use case. The {{cookiecutter.plugin_name}} plugin can be installed on top of your chosen base image during the Docker build process (for this you need to extend the Dockerfile).
 
-As required one can also use any base image and tags.
 
 ## Building and testing
 
