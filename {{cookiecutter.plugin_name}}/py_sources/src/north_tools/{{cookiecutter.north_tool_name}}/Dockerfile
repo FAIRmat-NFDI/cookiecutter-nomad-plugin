@@ -1,78 +1,33 @@
-ARG JUPYTER_TAG=2025-12-31
-ARG BASE_JUPYTER=quay.io/jupyter/base-notebook
-ARG UV_VERSION=0.9
-ARG PLUGIN_NAME="{{cookiecutter.plugin_name}}"
+ARG IMAGE_TAG=main
+ARG BASE_IMAGE=ghcr.io/fairmat-nfdi/nomad-north-jupyter
+ARG PLUGIN_NAME={{cookiecutter.plugin_name}}
 
-FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv_stage
+FROM ${BASE_IMAGE}:${IMAGE_TAG} AS base
 
-FROM ${BASE_JUPYTER}:${JUPYTER_TAG} AS base_notebook
-# https://github.com/hadolint/hadolint/wiki/DL4006
-# https://github.com/koalaman/shellcheck/wiki/SC3014
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
-COPY --from=uv_stage /uv /uvx /bin/
-
-USER root
-
-# Define environment variables
-# With pre-existing NB_USER="jovyan" and NB_UID=100, NB_GID=1000
-ENV HOME=/home/${NB_USER}
-ENV CONDA_DIR=/opt/conda
-
-ARG PLUGIN_NAME
-
-RUN apt-get update \
- && apt-get install --yes --quiet --no-install-recommends \
-      libmagic1 \
-      file \
-      build-essential \
-      curl \
-      zip \
-      unzip \
-      git
-
-# By default base-notebook:2025-10-20 has node 18
-# But, node > 20 needed for jupyterlab >= 4.4.10
-# Add NodeSource APT repo for Debian-base distributions repository
-RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
-
-# Install Node.js from the Debian-based distributions repository
-RUN apt-get install nodejs -y \
-       && npm install -g configurable-http-proxy@^4.2.0 \
-       # clean cache and logs
-       && rm -rf /var/lib/apt/lists/* /var/log/* /var/tmp/* ~/.npm
-
-USER ${NB_USER}
-
-# uv env
-ENV UV_PROJECT_ENVIRONMENT=${CONDA_DIR} \
-    UV_LINK_MODE=copy \
-    UV_NO_CACHE=1 \
-    # Use python from conda which is default for base-notebook
-    # so that uv pip and pip refer to the same python
-    # If needed one can create another venv with 'uv venv'
-    UV_SYSTEM_PYTHON=1
-
-COPY --chown=${NB_USER}:${NB_GID} . ${HOME}/${PLUGIN_NAME}
-
-WORKDIR ${HOME}/${PLUGIN_NAME}
-
-# https://docs.astral.sh/uv/guides/integration/docker/#intermediate-layers
-# Install dependencies
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv pip install . --group north
-
-
-WORKDIR ${HOME}
-RUN rm -rf ${HOME}/${PLUGIN_NAME}
-
-RUN jupyter lab build --dev-build=False --minimize=False && \
-    fix-permissions "/home/${NB_USER}" \
-    && fix-permissions "${CONDA_DIR}"
-
-WORKDIR ${HOME}
-
-EXPOSE 8888
-
-RUN touch ${HOME}/.hushlogin
-
+# This Dockerfile intentionally only selects a NORTH base image.
+#
+# Its purpose is to provide a minimal and reproducible starting point for
+# building a custom NOMAD NORTH tool image. The base image already contains
+# the complete NORTH runtime environment (e.g. JupyterLab or desktop setup),
+# while this repository defines where tool-specific extensions should be added.
+#
+# By default, the resulting image is identical to the selected base image.
+# Users are expected to extend this Dockerfile to install their plugin and
+# add any additional dependencies or configuration required by the tool.
+#
+# Base image selection:
+#   - Jupyter-based tools:
+#       BASE_IMAGE=ghcr.io/fairmat-nfdi/nomad-north-jupyter
+#   - Tools requiring a graphical user interface:
+#       BASE_IMAGE=ghcr.io/fairmat-nfdi/nomad-north-desktop-base
+#
+# Extend this Dockerfile to:
+#   - install your plugin
+#   - add additional system or Python dependencies
+#   - add tool-specific configuration
+#
+# Reference implementations of NORTH base images:
+#   nomad-north-jupyter:
+#     https://github.com/FAIRmat-NFDI/nomad-north-jupyter/blob/main/src/nomad_north_jupyter/north_tools/my_north_tool/Dockerfile
+#   nomad-north-desktop-base:
+#     https://github.com/FAIRmat-NFDI/nomad-north-desktop-base/blob/main/Dockerfile

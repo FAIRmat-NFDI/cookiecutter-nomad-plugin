@@ -1,10 +1,25 @@
-# {{cookiecutter.north_tool_name}} - NORTH Jupyter tool
+# {{cookiecutter.north_tool_name}} - NORTH tool
 
-This directory contains the NORTH tool configuration and Docker image for a Jupyter-based tool in the NOMAD NORTH (NOMAD Oasis Remote Tools Hub) environment.
+This directory contains the configuration and a minimal Dockerfile template for defining a NORTH (NOMAD Remote Tools Hub) tool.
 
 ## Quick start
 
-The {{cookiecutter.north_tool_name}} NORTH tool provides a containerized JupyterLab environment for interactive analysis with the {{cookiecutter.plugin_name}} plugin.
+The {{cookiecutter.north_tool_name}} NORTH tool provides a containerized environment defined in `NORTHtool` definition, `NorthToolEntryPoint`, and Dockerfile.
+
+## Base Image
+
+This tool uses a pre-built base image that includes the NOMAD NORTH environment. You can choose between two base images:
+
+1. **nomad-north-jupyter** — JupyterLab-based environment
+   - Repository: https://github.com/FAIRmat-NFDI/nomad-north-jupyter
+   - Image: `ghcr.io/fairmat-nfdi/nomad-north-jupyter:main`
+
+2. **nomad-north-desktop-base** — Desktop-based environment
+   - Repository: https://github.com/FAIRmat-NFDI/nomad-north-desktop-base
+   - Image: `ghcr.io/fairmat-nfdi/nomad-north-desktop-base:main`
+
+Select the appropriate base image for your use case. The {{cookiecutter.plugin_name}} plugin can be installed on top of your chosen base image during the Docker build process (for this you need to extend the Dockerfile).
+
 
 ## Building and testing
 
@@ -15,7 +30,7 @@ docker build -f src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.nort
     -t ghcr.io/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}:latest .
 ```
 
-Test the image:
+Test the image (for jupyter notebook image):
 
 ```bash
 docker run -p 8888:8888 ghcr.io/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}:latest
@@ -32,4 +47,3 @@ For comprehensive documentation on creating and managing NORTH tools, including 
 - Dependency management
 
 See the [NOMAD NORTH Tools documentation](https://fairmat-nfdi.github.io/nomad-docs/howto/plugins/types/north_tools.html).
-
