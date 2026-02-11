@@ -35,7 +35,7 @@ maintainers = [
 ]
 license = { file = "LICENSE" }
 dependencies = [
-    "nomad-lab @ git+https://gitlab.mpcdf.mpg.de/nomad-lab/nomad-FAIR.git@develop"
+    "nomad-lab>=1.4.1", 
     {%- if cookiecutter.include_action %},
     "pydantic",
     "temporalio"
@@ -169,7 +169,7 @@ example_upload_entry_point = "{{cookiecutter.module_name}}.example_uploads:examp
 action_entry_point = "{{cookiecutter.module_name}}.actions:simple_action_entry_point"
 {%- endif %}
 {% if cookiecutter.include_north_tools  -%}
-north_tool_entry_point = "{{cookiecutter.module_name}}.north_tools.{{cookiecutter.north_tool_name}}:{{cookiecutter.__north_tool_EP_name}}"
+north_tool_entry_point = "{{cookiecutter.module_name}}.north_tools.{{cookiecutter.north_tool_name}}:north_tool_entry_point"
 {%- endif %}
 [tool.cruft]
 # Avoid updating workflow files, this leads to permissions issues
