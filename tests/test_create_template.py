@@ -43,6 +43,14 @@ def run_tox(plugin):
     "include_schema_package",
     [True, False],
 )
+@pytest.mark.parametrize(
+    "include_north_tools",
+    [True, False],
+)
+@pytest.mark.parametrize(
+    "north_tool_name",
+    ["MyNorthTool", "AnotherTool"],
+)
 def test_run_cookiecutter_and_plugin_tests(
     cookies,
     plugin_name,
@@ -50,6 +58,8 @@ def test_run_cookiecutter_and_plugin_tests(
     include_app,
     include_parser,
     include_schema_package,
+    include_north_tools,
+    north_tool_name,
 ):
     """Create a new plugin via cookiecutter and run its tests."""
     result = cookies.bake(
@@ -59,6 +69,8 @@ def test_run_cookiecutter_and_plugin_tests(
             "include_parser": str(include_parser),
             "include_normalizer": str(include_normalizer),
             "include_schema_package": str(include_schema_package),
+            "include_north_tools": str(include_north_tools),
+            "north_tool_name": str(north_tool_name),
         }
     )
     module_name = plugin_name.replace("-", "_")
@@ -112,5 +124,36 @@ def test_run_cookiecutter_and_plugin_tests(
             "parsers",
         ).is_dir()
 
-    if include_app and include_parser and include_normalizer and include_schema_package:
+    if include_north_tools:
+        assert result.project_path.joinpath(
+            "src", f"{module_name}", "north_tools", north_tool_name
+        ).is_dir()
+        assert result.project_path.joinpath(
+            "src",
+            f"{module_name}",
+            "north_tools",
+            north_tool_name,
+            "__init__.py",
+        ).is_file()
+        assert result.project_path.joinpath(".dockerignore").is_file()
+    else:
+        assert not result.project_path.joinpath(
+            "src",
+            f"{module_name}",
+            "north_tools",
+            north_tool_name,
+        ).is_dir()
+        assert not result.project_path.joinpath(
+            "src",
+            f"{module_name}",
+            "north_tools",
+            north_tool_name,
+            "__init__.py",
+        ).is_file()
+        assert not result.project_path.joinpath(".dockerignore").is_file()
+        assert not result.project_path.joinpath(
+            ".github", "workflows", "publish_north.yaml"
+        ).is_file()
+
+    if include_app and include_parser and include_normalizer and include_schema_package and include_north_tools:
         run_tox(str(result.project_path))

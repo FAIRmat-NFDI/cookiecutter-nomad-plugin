@@ -35,10 +35,10 @@ maintainers = [
 ]
 license = { file = "LICENSE" }
 dependencies = [
-    "nomad-lab>=1.4.0",
-    {% if cookiecutter.include_action -%}
+    "nomad-lab>=1.4.1" 
+    {%- if cookiecutter.include_action %},
     "pydantic",
-    "temporalio",
+    "temporalio"
     {%- endif %}
 ]
 
@@ -56,6 +56,14 @@ dev = [
     "mkdocs-click",
     "pytest-asyncio",
 ]
+
+{%- if cookiecutter.include_north_tools %}
+[dependency-groups]
+north = [
+    "jupyterlab",
+    "ipywidgets",
+]
+{%- endif %}
 
 [tool.uv]
 extra-index-url = [
@@ -159,6 +167,9 @@ example_upload_entry_point = "{{cookiecutter.module_name}}.example_uploads:examp
 {%- endif %}
 {% if cookiecutter.include_action -%}
 action_entry_point = "{{cookiecutter.module_name}}.actions:simple_action_entry_point"
+{%- endif %}
+{% if cookiecutter.include_north_tools  -%}
+north_tool_entry_point = "{{cookiecutter.module_name}}.north_tools.{{cookiecutter.north_tool_name}}:north_tool_entry_point"
 {%- endif %}
 [tool.cruft]
 # Avoid updating workflow files, this leads to permissions issues

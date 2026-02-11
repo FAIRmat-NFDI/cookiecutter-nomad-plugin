@@ -1,0 +1,94 @@
+# Git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.pytest_cache/
+
+# Virtual Environments
+.venv
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+
+# Testing
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.hypothesis/
+pytest.ini
+.pytest_cache/
+
+# Documentation
+docs/_build/
+site/
+.mkdocs.yml
+mkdocs.yml
+
+# Docker
+Dockerfile*
+.dockerignore
+docker/
+
+# Node (if used)
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Misc
+*.md
+LICENSE
+MANIFEST.in
+*.tar.gz
+*.zip
+.tmp/
+.cache/
+
+# IDE configuration files
+.editorconfig
+.env
+.env.local

@@ -17,9 +17,13 @@ def move_py_files(variant, save_path, save_type):
     if variant == "none" or save_path == "none":
         return
 
-    logger.info("Initializing python for %s - %s", variant, save_type)
+    logger.info("Initializing files for %s - %s", variant, save_type)
 
-    py_files = glob.glob(f"{PY_SOURCES}/{save_type}/{variant}/*")
+    path_pattern = f"{PY_SOURCES}/{save_type}/{variant}"
+    if os.path.isdir(path_pattern):
+        path_pattern += "/*"
+
+    py_files = glob.glob(path_pattern)
 
     for src_path in py_files:
         filename = os.path.basename(src_path)
@@ -37,12 +41,12 @@ def remove_temp_folders(temp_folders):
         logger.info("Remove temporary folder: %s", folder)
         shutil.rmtree(folder)
 
-
 if __name__ == "__main__":
     root = os.getcwd()
     variants = [
         variant
         for variant, condition in [
+            ("north_tools", "{{cookiecutter.include_north_tools}}"),
             ("schema_packages", "{{cookiecutter.include_schema_package}}"),
             ("normalizers", "{{cookiecutter.include_normalizer}}"),
             ("parsers", "{{cookiecutter.include_parser}}"),
@@ -67,8 +71,16 @@ if __name__ == "__main__":
         os.makedirs(test_save_path, exist_ok=True)
         move_py_files(variant=variant, save_path=test_save_path, save_type="tests")
         if variant != "apps" and variant != "example_uploads":
-            # apps and example upoads don't have tests data
+            # apps and example uploads don't have tests data
             move_py_files(
                 variant=variant, save_path=test_data_path, save_type="tests_data"
             )
+    # Remove redundant init files
+    if "north_tools" in variants:
+        move_py_files(
+            variant="publish_north.yml", save_type="north_sources", save_path=os.path.join(root, ".github", "workflows")
+        )
+        move_py_files(variant=".dockerignore", save_type="north_sources", save_path=root)
+        
     remove_temp_folders(ALL_TEMP_FOLDERS)
+    

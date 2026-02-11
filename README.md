@@ -2,7 +2,7 @@
 
 Minimal [Cookiecutter](https://github.com/cookiecutter/cookiecutter) template for authoring [nomad] plugins.
 
-## Getting Started
+## Getting started
 
 Install [Cruft](https://github.com/cruft/cruft) and generate a new nomad plugin project:
 

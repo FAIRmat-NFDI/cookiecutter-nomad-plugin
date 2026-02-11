@@ -3,7 +3,7 @@
     "email": "john.doe@physik.hu-berlin.de",
     "github_username": "foo",
     "plugin_name": "foobar",
-    "module_name": "{{ cookiecutter.plugin_name|lower|replace('-', '_') }}",
+    "module_name": "{{cookiecutter.plugin_name|lower|replace('-', '_')}}",
     "short_description": "Nomad example template",
     "version": "0.1.0",
     "license": [
@@ -18,12 +18,16 @@
     "include_app": true,
     "include_example_uploads": true,
     "include_action": true,
+    "include_north_tools": false,
+    "north_tool_name": "my_north_tool",
     "_copy_without_render": [
         "*.html"
     ],
     "__prompts__": {
         "module_name": "module_name (recommended: press enter to use the default module name)",
         "github_username": "Github organization or profile name, default: foo",
-        "include_action": "Include NOMAD Actions (NEW in nomad-lab v1.4+)"
+        "include_action": "Include NOMAD Actions (NEW in nomad-lab v1.4+)",
+        "include_north_tools": "Include NOMAD North Tools (NEW in nomad-lab v1.4+)",
+        "north_tool_name": "Name of the NORTH tool to be displayed in the list of NOMAD NORTH tools. For include_north_tools == n, this will be ignored."
     }
 }
