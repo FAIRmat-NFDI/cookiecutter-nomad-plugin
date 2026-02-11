@@ -1,9 +1,9 @@
 from nomad.config.models.north import NORTHTool
 from nomad.config.models.plugins import NorthToolEntryPoint
 
-tool = NORTHTool(
+{{cookiecutter.north_tool_name}} = NORTHTool(
     short_description='Jupyter Notebook server in NOMAD NORTH for NOMAD plugin {{cookiecutter.plugin_name}}.',
-    image='ghcr.io/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}/jupyter:latest',
+    image='ghcr.io/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}:latest',
     description='Jupyter Notebook server in NOMAD NORTH for NOMAD plugin {{cookiecutter.plugin_name}}.',
     external_mounts=[],
     file_extensions=['ipynb'],
@@ -19,5 +19,5 @@ tool = NORTHTool(
 )
 
 north_tool_entry_point = NorthToolEntryPoint(
-    id_url_safe='{{cookiecutter.module_name}}_{{cookiecutter.north_tool_name}}', north_tool=tool
+    id_url_safe='{{cookiecutter.module_name}}_{{cookiecutter.north_tool_name}}', north_tool={{cookiecutter.north_tool_name}}
 )

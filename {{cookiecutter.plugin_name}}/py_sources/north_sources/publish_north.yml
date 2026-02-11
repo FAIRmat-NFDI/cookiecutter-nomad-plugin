@@ -22,7 +22,7 @@ permissions:
 
 jobs:
   build:
-    name: Build Jupyter Image
+    name: {{cookiecutter.north_tool_name}} image
     runs-on: ubuntu-latest
     outputs:
       tags: {% raw %}${{ steps.meta.outputs.tags }}{% endraw %} # list
@@ -62,7 +62,7 @@ jobs:
 
       # https://docs.docker.com/build/ci/github-actions/share-image-jobs/
       # https://github.com/docker/build-push-action
-      - name: Build and publish Jupyter image
+      - name: Build and publish {{cookiecutter.north_tool_name}} image
         uses: docker/build-push-action@v6
         with:
           context: .

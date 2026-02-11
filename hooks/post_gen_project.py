@@ -4,7 +4,6 @@ import logging
 import os
 import shutil
 import glob
-import subprocess
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("post_gen_project")
