@@ -5,9 +5,6 @@ on:
       - main
     tags:
       - "v*.*.*"
-  pull_request:
-    branches:
-      - main
 
 env:
   REGISTRY: ghcr.io
@@ -55,7 +52,6 @@ jobs:
           # https://github.com/docker/metadata-action?tab=readme-ov-file#image-name-and-tag-sanitization
           tags: |
             {% raw %}type=ref,event=tag
-            type=ref,event=pr,prefix=pr-
             type=raw,value=main,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}{% endraw %}
           flavor: |
             latest=auto
