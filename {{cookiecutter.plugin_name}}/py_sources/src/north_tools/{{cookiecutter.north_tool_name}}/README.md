@@ -27,13 +27,13 @@ Build the Docker image locally:
 
 ```bash
 docker build -f src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.north_tool_name}}/Dockerfile \
-    -t ghcr.io/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}:latest .
+    -t ghcr.io/{{cookiecutter.github_username|map('lower')}}/{{cookiecutter.plugin_name}}:latest .
 ```
 
 Test the image (for jupyter notebook image):
 
 ```bash
-docker run -p 8888:8888 ghcr.io/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}:latest
+docker run -p 8888:8888 ghcr.io/{{cookiecutter.github_username|map('lower')}}/{{cookiecutter.plugin_name}}:latest
 ```
 
 Access JupyterLab at `http://localhost:8888`.

@@ -1,0 +1,101 @@
+name: Upload Python Package
+
+on:
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION: 3.12
+  {% if cookiecutter.include_north_tools %}WAIT_TIME: 1800 # 30 minutes in seconds
+  CHECK_INTERVAL: 120 # 2 minutes in seconds
+  IMAGE: "ghcr.io/{{cookiecutter.github_username|lower}}/{{cookiecutter.plugin_name}}"
+{% endif %}
+jobs:
+  {% if cookiecutter.include_north_tools %}check-if-image-exists:
+    name: Check image in GitHub Container Registry
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if image exists in GitHub Container Registry
+        run: |
+          {% raw %}FULL_IMAGE="${{ env.IMAGE }}:${GITHUB_REF_NAME}"
+          echo "Checking if image ${FULL_IMAGE} is available..."
+          ELAPSED_TIME=0
+
+          while true; do
+            if docker manifest inspect ${FULL_IMAGE} > /dev/null 2>&1; then
+              echo "Image ${FULL_IMAGE} found successfully!"
+              exit 0
+            fi
+
+            if [[ ${ELAPSED_TIME} -ge ${{ env.WAIT_TIME }} ]]; then
+              echo "Timeout reached (${{ env.WAIT_TIME }} seconds). Image ${FULL_IMAGE} not found!"
+              exit 1
+            fi
+
+            echo "Image not found yet. Retrying in ${{ env.CHECK_INTERVAL }} seconds... (${ELAPSED_TIME}s / ${{ env.WAIT_TIME }}s elapsed)"
+            sleep ${{ env.CHECK_INTERVAL }}
+            ELAPSED_TIME=$((ELAPSED_TIME + ${{ env.CHECK_INTERVAL }}))
+          done{% endraw %}
+{% endif %}
+  build:
+    name: Build Package
+    runs-on: ubuntu-latest
+    {% if cookiecutter.include_north_tools %}needs: check-if-image-exists{% endif %}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      - name: Install uv and set the Python version to {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
+      {% if cookiecutter.include_north_tools %}- name: Overwrite the image tag
+        run: |
+          {% raw %}IMAGE_TAG=$(grep -oP "${{ env.IMAGE }}:\K[^'\",]+" {% endraw %}src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.north_tool_name}}/__init__.py)
+
+          {% raw %}sed -i "s|${{ env.IMAGE }}:${IMAGE_TAG}|${{ env.IMAGE }}:${GITHUB_REF_NAME}|g" \{% endraw %}
+          src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.north_tool_name}}/__init__.py
+      {% endif %}
+      - name: build package
+        run: |
+          {% if cookiecutter.include_north_tools %}# Use SETUPTOOLS_SCM_PRETEND_VERSION to skip the version check due to image_tag modification of the __init__.py file
+          SETUPTOOLS_SCM_PRETEND_VERSION={% raw %}${GITHUB_REF_NAME#v}{% endraw %} {% endif %}uv build
+      {% if cookiecutter.include_north_tools %}- name: Check the image tag in the entry point
+        run: |
+          # unzip the built package and check the image tag in the entry point
+          tar -xzf dist/*.tar.gz -C dist/
+          IMAGE_TAG={% raw %}$(grep -oP "${{ env.IMAGE }}:\K[^'\",]+" {% endraw %}dist/{{cookiecutter.module_name}}-*/src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.north_tool_name}}/__init__.py)
+          {% raw %}
+          if [[ "${IMAGE_TAG}" == "${GITHUB_REF_NAME}" ]]; then
+            echo "Before building the Python package, image ${{ env.IMAGE }}:${GITHUB_REF_NAME} is updated for NORTH tool."
+          else
+            echo "Error: Image tag in __init__.py is not correct: ${IMAGE_TAG}. Expected: ${{ env.IMAGE }}:${GITHUB_REF_NAME}"
+            exit 1
+          fi
+          {% endraw %}
+          # Remove the unzipped package after checking
+          rm -rf dist/{{cookiecutter.module_name}}-*/
+        {% endif %}
+      - name: Upload dist artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-artifacts
+          path: dist/
+
+  deploy:
+    name: Upload to PyPI
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/{{cookiecutter.plugin_name}}
+    permissions:
+      id-token: write
+    steps:
+      - name: Download dist artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-artifacts
+          path: dist/
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

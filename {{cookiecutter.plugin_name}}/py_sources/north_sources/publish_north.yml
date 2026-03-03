@@ -37,7 +37,7 @@ jobs:
         with:
           registry: {% raw %}${{ env.REGISTRY }}{% endraw %}
           username: {% raw %}${{ github.actor }}{% endraw %}
-          password: {% raw %}${{ secrets.GITHUB_TOKEN}}{% endraw %}
+          password: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
