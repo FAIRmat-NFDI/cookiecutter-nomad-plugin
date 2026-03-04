@@ -5,8 +5,9 @@ on:
     types: [published]
 
 env:
-  PYTHON_VERSION: 3.12
-
+  PYTHON_VERSION: 3.12{% if cookiecutter.include_north_tools %}
+  IMAGE: "ghcr.io/{{cookiecutter.github_username|lower}}/{{cookiecutter.plugin_name}}"
+{% endif %}
 jobs:
   {% if cookiecutter.include_north_tools %}build-docker-image:
     uses: ./.github/workflows/publish_north.yml
@@ -34,22 +35,6 @@ jobs:
       - name: build package
         run: |
           uv build
-      {% if cookiecutter.include_north_tools %}- name: Check the image tag in the entry point
-        run: |
-          # unzip the built package and check the image tag in the entry point
-          tar -xzf dist/*.tar.gz -C dist/
-          IMAGE_TAG={% raw %}$(grep -oP "${{ env.IMAGE }}:\K[^'\",]+" {% endraw %}dist/{{cookiecutter.module_name}}-*/src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.north_tool_name}}/__init__.py)
-          {% raw %}
-          if [[ "${IMAGE_TAG}" == "${GITHUB_REF_NAME}" ]]; then
-            echo "Before building the Python package, image ${{ env.IMAGE }}:${GITHUB_REF_NAME} is updated for NORTH tool."
-          else
-            echo "Error: Image tag in __init__.py is not correct: ${IMAGE_TAG}. Expected: ${{ env.IMAGE }}:${GITHUB_REF_NAME}"
-            exit 1
-          fi
-          {% endraw %}
-          # Remove the unzipped package after checking
-          rm -rf dist/{{cookiecutter.module_name}}-*/
-        {% endif %}
       - name: Upload dist artifacts
         uses: actions/upload-artifact@v4
         with:

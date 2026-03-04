@@ -35,7 +35,7 @@ jobs:
           submodules: true
 
       - name: Log in to GitHub Container Registry
-        if: {% raw %}${{ github.event_name != 'pull_request' }}{% endraw %} # only log in on non-PR events
+        if: {% raw %}${{ github.event_name != 'pull_request' }}{% endraw %}
         uses: docker/login-action@v3
         with:
           registry: {% raw %}${{ env.REGISTRY }}{% endraw %}
@@ -71,6 +71,6 @@ jobs:
             {% raw %}IMAGE_TAG=${{ env.IMAGE_TAG }}{% endraw %}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          push: {% raw %}${{ github.event_name != 'pull_request' }}{% endraw %} # only push on non-PR events
+          push: {% raw %}${{ github.event_name != 'pull_request' }}{% endraw %}
           tags: {% raw %}${{ steps.meta.outputs.tags }}{% endraw %}
           labels: {% raw %}${{ steps.meta.outputs.labels }}{% endraw %}
