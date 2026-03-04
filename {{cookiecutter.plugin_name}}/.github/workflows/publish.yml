@@ -1,7 +1,8 @@
 name: Upload Python Package
 
 on:
-  workflow_dispatch:
+  release:
+    types: [published]
 
 env:
   PYTHON_VERSION: 3.12
@@ -11,35 +12,14 @@ env:
 {% endif %}
 jobs:
   {% if cookiecutter.include_north_tools %}check-if-image-exists:
-    name: Check image in GitHub Container Registry
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check if image exists in GitHub Container Registry
-        run: |
-          {% raw %}FULL_IMAGE="${{ env.IMAGE }}:${GITHUB_REF_NAME}"
-          echo "Checking if image ${FULL_IMAGE} is available..."
-          ELAPSED_TIME=0
-
-          while true; do
-            if docker manifest inspect ${FULL_IMAGE} > /dev/null 2>&1; then
-              echo "Image ${FULL_IMAGE} found successfully!"
-              exit 0
-            fi
-
-            if [[ ${ELAPSED_TIME} -ge ${{ env.WAIT_TIME }} ]]; then
-              echo "Timeout reached (${{ env.WAIT_TIME }} seconds). Image ${FULL_IMAGE} not found!"
-              exit 1
-            fi
-
-            echo "Image not found yet. Retrying in ${{ env.CHECK_INTERVAL }} seconds... (${ELAPSED_TIME}s / ${{ env.WAIT_TIME }}s elapsed)"
-            sleep ${{ env.CHECK_INTERVAL }}
-            ELAPSED_TIME=$((ELAPSED_TIME + ${{ env.CHECK_INTERVAL }}))
-          done{% endraw %}
+  build-docker-image:
+    uses: ./.github/workflows/publish_north.yml
+    secrets: inherit
 {% endif %}
   build:
     name: Build Package
     runs-on: ubuntu-latest
-    {% if cookiecutter.include_north_tools %}needs: check-if-image-exists{% endif %}
+    {% if cookiecutter.include_north_tools %}needs: build-docker-image{% endif %}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -82,20 +62,20 @@ jobs:
           name: dist-artifacts
           path: dist/
 
-  deploy:
-    name: Upload to PyPI
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/p/{{cookiecutter.plugin_name}}
-    permissions:
-      id-token: write
-    steps:
-      - name: Download dist artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: dist-artifacts
-          path: dist/
-      - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+  # deploy:
+  #   name: Upload to PyPI
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   environment:
+  #     name: pypi
+  #     url: https://pypi.org/p/{{cookiecutter.plugin_name}}
+  #   permissions:
+  #     id-token: write
+  #   steps:
+  #     - name: Download dist artifacts
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: dist-artifacts
+  #         path: dist/
+  #     - name: Publish package distributions to PyPI
+  #       uses: pypa/gh-action-pypi-publish@release/v1
