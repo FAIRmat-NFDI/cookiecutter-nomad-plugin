@@ -21,7 +21,8 @@
     "include_north_tools": false,
     "north_tool_name": "my_north_tool",
     "_copy_without_render": [
-        "*.html"
+        "*.html",
+        "*.png"
     ],
     "__prompts__": {
         "module_name": "module_name (recommended: press enter to use the default module name)",
