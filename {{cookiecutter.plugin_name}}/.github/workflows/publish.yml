@@ -6,13 +6,9 @@ on:
 
 env:
   PYTHON_VERSION: 3.12
-  {% if cookiecutter.include_north_tools %}WAIT_TIME: 1800 # 30 minutes in seconds
-  CHECK_INTERVAL: 120 # 2 minutes in seconds
-  IMAGE: "ghcr.io/{{cookiecutter.github_username|lower}}/{{cookiecutter.plugin_name}}"
-{% endif %}
+
 jobs:
-  {% if cookiecutter.include_north_tools %}check-if-image-exists:
-  build-docker-image:
+  {% if cookiecutter.include_north_tools %}build-docker-image:
     uses: ./.github/workflows/publish_north.yml
     secrets: inherit
 {% endif %}
@@ -21,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     {% if cookiecutter.include_north_tools %}needs: build-docker-image{% endif %}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           submodules: recursive
@@ -38,8 +34,7 @@ jobs:
       {% endif %}
       - name: build package
         run: |
-          {% if cookiecutter.include_north_tools %}# Use SETUPTOOLS_SCM_PRETEND_VERSION to skip the version check due to image_tag modification of the __init__.py file
-          SETUPTOOLS_SCM_PRETEND_VERSION={% raw %}${GITHUB_REF_NAME#v}{% endraw %} {% endif %}uv build
+          uv build
       {% if cookiecutter.include_north_tools %}- name: Check the image tag in the entry point
         run: |
           # unzip the built package and check the image tag in the entry point
