@@ -107,6 +107,7 @@ Read the [NOMAD plugin documentation](https://nomad-lab.eu/prod/v1/staging/docs/
 ### Adding this plugin in your local NOMAD installation and the source code of NOMAD
 
 We now recommend using the dedicated [`nomad-distro-dev`](https://github.com/FAIRmat-NFDI/nomad-distro-dev) repository to simplify the process. Please refer to that repository for detailed instructions.
+
 ## Publish note
 In the [GitHub actions workflow](./.github/workflows/publish.yml) for publishing the {{cookiecutter.plugin_name}} plugin to PyPI, we commented out the `deploy` job . If you want to publish the plugin to `PyPI`, you need to set up your project in `PyPI`. There are several online tutorials on publishing a Python package to PyPI, e.g., [How to Publish a Python Package to PyPI](https://realpython.com/pypi-publish-python-package/). After that, you can uncomment the `deploy` job in the workflow file and push the changes to GitHub. The workflow will be triggered and the package will be published to `PyPI` when you create a new release on GitHub.
 {% if cookiecutter.include_north_tools %}
