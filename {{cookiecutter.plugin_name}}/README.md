@@ -107,8 +107,9 @@ Read the [NOMAD plugin documentation](https://nomad-lab.eu/prod/v1/staging/docs/
 ### Adding this plugin in your local NOMAD installation and the source code of NOMAD
 
 We now recommend using the dedicated [`nomad-distro-dev`](https://github.com/FAIRmat-NFDI/nomad-distro-dev) repository to simplify the process. Please refer to that repository for detailed instructions.
-{% if cookiecutter.include_north_tools %}
 ## Publish note
+In the [workflow](./.github/workflows/publish.yml) of publishing {{cookiecutter.plugin_name}} plugin to PyPI, we commented out the `deploy` job. If you want to publish the plugin to `PyPI`, you need to set up your project in `PyPI` or follow some online tutorials about how to publish a Python package to PyPI, e.g., [How to Publish a Python Package to PyPI](https://realpython.com/pypi-publish-python-package/) to publish the package. After that, you can uncomment the `deploy` job in the workflow file and push the changes to GitHub. The workflow will be triggered and the package will be published to `PyPI` when you create a new release on GitHub.
+{% if cookiecutter.include_north_tools %}
 In our Python package publishing workflow, before building the package, we update the image tag in the [NORTHTool](./src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.north_tool_name}}/__init__.py) entry point to the latest release version of the image (e.g., `v0.1.5`), and then publish the package to PyPI.
 
 However, the updated image tag in `NORTHTool` is not pushed back to the GitHub repository. Therefore, the image tag in the GitHub repository always remains set to `main`, even when you check out a specific release tag. For this reason, we recommend installing the plugin from [PyPI](https://pypi.org/), where the entry point always contains the correct image tag corresponding to the release.
