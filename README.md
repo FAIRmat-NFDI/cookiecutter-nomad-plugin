@@ -35,6 +35,10 @@ include_schema_package [y/n] (y): y
 include_normalizer [y/n] (y): n
 include_parser [y/n] (y): y
 include_app [y/n] (y): n
+include_example_uploads [y/n] (y): n
+Include NOMAD Actions (NEW in nomad-lab v1.4+) [y/n] (y): y
+Include NOMAD North Tools (NEW in nomad-lab v1.4+) [y/n] (n): y
+Name of the NORTH tool to be displayed in the list of NOMAD NORTH tools. For include_north_tools == n, this will be ignored. (my_north_tool):
 
 INFO:post_gen_project:Initializing python for package - src
 ..
@@ -46,24 +50,46 @@ INFO:post_gen_project:Remove temporary folder: py_sources
 There you go - you just created a minimal nomad plugin:
 
 ```no-highlight
-nomad-awesome-tools/
-├── LICENSE
-├── README.md
-├── pyproject.toml
-├── move_template_files.sh
-├── src
-│   └── nomad_awesome_tools
-│       ├── __init__.py
-|       ├── schema_packages
-│       |   ├── __init__.py
-│       |   └── schema_package.py
-|       └── parsers
-│           ├── __init__.py
-│           └── parser.py
-├── tests
-│   ├── conftest.py
-│   └── test_awesome.py
-└── MANIFEST.in
+├── nomad-awesome-tools/
+│   ├── LICENSE
+│   ├── MANIFEST.in
+│   ├── pyproject.toml
+│   ├── README.md
+│   ├── src/
+│   │   ├── nomad_awesome_tools/
+│   │   │   ├── actions/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── simple_action/
+│   │   │   │   │   ├── activities.py
+│   │   │   │   │   ├── __init__.py
+│   │   │   │   │   ├── models.py
+│   │   │   │   │   ├── workflows.py
+│   │   │   ├── __init__.py
+│   │   │   ├── north_tools/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── my_north_tool/
+│   │   │   │   │   ├── Dockerfile
+│   │   │   │   │   ├── __init__.py
+│   │   │   │   │   ├── README.md
+│   │   │   ├── parsers/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── parser.py
+│   │   │   ├── schema_packages/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── schema_package.py
+│   ├── tests/
+│   │   ├── actions/
+│   │   │   ├── test_action.py
+│   │   ├── conftest.py
+│   │   ├── data/
+│   │   │   ├── example.out
+│   │   │   ├── test.archive.yaml
+│   │   ├── north_tools/
+│   │   │   ├── test_north_tools.py
+│   │   ├── parsers/
+│   │   │   ├── test_parser.py
+│   │   ├── schema_packages/
+│   │   │   ├── test_schema_package.py
 ```
 
 
