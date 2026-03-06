@@ -28,6 +28,6 @@ FROM ${BASE_IMAGE}:${IMAGE_TAG} AS base
 #
 # Reference implementations of NORTH base images:
 #   nomad-north-jupyter:
-#     https://github.com/FAIRmat-NFDI/nomad-north-jupyter/blob/main/src/nomad_north_jupyter/north_tools/my_north_tool/Dockerfile
+#    https://github.com/FAIRmat-NFDI/nomad-north-jupyter/blob/main/src/nomad_north_jupyter/north_tools/jupyter_north_tool/Dockerfile 
 #   nomad-north-desktop-base:
 #     https://github.com/FAIRmat-NFDI/nomad-north-desktop-base/blob/main/Dockerfile

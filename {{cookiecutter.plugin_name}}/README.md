@@ -108,6 +108,15 @@ Read the [NOMAD plugin documentation](https://nomad-lab.eu/prod/v1/staging/docs/
 
 We now recommend using the dedicated [`nomad-distro-dev`](https://github.com/FAIRmat-NFDI/nomad-distro-dev) repository to simplify the process. Please refer to that repository for detailed instructions.
 
+## Publish note
+In the [GitHub actions workflow](./.github/workflows/publish.yml) for publishing the {{cookiecutter.plugin_name}} plugin to PyPI, we commented out the `deploy` job . If you want to publish the plugin to `PyPI`, you need to set up your project in `PyPI`. There are several online tutorials on publishing a Python package to PyPI, e.g., [How to Publish a Python Package to PyPI](https://realpython.com/pypi-publish-python-package/). After that, you can uncomment the `deploy` job in the workflow file and push the changes to GitHub. The workflow will be triggered and the package will be published to `PyPI` when you create a new release on GitHub.
+{% if cookiecutter.include_north_tools %}
+In our Python package publishing workflow, before building the package, we update the image tag in the [NORTHTool](./src/{{cookiecutter.module_name}}/north_tools/{{cookiecutter.north_tool_name}}/__init__.py) entry point to the latest release version of the image (e.g., `v0.1.5`), and then publish the package to PyPI.
+
+However, the updated image tag in `NORTHTool` is not pushed back to the GitHub repository. Therefore, the image tag in the GitHub repository always remains set to `main`, even when you check out a specific release tag. For this reason, we recommend installing the plugin from [PyPI](https://pypi.org/), where the entry point always contains the correct image tag corresponding to the release.
+
+If you download a ZIP file of a specific release from GitHub, the image tag in the entry point will still be set to `main`, which is not correct. In that case, you can either manually update the image tag in the entry point to the correct release version (e.g., `v0.1.5`), or install the plugin directly from PyPI.
+{% endif %}
 ### Template update
 
 We use [`cruft`](https://github.com/cruft/cruft) to update the project based on template changes. To run the check for updates locally, run `cruft update` in the root of the project. More details see the instructions on [`cruft` website](https://cruft.github.io/cruft/#updating-a-project).
