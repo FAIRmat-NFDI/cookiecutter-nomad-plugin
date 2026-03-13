@@ -18,6 +18,7 @@ from nomad.config.models.plugins import NorthToolEntryPoint
     display_name='{{cookiecutter.north_tool_name}}',
 )
 
-north_tool= NorthToolEntryPoint(
-    id_url_safe='{{cookiecutter.module_name | replace("_", "-")}}-{{cookiecutter.north_tool_name | replace("_", "-")}}', north_tool={{cookiecutter.north_tool_name}}
+north_tool = NorthToolEntryPoint(
+    id_url_safe='{{cookiecutter.module_name | replace("_", "-")}}-{{cookiecutter.north_tool_name | replace("_", "-")}}',
+    north_tool={{cookiecutter.north_tool_name}},
 )
