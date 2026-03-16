@@ -1,5 +1,5 @@
 from nomad.config.models.north import NORTHTool
-from nomad.config.models.plugins import NorthToolEntryPoint
+from nomad.config.models.plugins import NORTHToolEntryPoint
 
 {{cookiecutter.north_tool_name}} = NORTHTool(
     short_description='Jupyter Notebook server in NOMAD NORTH for NOMAD plugin {{cookiecutter.plugin_name}}.',
@@ -18,7 +18,7 @@ from nomad.config.models.plugins import NorthToolEntryPoint
     display_name='{{cookiecutter.north_tool_name}}',
 )
 
-north_entry_point = NorthToolEntryPoint(
+north_entry_point = NORTHToolEntryPoint(
     id_url_safe='{{cookiecutter.module_name | replace("_", "-")}}-{{cookiecutter.north_tool_name | replace("_", "-")}}',
     north_tool={{cookiecutter.north_tool_name}},
 )

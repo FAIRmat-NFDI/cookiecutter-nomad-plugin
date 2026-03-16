@@ -4,7 +4,7 @@ This directory contains the configuration and a minimal Dockerfile template for 
 
 ## Quick start
 
-The {{cookiecutter.north_tool_name}} NORTH tool provides a containerized environment defined in `NORTHtool` definition, `NorthToolEntryPoint`, and Dockerfile.
+The {{cookiecutter.north_tool_name}} NORTH tool provides a containerized environment defined in `NORTHtool` definition, `NORTHToolEntryPoint`, and Dockerfile.
 
 ## Base Image
 
