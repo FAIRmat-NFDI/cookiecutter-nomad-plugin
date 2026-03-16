@@ -103,6 +103,13 @@ There you go - you just created a minimal nomad plugin:
 - Optional documentation with [MkDocs](https://github.com/mkdocs/mkdocs)
 - Choose from several licenses, such as [MIT], [BSD-3], [Apache v2.0], [GNU GPL
   v3.0+], or [MPL v2.0]
+- Choose option if `schema package` should be included
+- Choose option if `normalizer` should be included
+- Choose option if `NOMAD app` should be included
+- Choose option if `example uploads` should be included
+- Choose option if `NOMAD Actions` should be included (NEW in nomad-lab v1.4+)
+- Choose option if `NORTH tool` should be included (NEW in nomad-lab v1.4+)
+
 
 ## Issues
 

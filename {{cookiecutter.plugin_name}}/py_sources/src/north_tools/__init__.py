@@ -1,0 +1,24 @@
+from nomad.config.models.north import NORTHTool
+from nomad.config.models.plugins import NorthToolEntryPoint
+
+{{cookiecutter.north_tool_name}} = NORTHTool(
+    short_description='Jupyter Notebook server in NOMAD NORTH for NOMAD plugin {{cookiecutter.plugin_name}}.',
+    image='ghcr.io/{{cookiecutter.github_username|lower}}/{{cookiecutter.plugin_name}}:main',
+    description='Jupyter Notebook server in NOMAD NORTH for NOMAD plugin {{cookiecutter.plugin_name}}.',
+    external_mounts=[],
+    file_extensions=['ipynb'],
+    icon='logo/jupyter.svg',
+    image_pull_policy='Always',
+    default_url='/lab',
+    maintainer=[{'email': '{{cookiecutter.email}}', 'name': '{{cookiecutter.full_name}}'}],
+    mount_path='/home/jovyan',
+    path_prefix='lab/tree',
+    privileged=False,
+    with_path=True,
+    display_name='{{cookiecutter.north_tool_name}}',
+)
+
+north_entry_point = NorthToolEntryPoint(
+    id_url_safe='{{cookiecutter.module_name | replace("_", "-")}}-{{cookiecutter.north_tool_name | replace("_", "-")}}',
+    north_tool={{cookiecutter.north_tool_name}},
+)
