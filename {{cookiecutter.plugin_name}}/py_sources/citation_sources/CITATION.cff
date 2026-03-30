@@ -6,8 +6,8 @@ message:
   metadata from this file.
 type: software
 authors:
-  - given-names: {{cookiecutter.full_name | trim | split(' ')[0]}}
-    family-names: {{cookiecutter.full_name | trim | split(' ')[-1]}}
+  - given-names: {{(cookiecutter.full_name | trim).split(' ')[0]}}
+    family-names: {{(cookiecutter.full_name | trim).split(' ')[-1]}}
     orcid: 'https://orcid.org/0000-0000-0000-0000'
 doi: 10.5281/zenodo.0000000
 repository-code: https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}

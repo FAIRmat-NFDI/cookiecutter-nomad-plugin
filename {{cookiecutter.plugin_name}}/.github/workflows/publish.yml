@@ -41,7 +41,7 @@ jobs:
           name: dist-artifacts
           path: dist/
 
-  {if cookiecutter.include_citation_file %}cff-version-check:
+  {% if cookiecutter.include_citation_file %}cff-version-check:
     name: Check cff-version
     runs-on: ubuntu-latest
     outputs:
