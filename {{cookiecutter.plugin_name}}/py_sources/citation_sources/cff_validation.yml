@@ -1,0 +1,51 @@
+name: Validate CITATION.cff
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "CITATION.cff"
+      - ".github/workflows/cff-validation.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "CITATION.cff"
+      - ".github/workflows/cff-validation.yml"
+
+env:
+  UV_VERSION: 0.9
+  PYTHON_VERSION: 3.12
+
+jobs:
+  validate-cff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+            version: {% raw -%}${{ env.UV_VERSION }}{% endraw %}
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+            python-version: {% raw -%}${{ env.PYTHON_VERSION }}{% endraw %}
+
+      - name: Install cffconvert
+        run: |
+          uv pip install cffconvert
+
+      - name: Validate CITATION.cff
+        run: |
+          cffconvert --validate
+
+      - name: Test Zenodo conversion
+        run: |
+          # Remove the funding section to avoid validation issues with Zenodo
+          head -n $(($(grep -n "^funding:" CITATION.cff | cut -d: -f1) - 1)) CITATION.cff > temp && mv temp CITATION.cff
+
+          cffconvert --validate --format zenodo || exit 1

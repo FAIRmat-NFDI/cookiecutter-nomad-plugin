@@ -41,6 +41,39 @@ jobs:
           name: dist-artifacts
           path: dist/
 
+  {if cookiecutter.include_citation_file %}cff-version-check:
+    name: Check cff-version
+    runs-on: ubuntu-latest
+    outputs:
+      git_tag_version: {% raw %}${{ steps.git_tag_version.outputs.version }}{% endraw %}
+      citation_version: {% raw %}${{ steps.citation_version.outputs.version }}{% endraw %}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+      - name: Install uv and set the python version to {% raw %}${{ env.python-version }}{% endraw %}
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: {% raw %}${{ env.python-version }}{% endraw %}
+      - name: Git tag version
+        id: git_tag_version
+        run: |
+          GIT_TAG_VERSION={%raw%}${GITHUB_REF#refs/tags/v}{%endraw%}
+          echo "version=$GIT_TAG_VERSION" >> "$GITHUB_OUTPUT"
+      - name: Citation version
+        id: citation_version
+        run: |
+          CITATION_VERSION=$(grep '^version:' CITATION.cff | cut -d' ' -f2)
+          echo "version=$CITATION_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Fail if versions mismatch
+        run: |
+        {% raw %}if [ "${{ steps.git_tag_version.outputs.version }}" != "${{ steps.citation_version.outputs.version }}" ]; then
+            echo "Version mismatch: Git tag is ${{ steps.git_tag_version.outputs.version }}, CITATION.cff is ${{ steps.citation_version.outputs.version }}"
+            exit 1
+          fi{% endraw %}{% endif %}
+
   # deploy:
   #   name: Upload to PyPI
   #   needs: build

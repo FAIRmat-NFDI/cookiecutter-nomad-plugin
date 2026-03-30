@@ -8,9 +8,9 @@
     "version": "0.1.0",
     "license": [
         "MIT",
-        "BSD-3",
-        "GNU GPL v3.0+",
-        "Apache Software License 2.0"
+        "BSD-3-Clause",
+        "GPL-3.0+",
+        "Apache-2.0"
     ],
     "include_schema_package": true,
     "include_normalizer": true,
@@ -20,6 +20,7 @@
     "include_action": true,
     "include_north_tools": false,
     "north_tool_name": "my_north_tool",
+    "include_citation_file": false,
     "_copy_without_render": [
         "*.html",
         "*.png"
@@ -29,6 +30,7 @@
         "github_username": "Github organization or profile name, default: foo",
         "include_action": "Include NOMAD Actions (NEW in nomad-lab v1.4+)",
         "include_north_tools": "Include NOMAD North Tools (NEW in nomad-lab v1.4+)",
-        "north_tool_name": "Name of the NORTH tool to be displayed in the list of NOMAD NORTH tools. For include_north_tools == n, this will be ignored."
+        "north_tool_name": "Name of the NORTH tool to be displayed in the list of NOMAD NORTH tools. For include_north_tools == n, this will be ignored.",
+        "include_citation_file": "Include a zenodo compatible CITATION.cff file for the plugin."
     }
 }
