@@ -31,6 +31,6 @@
         "include_action": "Include NOMAD Actions (NEW in nomad-lab v1.4+)",
         "include_north_tools": "Include NOMAD North Tools (NEW in nomad-lab v1.4+)",
         "north_tool_name": "Name of the NORTH tool to be displayed in the list of NOMAD NORTH tools. For include_north_tools == n, this will be ignored.",
-        "include_citation_file": "Include a zenodo compatible CITATION.cff file for the plugin."
+        "include_citation_file": "Include a CITATION.cff file for the plugin."
     }
 }

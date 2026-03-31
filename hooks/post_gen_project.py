@@ -46,7 +46,7 @@ if __name__ == "__main__":
     variants = [
         variant
         for variant, condition in [
-            ("citation", "{{cookiecutter.include_citation_file}}"),
+            ("citation_cff", "{{cookiecutter.include_citation_file}}"),
             ("north_tools", "{{cookiecutter.include_north_tools}}"),
             ("schema_packages", "{{cookiecutter.include_schema_package}}"),
             ("normalizers", "{{cookiecutter.include_normalizer}}"),
@@ -82,7 +82,7 @@ if __name__ == "__main__":
             variant="publish_north.yml", save_type="north_sources", save_path=os.path.join(root, ".github", "workflows")
         )
         move_py_files(variant=".dockerignore", save_type="north_sources", save_path=root)
-    if "citation" in variants:
+    if "citation_cff" in variants:
         move_py_files(
             variant="cff_validation.yml", save_type="citation_sources", save_path=os.path.join(root, ".github", "workflows")
         )

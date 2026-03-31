@@ -14,7 +14,6 @@ repository-code: https://github.com/{{cookiecutter.github_username}}/{{cookiecut
 url: https://zenodo.org/records/0000000
 keywords:
   - keyword1
-  - keyword2
 abstract:
   This is a template for a CITATION.cff file. Please edit the fields accordingly.
 license: {{cookiecutter.license}}
