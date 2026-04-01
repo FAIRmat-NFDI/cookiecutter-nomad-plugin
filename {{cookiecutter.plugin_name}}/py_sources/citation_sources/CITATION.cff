@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: '{{cookiecutter.plugin_name}}: A NOMAD plugin for ...'
+version: 0.1.0
+message:
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: {{(cookiecutter.full_name | trim).split(' ')[0]}}
+    family-names: {{(cookiecutter.full_name | trim).split(' ')[-1]}}
+    orcid: 'https://orcid.org/0000-0000-0000-0000'
+doi: 10.5281/zenodo.0000000
+repository-code: https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.plugin_name}}
+url: https://zenodo.org/records/0000000
+keywords:
+  - keyword1
+abstract:
+  This is a template for a CITATION.cff file. Please edit the fields accordingly.
+license: {{cookiecutter.license}}
+funding:
+  - name: Funding Agency
+    award: 123456
