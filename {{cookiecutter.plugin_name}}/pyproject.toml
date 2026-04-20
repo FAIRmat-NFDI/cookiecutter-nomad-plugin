@@ -56,6 +56,11 @@ dev = [
     "mkdocs-click",
     "pytest-asyncio",
 ]
+{%- if cookiecutter.include_ui %}
+ui = [
+    "streamlit>=1.30",
+]
+{%- endif %}
 
 {%- if cookiecutter.include_north_tools %}
 [dependency-groups]
@@ -170,6 +175,9 @@ action_entry_point = "{{cookiecutter.module_name}}.actions:simple_action_entry_p
 {%- endif %}
 {% if cookiecutter.include_north_tools  -%}
 north_entry_point = "{{cookiecutter.module_name}}.north_tools:north_entry_point"
+{%- endif %}
+{% if cookiecutter.include_ui  -%}
+ui_entry_point = "{{cookiecutter.module_name}}.uis:ui_entry_point"
 {%- endif %}
 [tool.cruft]
 # Avoid updating workflow files, this leads to permissions issues
