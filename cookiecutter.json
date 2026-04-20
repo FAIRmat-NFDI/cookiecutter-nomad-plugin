@@ -20,6 +20,7 @@
     "include_action": true,
     "include_north_tools": false,
     "north_tool_name": "my_north_tool",
+    "include_ui": false,
     "include_citation_file": false,
     "_copy_without_render": [
         "*.html",
@@ -31,6 +32,7 @@
         "include_action": "Include NOMAD Actions (NEW in nomad-lab v1.4+)",
         "include_north_tools": "Include NOMAD North Tools (NEW in nomad-lab v1.4+)",
         "north_tool_name": "Name of the NORTH tool to be displayed in the list of NOMAD NORTH tools. For include_north_tools == n, this will be ignored.",
+        "include_ui": "Include an example user-defined UI (Streamlit) exposed via a UIEntryPoint (NEW in nomad-lab v1.4+)",
         "include_citation_file": "Include a CITATION.cff file for the plugin."
     }
 }
