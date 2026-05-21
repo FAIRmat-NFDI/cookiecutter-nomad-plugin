@@ -171,6 +171,9 @@ action_entry_point = "{{cookiecutter.module_name}}.actions:simple_action_entry_p
 {% if cookiecutter.include_north_tools  -%}
 north_entry_point = "{{cookiecutter.module_name}}.north_tools:north_entry_point"
 {%- endif %}
+{% if cookiecutter.include_dashboard  -%}
+hello_dashboard_entry_point = "{{cookiecutter.module_name}}.dashboards:hello_dashboard_entry_point"
+{%- endif %}
 [tool.cruft]
 # Avoid updating workflow files, this leads to permissions issues
 skip = [".github/*"]
