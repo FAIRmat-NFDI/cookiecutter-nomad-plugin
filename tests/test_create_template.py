@@ -186,5 +186,5 @@ def test_run_cookiecutter_and_plugin_tests(
             "apis",
         ).is_dir()
 
-    if include_app and include_parser and include_normalizer and include_schema_package and include_north_tools:
+    if include_app and include_parser and include_normalizer and include_schema_package and include_north_tools and include_api:
         run_tox(str(result.project_path))
