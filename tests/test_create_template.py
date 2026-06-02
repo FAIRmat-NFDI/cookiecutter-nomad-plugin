@@ -55,6 +55,10 @@ def run_tox(plugin):
     "include_citation_file",
     [True, False],
 )
+@pytest.mark.parametrize(
+    "include_api",
+    [True, False],
+)
 def test_run_cookiecutter_and_plugin_tests(
     cookies,
     plugin_name,
@@ -65,6 +69,7 @@ def test_run_cookiecutter_and_plugin_tests(
     include_north_tools,
     north_tool_name,
     include_citation_file,
+    include_api,
 ):
     """Create a new plugin via cookiecutter and run its tests."""
     result = cookies.bake(
@@ -77,6 +82,7 @@ def test_run_cookiecutter_and_plugin_tests(
             "include_north_tools": str(include_north_tools),
             "north_tool_name": str(north_tool_name),
             "include_citation_file": str(include_citation_file),
+            "include_api": str(include_api),
         }
     )
     module_name = plugin_name.replace("-", "_")
@@ -166,6 +172,19 @@ def test_run_cookiecutter_and_plugin_tests(
         assert result.project_path.joinpath(".github", "workflows", "cff_validation.yml").is_file()
     else:
         assert not result.project_path.joinpath("CITATION.cff").is_file()
+    if include_api:
+        assert result.project_path.joinpath(
+            "src", f"{module_name}", "apis", "__init__.py"
+        ).is_file()
+        assert result.project_path.joinpath(
+            "src", f"{module_name}", "apis", "api.py"
+        ).is_file()
+    else:
+        assert not result.project_path.joinpath(
+            "src",
+            f"{module_name}",
+            "apis",
+        ).is_dir()
 
     if include_app and include_parser and include_normalizer and include_schema_package and include_north_tools:
         run_tox(str(result.project_path))

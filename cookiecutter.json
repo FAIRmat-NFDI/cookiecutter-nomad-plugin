@@ -18,6 +18,7 @@
     "include_app": true,
     "include_example_uploads": true,
     "include_action": true,
+    "include_api": false,
     "include_north_tools": false,
     "north_tool_name": "my_north_tool",
     "include_citation_file": false,

@@ -54,6 +54,7 @@ if __name__ == "__main__":
             ("apps", "{{cookiecutter.include_app}}"),
             ("example_uploads", "{{cookiecutter.include_example_uploads}}"),
             ("actions", "{{cookiecutter.include_action}}"),
+            ("apis", "{{cookiecutter.include_api}}"),
         ]
         if condition != "False"
     ]
@@ -71,8 +72,8 @@ if __name__ == "__main__":
         test_save_path = os.path.join(test_path, variant)
         os.makedirs(test_save_path, exist_ok=True)
         move_py_files(variant=variant, save_path=test_save_path, save_type="tests")
-        if variant != "apps" and variant != "example_uploads":
-            # apps and example uploads don't have tests data
+        if variant != "apps" and variant != "example_uploads" and variant != "apis":
+            # apps, example_uploads, and apis don't have tests data
             move_py_files(
                 variant=variant, save_path=test_data_path, save_type="tests_data"
             )
