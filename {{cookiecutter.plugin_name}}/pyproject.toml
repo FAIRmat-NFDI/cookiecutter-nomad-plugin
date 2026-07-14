@@ -35,12 +35,12 @@ maintainers = [
 ]
 license = { file = "LICENSE" }
 dependencies = [
-    "nomad-lab>=1.4.1"
+    "nomad-lab>=1.4.3"
     {%- if cookiecutter.include_action %},
     "pydantic",
     "temporalio"
     {%- endif %}
-    {%- if cookiecutter.include_api %},
+    {%- if cookiecutter.include_api or cookiecutter.include_dashboard %},
     "fastapi"
     {%- endif %}
 ]
@@ -153,33 +153,34 @@ package-dir = { "" = "src" }
 where = ["src"]
 
 [project.entry-points.'nomad.plugin']
-{% if cookiecutter.include_parser  -%}
+{%- if cookiecutter.include_parser %}
 parser_entry_point = "{{cookiecutter.module_name}}.parsers:parser_entry_point"
 {%- endif %}
-{% if cookiecutter.include_schema_package  -%}
+{%- if cookiecutter.include_schema_package %}
 schema_package_entry_point = "{{cookiecutter.module_name}}.schema_packages:schema_package_entry_point"
 {%- endif %}
-{% if cookiecutter.include_normalizer  -%}
+{%- if cookiecutter.include_normalizer %}
 normalizer_entry_point = "{{cookiecutter.module_name}}.normalizers:normalizer_entry_point"
 {%- endif %}
-{% if cookiecutter.include_app  -%}
+{%- if cookiecutter.include_app %}
 app_entry_point = "{{cookiecutter.module_name}}.apps:app_entry_point"
 {%- endif %}
-{% if cookiecutter.include_example_uploads  -%}
+{%- if cookiecutter.include_example_uploads %}
 example_upload_entry_point = "{{cookiecutter.module_name}}.example_uploads:example_upload_entry_point"
 {%- endif %}
-{% if cookiecutter.include_action -%}
+{%- if cookiecutter.include_action %}
 action_entry_point = "{{cookiecutter.module_name}}.actions:simple_action_entry_point"
 {%- endif %}
-{% if cookiecutter.include_api  -%}
+{%- if cookiecutter.include_api %}
 api_entry_point = "{{cookiecutter.module_name}}.apis:api_entry_point"
 {%- endif %}
-{% if cookiecutter.include_north_tools  -%}
+{%- if cookiecutter.include_north_tools %}
 north_entry_point = "{{cookiecutter.module_name}}.north_tools:north_entry_point"
 {%- endif %}
-{% if cookiecutter.include_dashboard  -%}
+{%- if cookiecutter.include_dashboard %}
 hello_dashboard_entry_point = "{{cookiecutter.module_name}}.dashboards:hello_dashboard_entry_point"
 {%- endif %}
+
 [tool.cruft]
 # Avoid updating workflow files, this leads to permissions issues
 skip = [".github/*"]
