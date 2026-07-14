@@ -35,7 +35,7 @@ maintainers = [
 ]
 license = { file = "LICENSE" }
 dependencies = [
-    "nomad-lab>=1.4.1"
+    "nomad-lab>=1.4.3"
     {%- if cookiecutter.include_action %},
     "pydantic",
     "temporalio"
